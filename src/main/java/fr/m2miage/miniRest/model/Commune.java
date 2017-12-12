@@ -18,10 +18,10 @@ public class Commune implements Serializable
 	@Column(nullable = false)
     private String nom;
 
-	@Column(nullable = false)
+	@Column
     private float longitude;
 
-	@Column(nullable = false)
+	@Column
     private float latitude;
 
 	@ManyToOne(optional = false)
