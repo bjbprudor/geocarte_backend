@@ -1,10 +1,18 @@
 package fr.m2miage.miniRest.model;
 
-public class TypeMonument
+import javax.persistence.*;
+import java.io.Serializable;
+
+@Entity
+@Table(name = "typeMonument")
+public class TypeMonument implements Serializable
 {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int numero;
 
+    @Column(nullable = false)
     private String libelle;
 
     public int getNumero() {

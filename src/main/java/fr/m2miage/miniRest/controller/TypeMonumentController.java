@@ -1,6 +1,7 @@
 package fr.m2miage.miniRest.controller;
 
 import fr.m2miage.miniRest.model.TypeMonument;
+import fr.m2miage.miniRest.repository.TypeMonumentRepository;
 import fr.m2miage.miniRest.util.CustomErrorType;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,25 +21,16 @@ public class TypeMonumentController
 
     public static final Logger log = Logger.getLogger(TypeMonumentController.class);
 
-    //@Autowired
-    //private TypeMonumentRepository repo;
+    @Autowired
+    private TypeMonumentRepository repo;
 
 
     // -------------------Recupere tous les typeMonuments---------------------------------------------
 
-    @RequestMapping(value = "/tm/", method = RequestMethod.GET)
+    @RequestMapping(value = "/typeMonument/", method = RequestMethod.GET)
     public ResponseEntity<List<TypeMonument>> listAllTypeMonument()
     {
-
-        //List<TypeMonument> list = repo.findAll();
-        List<TypeMonument> list = new ArrayList<>();
-
-        if(new Random().nextBoolean())
-        {
-            list.add(new TypeMonument("castle"));
-            list.add(new TypeMonument("parc"));
-        }
-
+        List<TypeMonument> list = repo.findAll();
         if (list.isEmpty())
         {
             return new ResponseEntity(HttpStatus.NO_CONTENT);
@@ -49,17 +41,12 @@ public class TypeMonumentController
 
     // -------------------Recupere un TypeMonument------------------------------------------
 
-    @RequestMapping(value = "/tm/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/typeMonument/{id}", method = RequestMethod.GET)
     public ResponseEntity<?> getTypeMonument(@PathVariable("id") int id)
     {
         String msg = String.format("Fetching TypeMonument with id {%s}", id);
         log.info(msg);
-
-        //TypeMonument current = repo.findOne(id);
-
-        TypeMonument current = new TypeMonument("castle");
-        if(new Random().nextBoolean()) { current = null; }
-
+        TypeMonument current = repo.findOne(id);
         if (current == null)
         {
             msg = String.format("TypeMonument with id {%s} not found.", id);
@@ -71,87 +58,70 @@ public class TypeMonumentController
 
     // -------------------Create a TypeMonument-------------------------------------------
 
-    @RequestMapping(value = "/tm/", method = RequestMethod.POST)
+    @RequestMapping(value = "/typeMonument/", method = RequestMethod.POST)
     public ResponseEntity<?> createTypeMonument(@RequestBody TypeMonument target, UriComponentsBuilder ucBuilder)
     {
 
         String msg = String.format("Creating TypeMonument : {%s}", target);
         log.info(msg);
-
-        //TypeMonument current = repo.findOne(target.getNumero());
-        TypeMonument current = null;
-        if(new Random().nextBoolean()) {current = new TypeMonument("new");}
-
+        TypeMonument current = repo.findOne(target.getNumero());
         if (current != null)
         {
             msg = String.format("Unable to create. A TypeMonument with id {%s} already exist", target.getNumero());
             log.error(msg);
             return new ResponseEntity(new CustomErrorType(msg), HttpStatus.CONFLICT);
         }
-        //repo.save(target);
+        repo.save(target);
 
         HttpHeaders headers = new HttpHeaders();
-        headers.setLocation(ucBuilder.path("/tm/{id}").buildAndExpand(target.getNumero()).toUri());
+        headers.setLocation(ucBuilder.path("/typeMonument/{id}").buildAndExpand(target.getNumero()).toUri());
         return new ResponseEntity<String>(headers, HttpStatus.CREATED);
     }
 
     // ------------------- Update a TypeMonument ------------------------------------------------
 
-    @RequestMapping(value = "/tm/{id}", method = RequestMethod.PUT)
+    @RequestMapping(value = "/typeMonument/{id}", method = RequestMethod.PUT)
     public ResponseEntity<?> updateTypeMonument(@PathVariable("id") int id, @RequestBody TypeMonument target)
     {
         String msg = String.format("Updating TypeMonument with id {%s}", id);
         log.info(msg);
-
-        //TypeMonument current = repo.findOne(id);
-        TypeMonument current = null;
-        if(new Random().nextBoolean()) { current = new TypeMonument("update"); }
-
+        TypeMonument current = repo.findOne(id);
         if (current == null)
         {
             msg = String.format("Unable to update. TypeMonument with id {%s} not found.", id);
             log.error(msg);
             return new ResponseEntity(new CustomErrorType(msg), HttpStatus.NOT_FOUND);
         }
-
-        //current.setLibelle(target.getLibelle());
-        //repo.save(current);
-
+        current.setNumero(target.getNumero());
+        current.setLibelle(target.getLibelle());
+        repo.save(current);
         return new ResponseEntity<>(current, HttpStatus.OK);
     }
 
     // ------------------- Delete a TypeMonument-----------------------------------------
 
-    @RequestMapping(value = "/tm/{id}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/typeMonument/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<?> deleteTypeMonument(@PathVariable("id") int id)
     {
-
         String msg = String.format("Fetching & Deleting TypeMonument with id {%s}", id);
         log.info(msg);
-
-        //TypeMonument current = repo.findOne(id);
-        TypeMonument current = null;
-
-        if(new Random().nextBoolean()) { current = new TypeMonument("delete");}
-
+        TypeMonument current = repo.findOne(id);
         if (current == null)
         {
             msg = String.format("Unable to delete. TypeMonument with id {%s} not found.", id);
             return new ResponseEntity(new CustomErrorType(msg), HttpStatus.NOT_FOUND);
         }
-
-        //repo.delete(id);
-
+        repo.delete(id);
         return new ResponseEntity<TypeMonument>(HttpStatus.NO_CONTENT);
     }
 
     // ------------------- Delete All TypeMonument-----------------------------
 
-    @RequestMapping(value = "/tm/", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/typeMonument/", method = RequestMethod.DELETE)
     public ResponseEntity<TypeMonument> deleteAllTypeMonument()
     {
         log.info("Deleting All TypeMonument");
-        //repo.deleteAll();
+        repo.deleteAll();
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
