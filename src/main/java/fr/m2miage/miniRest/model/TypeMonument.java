@@ -10,17 +10,17 @@ public class TypeMonument implements Serializable
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int numero;
+    private int id;
 
     @Column(nullable = false)
     private String libelle;
 
-    public int getNumero() {
-        return numero;
+    public int getId() {
+        return id;
     }
 
-    public void setNumero(int numero) {
-        this.numero = numero;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getLibelle() {

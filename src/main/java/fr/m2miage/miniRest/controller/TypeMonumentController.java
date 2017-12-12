@@ -11,9 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 @RestController
 public class TypeMonumentController
@@ -64,17 +62,17 @@ public class TypeMonumentController
 
         String msg = String.format("Creating TypeMonument : {%s}", target);
         log.info(msg);
-        TypeMonument current = repo.findOne(target.getNumero());
+        TypeMonument current = repo.findOne(target.getId());
         if (current != null)
         {
-            msg = String.format("Unable to create. A TypeMonument with id {%s} already exist", target.getNumero());
+            msg = String.format("Unable to create. A TypeMonument with id {%s} already exist", target.getId());
             log.error(msg);
             return new ResponseEntity(new CustomErrorType(msg), HttpStatus.CONFLICT);
         }
         repo.save(target);
 
         HttpHeaders headers = new HttpHeaders();
-        headers.setLocation(ucBuilder.path("/typeMonument/{id}").buildAndExpand(target.getNumero()).toUri());
+        headers.setLocation(ucBuilder.path("/typeMonument/{id}").buildAndExpand(target.getId()).toUri());
         return new ResponseEntity<String>(headers, HttpStatus.CREATED);
     }
 
@@ -92,7 +90,7 @@ public class TypeMonumentController
             log.error(msg);
             return new ResponseEntity(new CustomErrorType(msg), HttpStatus.NOT_FOUND);
         }
-        current.setNumero(target.getNumero());
+        current.setId(target.getId());
         current.setLibelle(target.getLibelle());
         repo.save(current);
         return new ResponseEntity<>(current, HttpStatus.OK);
