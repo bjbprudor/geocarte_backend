@@ -226,7 +226,7 @@ CREATE TABLE `variantecarte` (
   `dos` varchar(255) DEFAULT NULL,
   `face` varchar(255) DEFAULT NULL,
   `legende` varchar(255) NOT NULL,
-  `lengende_2` varchar(255) DEFAULT NULL,
+  `legende2` varchar(255) DEFAULT NULL,
   `cartePostale_id` int(20) NOT NULL,
   PRIMARY KEY (`cartePostale_id`,`id`),
   CONSTRAINT `variantecarte_carte` FOREIGN KEY (`cartePostale_id`) REFERENCES `cartepostale` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
