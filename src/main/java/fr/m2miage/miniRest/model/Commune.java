@@ -19,10 +19,10 @@ public class Commune implements Serializable
     private String nom;
 
 	@Column
-    private float longitude;
+    private Float longitude;
 
 	@Column
-    private float latitude;
+    private Float latitude;
 
 	@ManyToOne(optional = false)
     private Departement departement;
@@ -69,19 +69,19 @@ public class Commune implements Serializable
         this.nom = nom;
     }
 
-    public float getLongitude() {
+    public Float getLongitude() {
         return longitude;
     }
 
-    public void setLongitude(float longitude) {
+    public void setLongitude(Float longitude) {
         this.longitude = longitude;
     }
 
-    public float getLatitude() {
+    public Float getLatitude() {
         return latitude;
     }
 
-    public void setLatitude(float latitude) {
+    public void setLatitude(Float latitude) {
         this.latitude = latitude;
     }
 

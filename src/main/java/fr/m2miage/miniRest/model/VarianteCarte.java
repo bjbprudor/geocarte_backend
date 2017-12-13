@@ -14,6 +14,9 @@ public class VarianteCarte implements Serializable {
     @Column(nullable = false)
     private String legende;
 
+    @Column
+    private String legende2;
+
     @Column(nullable = false)
     private String face;
 
@@ -37,6 +40,14 @@ public class VarianteCarte implements Serializable {
 
     public void setLegende(String legende) {
         this.legende = legende;
+    }
+
+    public String getLegende2() {
+        return legende2;
+    }
+
+    public void setLegende2(String legende2) {
+        this.legende2 = legende2;
     }
 
     public String getFace() {

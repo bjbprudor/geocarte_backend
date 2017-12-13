@@ -172,7 +172,7 @@ CREATE TABLE `monument` (
   `longitude` float DEFAULT NULL,
   `nom` varchar(255) NOT NULL,
   `commune_insee` varchar(6) DEFAULT NULL,
-  `type` int(11) DEFAULT NULL,
+  `type_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `monument_commune` (`commune_insee`),
   KEY `monument_type` (`type`),
