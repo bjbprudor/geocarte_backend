@@ -35,6 +35,7 @@ public class CarteUtilisateurController
 
 
     // -------------------Recupere tous les CarteUtilisateurs---------------------------------------------
+    @CrossOrigin(origins = "http://localhost:4200")
 
     @RequestMapping(value = "/carteUtilisateur/", method = RequestMethod.GET)
     public ResponseEntity<List<CarteUtilisateur>> listAllCarteUtilisateur()
@@ -49,6 +50,7 @@ public class CarteUtilisateurController
     }
 
     // -------------------Recupere un CarteUtilisateur------------------------------------------
+    @CrossOrigin(origins = "http://localhost:4200")
 
     @RequestMapping(value = "/carteUtilisateur/{user_id}/{variante_id}/{carte_id}", method = RequestMethod.GET)
     public ResponseEntity<?> getCarteUtilisateur(@PathVariable("user_id") int user, @PathVariable("variante_id") int variante, @PathVariable("carte_id") int carte)
@@ -74,6 +76,7 @@ public class CarteUtilisateurController
     }
 
     // -------------------Create a CarteUtilisateur-------------------------------------------
+    @CrossOrigin(origins = "http://localhost:4200")
 
     @RequestMapping(value = "/carteUtilisateur/", method = RequestMethod.POST)
     public ResponseEntity<?> createCarteUtilisateur(@RequestBody CarteUtilisateur target, UriComponentsBuilder ucBuilder)
@@ -94,6 +97,7 @@ public class CarteUtilisateurController
     }
 
     // ------------------- Update a CarteUtilisateur ------------------------------------------------
+    @CrossOrigin(origins = "http://localhost:4200")
 
     @RequestMapping(value = "/carteUtilisateur/{user_id}/{variante_id}/{carte_id}", method = RequestMethod.PUT)
     public ResponseEntity<?> updateCarteUtilisateur(@PathVariable("user_id") int user, @PathVariable("variante_id") int variante, @PathVariable("carte_id") int carte, @RequestBody CarteUtilisateur target)
@@ -121,6 +125,7 @@ public class CarteUtilisateurController
     }
 
     // ------------------- Delete a CarteUtilisateur-----------------------------------------
+    @CrossOrigin(origins = "http://localhost:4200")
 
     @RequestMapping(value = "/carteUtilisateur/{user_id}/{variante_id}/{carte_id}", method = RequestMethod.DELETE)
     public ResponseEntity<?> deleteCarteUtilisateur(@PathVariable("user_id") int user, @PathVariable("variante_id") int variante, @PathVariable("carte_id") int carte)
@@ -145,6 +150,7 @@ public class CarteUtilisateurController
     }
 
     // ------------------- Delete All CarteUtilisateur-----------------------------
+    @CrossOrigin(origins = "http://localhost:4200")
 
     @RequestMapping(value = "/carteUtilisateur/", method = RequestMethod.DELETE)
     public ResponseEntity<CarteUtilisateur> deleteAllCarteUtilisateur()

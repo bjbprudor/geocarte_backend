@@ -29,6 +29,7 @@ public class AncienNomController
     private CommuneRepository communeRepo;
 
     // -------------------Recupere tous les AncienNoms---------------------------------------------
+    @CrossOrigin(origins = "http://localhost:4200")
 
     @RequestMapping(value = "/ancienNom/", method = RequestMethod.GET)
     public ResponseEntity<List<AncienNom>> listAllAncienNom()
@@ -43,6 +44,7 @@ public class AncienNomController
     }
 
     // -------------------Recupere un AncienNom------------------------------------------
+    @CrossOrigin(origins = "http://localhost:4200")
 
     @RequestMapping(value = "/ancienNom/{id}/{insee}", method = RequestMethod.GET)
     public ResponseEntity<?> getAncienNom(@PathVariable("id") int id, @PathVariable("insee") String insee)
@@ -65,6 +67,7 @@ public class AncienNomController
     }
 
     // -------------------Create a AncienNom-------------------------------------------
+    @CrossOrigin(origins = "http://localhost:4200")
 
     @RequestMapping(value = "/ancienNom/", method = RequestMethod.POST)
     public ResponseEntity<?> createAncienNom(@RequestBody AncienNom target, UriComponentsBuilder ucBuilder)
@@ -85,6 +88,7 @@ public class AncienNomController
     }
 
     // ------------------- Update a AncienNom ------------------------------------------------
+    @CrossOrigin(origins = "http://localhost:4200")
 
     @RequestMapping(value = "/ancienNom/{id}/{insee}", method = RequestMethod.PUT)
     public ResponseEntity<?> updateAncienNom(@PathVariable("id") int id, @PathVariable("insee") String insee,@RequestBody AncienNom target)
@@ -110,6 +114,7 @@ public class AncienNomController
     }
 
     // ------------------- Delete a AncienNom-----------------------------------------
+    @CrossOrigin(origins = "http://localhost:4200")
 
     @RequestMapping(value = "/ancienNom/{id}/{insee}", method = RequestMethod.DELETE)
     public ResponseEntity<?> deleteAncienNom(@PathVariable("id") int id, @PathVariable("insee") String insee)
@@ -132,6 +137,7 @@ public class AncienNomController
     }
 
     // ------------------- Delete All AncienNom-----------------------------
+    @CrossOrigin(origins = "http://localhost:4200")
 
     @RequestMapping(value = "/ancienNom/", method = RequestMethod.DELETE)
     public ResponseEntity<AncienNom> deleteAllAncienNom()

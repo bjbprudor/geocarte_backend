@@ -23,6 +23,7 @@ public class MonumentController
     private MonumentRepository repo;
 
     // -------------------Recupere tous les Monuments---------------------------------------------
+    @CrossOrigin(origins = "http://localhost:4200")
 
     @RequestMapping(value = "/monument/", method = RequestMethod.GET)
     public ResponseEntity<List<Monument>> listAllMonument()
@@ -37,6 +38,7 @@ public class MonumentController
     }
 
     // -------------------Recupere un Monument------------------------------------------
+    @CrossOrigin(origins = "http://localhost:4200")
 
     @RequestMapping(value = "/monument/{id}", method = RequestMethod.GET)
     public ResponseEntity<?> getMonument(@PathVariable("id") int id)
@@ -54,6 +56,7 @@ public class MonumentController
     }
 
     // -------------------Create a Monument-------------------------------------------
+    @CrossOrigin(origins = "http://localhost:4200")
 
     @RequestMapping(value = "/monument/", method = RequestMethod.POST)
     public ResponseEntity<?> createMonument(@RequestBody Monument target, UriComponentsBuilder ucBuilder)
@@ -74,6 +77,7 @@ public class MonumentController
     }
 
     // ------------------- Update a Monument ------------------------------------------------
+    @CrossOrigin(origins = "http://localhost:4200")
 
     @RequestMapping(value = "/monument/{id}", method = RequestMethod.PUT)
     public ResponseEntity<?> updateMonument(@PathVariable("id") int id, @RequestBody Monument target)
@@ -99,6 +103,7 @@ public class MonumentController
     }
 
     // ------------------- Delete a Monument-----------------------------------------
+    @CrossOrigin(origins = "http://localhost:4200")
 
     @RequestMapping(value = "/monument/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<?> deleteMonument(@PathVariable("id") int id)
@@ -116,6 +121,7 @@ public class MonumentController
     }
 
     // ------------------- Delete All Monument-----------------------------
+    @CrossOrigin(origins = "http://localhost:4200")
 
     @RequestMapping(value = "/monument/", method = RequestMethod.DELETE)
     public ResponseEntity<Monument> deleteAllMonument()

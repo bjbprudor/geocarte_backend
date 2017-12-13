@@ -29,6 +29,7 @@ public class VarianteCarteController
     private CartePostaleRepository carteRepo;
 
     // -------------------Recupere tous les VarianteCartes---------------------------------------------
+    @CrossOrigin(origins = "http://localhost:4200")
 
     @RequestMapping(value = "/varianteCarte/", method = RequestMethod.GET)
     public ResponseEntity<List<VarianteCarte>> listAllVarianteCarte()
@@ -43,6 +44,7 @@ public class VarianteCarteController
     }
 
     // -------------------Recupere un VarianteCarte------------------------------------------
+    @CrossOrigin(origins = "http://localhost:4200")
 
     @RequestMapping(value = "/varianteCarte/{carte}/{variante}", method = RequestMethod.GET)
     public ResponseEntity<?> getVarianteCarte(@PathVariable("carte") int carte, @PathVariable("variante") int variante)
@@ -64,6 +66,7 @@ public class VarianteCarteController
     }
 
     // -------------------Create a VarianteCarte-------------------------------------------
+    @CrossOrigin(origins = "http://localhost:4200")
 
     @RequestMapping(value = "/varianteCarte/", method = RequestMethod.POST)
     public ResponseEntity<?> createVarianteCarte(@RequestBody VarianteCarte target, UriComponentsBuilder ucBuilder)
@@ -84,6 +87,7 @@ public class VarianteCarteController
     }
 
     // ------------------- Update a VarianteCarte ------------------------------------------------
+    @CrossOrigin(origins = "http://localhost:4200")
 
     @RequestMapping(value = "/varianteCarte/{carte}/{variante}", method = RequestMethod.PUT)
     public ResponseEntity<?> updateVarianteCarte(@PathVariable("carte") int carte, @PathVariable("variante") int variante, @RequestBody VarianteCarte target)
@@ -110,6 +114,7 @@ public class VarianteCarteController
     }
 
     // ------------------- Delete a VarianteCarte-----------------------------------------
+    @CrossOrigin(origins = "http://localhost:4200")
 
     @RequestMapping(value = "/varianteCarte/{carte}/{variante}", method = RequestMethod.DELETE)
     public ResponseEntity<?> deleteVarianteCarte(@PathVariable("carte") int carte, @PathVariable("variante") int variante)
@@ -132,6 +137,7 @@ public class VarianteCarteController
     }
 
     // ------------------- Delete All VarianteCarte-----------------------------
+    @CrossOrigin(origins = "http://localhost:4200")
 
     @RequestMapping(value = "/varianteCarte/", method = RequestMethod.DELETE)
     public ResponseEntity<VarianteCarte> deleteAllVarianteCarte()

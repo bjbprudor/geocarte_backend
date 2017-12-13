@@ -23,6 +23,7 @@ public class CartePostaleController
     private CartePostaleRepository repo;
 
     // -------------------Recupere tous les CartePostales---------------------------------------------
+    @CrossOrigin(origins = "http://localhost:4200")
 
     @RequestMapping(value = "/cartePostale/", method = RequestMethod.GET)
     public ResponseEntity<List<CartePostale>> listAllCartePostale()
@@ -37,6 +38,7 @@ public class CartePostaleController
     }
 
     // -------------------Recupere un CartePostale------------------------------------------
+    @CrossOrigin(origins = "http://localhost:4200")
 
     @RequestMapping(value = "/cartePostale/{id}", method = RequestMethod.GET)
     public ResponseEntity<?> getCartePostale(@PathVariable("id") int id)
@@ -54,6 +56,7 @@ public class CartePostaleController
     }
 
     // -------------------Create a CartePostale-------------------------------------------
+    @CrossOrigin(origins = "http://localhost:4200")
 
     @RequestMapping(value = "/cartePostale/", method = RequestMethod.POST)
     public ResponseEntity<?> createCartePostale(@RequestBody CartePostale target, UriComponentsBuilder ucBuilder)
@@ -74,6 +77,7 @@ public class CartePostaleController
     }
 
     // ------------------- Update a CartePostale ------------------------------------------------
+    @CrossOrigin(origins = "http://localhost:4200")
 
     @RequestMapping(value = "/cartePostale/{id}", method = RequestMethod.PUT)
     public ResponseEntity<?> updateCartePostale(@PathVariable("id") int id, @RequestBody CartePostale target)
@@ -95,6 +99,7 @@ public class CartePostaleController
     }
 
     // ------------------- Delete a CartePostale-----------------------------------------
+    @CrossOrigin(origins = "http://localhost:4200")
 
     @RequestMapping(value = "/cartePostale/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<?> deleteCartePostale(@PathVariable("id") int id)
@@ -112,6 +117,7 @@ public class CartePostaleController
     }
 
     // ------------------- Delete All CartePostale-----------------------------
+    @CrossOrigin(origins = "http://localhost:4200")
 
     @RequestMapping(value = "/cartePostale/", method = RequestMethod.DELETE)
     public ResponseEntity<CartePostale> deleteAllCartePostale()
