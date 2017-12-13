@@ -91,7 +91,7 @@ CREATE TABLE `commune` (
   PRIMARY KEY (`insee`),
   KEY `commune_departement` (`departement_numero`),
   KEY `commune_fusion` (`fusion_insee`),
-  CONSTRAINT `commune_departement` FOREIGN KEY (`departement_numero`) REFERENCES `departement` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `commune_departement` FOREIGN KEY (`departement_numero`) REFERENCES `departement` (`numero`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `commune_fusion` FOREIGN KEY (`fusion_insee`) REFERENCES `commune` (`insee`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
