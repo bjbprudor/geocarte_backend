@@ -1,5 +1,7 @@
 package fr.m2miage.miniRest.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
@@ -26,6 +28,7 @@ public class Editeur implements Serializable
             inverseJoinColumns=@JoinColumn(name="commune", referencedColumnName="insee"))
     private List<Commune> communes;
 
+    @JsonIgnore
 	@OneToMany(mappedBy = "editeur")
     private List<CartePostale> cartePostales;
 

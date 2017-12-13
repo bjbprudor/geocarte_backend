@@ -1,5 +1,7 @@
 package fr.m2miage.miniRest.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
@@ -15,8 +17,9 @@ public class Departement implements Serializable
     @Column(nullable = false)
     private String nom;
 
-    //@OneToMany(mappedBy = "departement")
-    //private List<Commune> communes;
+    @JsonIgnore
+    @OneToMany(mappedBy = "departement")
+    private List<Commune> communes;
 
     public String getNumero() {
         return numero;

@@ -131,13 +131,13 @@ public class CarteUtilisateurController
         VarianteCarte var = varRepo.findOne(vid);
         CarteUtilisateurId cid = new CarteUtilisateurId(var,util);
 
-        String msg = String.format("Fetching & Deleting CarteUtilisateur with id {%s}");
+        String msg = String.format("Fetching & Deleting CarteUtilisateur with id {%s}",cid);
         log.info(msg);
 
         CarteUtilisateur current = repo.findOne(cid);
         if (current == null)
         {
-            msg = String.format("Unable to delete. CarteUtilisateur with id {%s} not found.");
+            msg = String.format("Unable to delete. CarteUtilisateur with id {%s} not found.",cid);
             return new ResponseEntity(new CustomErrorType(msg), HttpStatus.NOT_FOUND);
         }
         repo.delete(cid);

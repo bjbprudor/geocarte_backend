@@ -1,5 +1,7 @@
 package fr.m2miage.miniRest.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
@@ -22,6 +24,7 @@ public class Utilisateur implements Serializable
 	@Column(nullable = false)
     private String motdepasse;
 
+    @JsonIgnore
 	@OneToMany(mappedBy = "id.utilisateur")
     private List<CarteUtilisateur> carteUtilisateurs;
 

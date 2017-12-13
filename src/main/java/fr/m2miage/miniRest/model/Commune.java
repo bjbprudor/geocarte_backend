@@ -1,5 +1,7 @@
 package fr.m2miage.miniRest.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
@@ -33,15 +35,19 @@ public class Commune implements Serializable
     @OneToMany(mappedBy = "fusion")
     private List<Commune> ancienneCommunes;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "id.commune")
     private List<AncienNom> ancienNoms;
 
+    @JsonIgnore
     @ManyToMany(mappedBy="communes")
     private List<Editeur> editeurs;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "commune")
     private List<Monument> monuments;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "commune")
     private List<CartePostale> cartePostales;
 

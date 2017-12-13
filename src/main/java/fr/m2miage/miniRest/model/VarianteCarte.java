@@ -1,5 +1,7 @@
 package fr.m2miage.miniRest.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
@@ -23,6 +25,7 @@ public class VarianteCarte implements Serializable {
     @Column(nullable = false)
     private String dos;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "id.varianteCarte")
     private List<CarteUtilisateur> carteUtilisateurs;
 
