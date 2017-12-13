@@ -175,9 +175,9 @@ CREATE TABLE `monument` (
   `type_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `monument_commune` (`commune_insee`),
-  KEY `monument_type` (`type`),
+  KEY `monument_type` (`type_id`),
   CONSTRAINT `monument_commune` FOREIGN KEY (`commune_insee`) REFERENCES `commune` (`insee`) ON DELETE SET NULL ON UPDATE CASCADE,
-  CONSTRAINT `monument_type` FOREIGN KEY (`type`) REFERENCES `typeMonument` (`id`) ON DELETE SET NULL ON UPDATE CASCADE
+  CONSTRAINT `monument_type` FOREIGN KEY (`type_id`) REFERENCES `typeMonument` (`id`) ON DELETE SET NULL ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
