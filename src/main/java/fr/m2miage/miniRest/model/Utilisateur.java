@@ -13,7 +13,7 @@ public class Utilisateur implements Serializable
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+	private Integer id;
 
 	@Column(nullable = false)
 	private String nom;
@@ -28,8 +28,12 @@ public class Utilisateur implements Serializable
 	@OneToMany(mappedBy = "id.utilisateur")
     private List<CarteUtilisateur> carteUtilisateurs;
 
-    public int getId() {
+    public Integer getId() {
         return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getNom() {

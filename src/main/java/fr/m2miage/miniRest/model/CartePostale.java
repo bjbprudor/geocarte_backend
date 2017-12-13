@@ -1,5 +1,7 @@
 package fr.m2miage.miniRest.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
@@ -11,10 +13,10 @@ public class CartePostale implements Serializable
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+	private Integer id;
 
 	@Column(nullable = false)
-    private long codeEditeur;
+    private Integer codeEditeur;
 
 	@ManyToOne(optional = false)
     private Editeur editeur;
@@ -25,18 +27,19 @@ public class CartePostale implements Serializable
 	@ManyToOne
     private Commune commune;
 
+    @JsonIgnore
 	@OneToMany(mappedBy = "id.cartePostale")
     private List<VarianteCarte> variantes;
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public long getCodeEditeur() {
+    public Integer getCodeEditeur() {
         return codeEditeur;
     }
 
-    public void setCodeEditeur(long codeEditeur) {
+    public void setCodeEditeur(Integer codeEditeur) {
         this.codeEditeur = codeEditeur;
     }
 
@@ -67,7 +70,7 @@ public class CartePostale implements Serializable
     public CartePostale() {
     }
 
-    public CartePostale(long codeEditeur, Editeur editeur) {
+    public CartePostale(Integer codeEditeur, Editeur editeur) {
         this.codeEditeur = codeEditeur;
         this.editeur = editeur;
     }

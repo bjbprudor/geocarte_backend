@@ -13,7 +13,7 @@ public class Editeur implements Serializable
 
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+	private Integer id;
 
     @Column(nullable = false)
     private String code;
@@ -32,11 +32,11 @@ public class Editeur implements Serializable
 	@OneToMany(mappedBy = "editeur")
     private List<CartePostale> cartePostales;
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

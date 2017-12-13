@@ -10,16 +10,16 @@ public class VarianteCarteId implements Serializable
 {
 
     @Column(name = "id")
-    private int id;
+    private Integer id;
 
     @ManyToOne(optional = false)
     private CartePostale cartePostale;
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -34,7 +34,7 @@ public class VarianteCarteId implements Serializable
     public VarianteCarteId() {
     }
 
-    public VarianteCarteId(int id, CartePostale cartePostale)
+    public VarianteCarteId(Integer id, CartePostale cartePostale)
     {
         this.id = id;
         this.cartePostale = cartePostale;

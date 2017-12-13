@@ -10,16 +10,16 @@ public class AncienNomId implements Serializable
 {
 
     @Column(name = "id")
-    private int id;
+    private Integer id;
 
     @ManyToOne(optional = false)
     private Commune commune;
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -34,7 +34,7 @@ public class AncienNomId implements Serializable
     public AncienNomId() {
     }
 
-    public AncienNomId(int id, Commune commune)
+    public AncienNomId(Integer id, Commune commune)
     {
         this.id = id;
         this.commune = commune;

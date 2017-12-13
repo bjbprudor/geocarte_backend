@@ -15,7 +15,7 @@ public class CarteUtilisateur implements Serializable
     private CarteUtilisateurId id;
 
     @Column(nullable = false)
-    private int nombreExemplaires;
+    private Integer nombreExemplaires;
 
     public CarteUtilisateurId getId() {
         return id;
@@ -25,18 +25,18 @@ public class CarteUtilisateur implements Serializable
         this.id = id;
     }
 
-    public int getNombreExemplaires() {
+    public Integer getNombreExemplaires() {
         return nombreExemplaires;
     }
 
-    public void setNombreExemplaires(int nombreExemplaires) {
+    public void setNombreExemplaires(Integer nombreExemplaires) {
         this.nombreExemplaires = nombreExemplaires;
     }
 
     public CarteUtilisateur() {
     }
 
-    public CarteUtilisateur(CarteUtilisateurId id, int nombreExemplaires) {
+    public CarteUtilisateur(CarteUtilisateurId id, Integer nombreExemplaires) {
         this.id = id;
         this.nombreExemplaires = nombreExemplaires;
     }

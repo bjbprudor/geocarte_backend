@@ -1,5 +1,7 @@
 package fr.m2miage.miniRest.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
@@ -11,22 +13,22 @@ public class Monument implements Serializable
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+	private Integer id;
 
 	@Column(nullable = false)
 	private String nom;
 
 	@Column(nullable = false)
-	private int anneeConstruction;
+	private Integer anneeConstruction;
 
 	@Column
 	private String divers;
 
 	@Column(nullable = false)
-    private float longitude;
+    private Float longitude;
 
 	@Column(nullable = false)
-    private float latitude;
+    private Float latitude;
 
 	@ManyToOne
     private Commune commune;
@@ -34,6 +36,7 @@ public class Monument implements Serializable
 	@ManyToOne
     private TypeMonument type;
 
+    @JsonIgnore
 	@ManyToMany
     @JoinTable(
             name="monumentCarte",
@@ -41,11 +44,11 @@ public class Monument implements Serializable
             inverseJoinColumns=@JoinColumn(name="cartePostale", referencedColumnName="id"))
     private List<CartePostale> cartePostales;
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -57,11 +60,11 @@ public class Monument implements Serializable
         this.nom = nom;
     }
 
-    public int getAnneeConstruction() {
+    public Integer getAnneeConstruction() {
         return anneeConstruction;
     }
 
-    public void setAnneeConstruction(int anneeConstruction) {
+    public void setAnneeConstruction(Integer anneeConstruction) {
         this.anneeConstruction = anneeConstruction;
     }
 
@@ -73,19 +76,19 @@ public class Monument implements Serializable
         this.divers = divers;
     }
 
-    public float getLongitude() {
+    public Float getLongitude() {
         return longitude;
     }
 
-    public void setLongitude(float longitude) {
+    public void setLongitude(Float longitude) {
         this.longitude = longitude;
     }
 
-    public float getLatitude() {
+    public Float getLatitude() {
         return latitude;
     }
 
-    public void setLatitude(float latitude) {
+    public void setLatitude(Float latitude) {
         this.latitude = latitude;
     }
 
@@ -116,7 +119,7 @@ public class Monument implements Serializable
     public Monument() {
     }
 
-    public Monument(String nom, int anneeConstruction, String divers, float longitude, float latitude, TypeMonument type) {
+    public Monument(String nom, Integer anneeConstruction, String divers, Float longitude, Float latitude, TypeMonument type) {
         this.nom = nom;
         this.anneeConstruction = anneeConstruction;
         this.divers = divers;
