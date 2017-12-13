@@ -47,15 +47,16 @@ public class VarianteCarteController
     @RequestMapping(value = "/varianteCarte/{carte}/{variante}", method = RequestMethod.GET)
     public ResponseEntity<?> getVarianteCarte(@PathVariable("carte") int carte, @PathVariable("variante") int variante)
     {
-        String msg = String.format("Fetching VarianteCarte with id {%s}");
-        log.info(msg);
-
         CartePostale c = carteRepo.findOne(carte);
         VarianteCarteId vid = new VarianteCarteId(variante,c);
+
+        String msg = String.format("Fetching VarianteCarte with id {%s}",vid);
+        log.info(msg);
+
         VarianteCarte current = repo.findOne(vid);
         if (current == null)
         {
-            msg = String.format("VarianteCarte with id {%s} not found.");
+            msg = String.format("VarianteCarte with id {%s} not found.",vid);
             log.error(msg);
             return new ResponseEntity(new CustomErrorType(msg), HttpStatus.NOT_FOUND);
         }
@@ -87,15 +88,17 @@ public class VarianteCarteController
     @RequestMapping(value = "/varianteCarte/{carte}/{variante}", method = RequestMethod.PUT)
     public ResponseEntity<?> updateVarianteCarte(@PathVariable("carte") int carte, @PathVariable("variante") int variante, @RequestBody VarianteCarte target)
     {
-        String msg = String.format("Updating VarianteCarte with id {%s}");
-        log.info(msg);
 
         CartePostale c = carteRepo.findOne(carte);
         VarianteCarteId vid = new VarianteCarteId(variante,c);
+
+        String msg = String.format("Updating VarianteCarte with id {%s}",vid);
+        log.info(msg);
+
         VarianteCarte current = repo.findOne(vid);
         if (current == null)
         {
-            msg = String.format("Unable to update. VarianteCarte with id {%s} not found.");
+            msg = String.format("Unable to update. VarianteCarte with id {%s} not found.",vid);
             log.error(msg);
             return new ResponseEntity(new CustomErrorType(msg),HttpStatus.NOT_FOUND);
         }
@@ -111,15 +114,17 @@ public class VarianteCarteController
     @RequestMapping(value = "/varianteCarte/{carte}/{variante}", method = RequestMethod.DELETE)
     public ResponseEntity<?> deleteVarianteCarte(@PathVariable("carte") int carte, @PathVariable("variante") int variante)
     {
-        String msg = String.format("Fetching & Deleting VarianteCarte with id {%s}");
-        log.info(msg);
 
         CartePostale c = carteRepo.findOne(carte);
         VarianteCarteId vid = new VarianteCarteId(variante,c);
+
+        String msg = String.format("Fetching & Deleting VarianteCarte with id {%s}",vid);
+        log.info(msg);
+
         VarianteCarte current = repo.findOne(vid);
         if (current == null)
         {
-            msg = String.format("Unable to delete. VarianteCarte with id {%s} not found.");
+            msg = String.format("Unable to delete. VarianteCarte with id {%s} not found.",vid);
             return new ResponseEntity(new CustomErrorType(msg), HttpStatus.NOT_FOUND);
         }
         repo.delete(vid);

@@ -47,15 +47,17 @@ public class AncienNomController
     @RequestMapping(value = "/ancienNom/{id}/{insee}", method = RequestMethod.GET)
     public ResponseEntity<?> getAncienNom(@PathVariable("id") int id, @PathVariable("insee") String insee)
     {
-        String msg = String.format("Fetching AncienNom with id {%s}", id);
-        log.info(msg);
 
         Commune commune = communeRepo.findOne(insee);
         AncienNomId aid = new AncienNomId(id,commune);
+
+        String msg = String.format("Fetching AncienNom with id {%s}", aid);
+        log.info(msg);
+
         AncienNom current = repo.findOne(aid);
         if (current == null)
         {
-            msg = String.format("AncienNom with id {%s} not found.", id);
+            msg = String.format("AncienNom with id {%s} not found.", aid);
             log.error(msg);
             return new ResponseEntity(new CustomErrorType(msg), HttpStatus.NOT_FOUND);
         }
@@ -78,7 +80,7 @@ public class AncienNomController
         }
         repo.save(target);
         HttpHeaders headers = new HttpHeaders();
-        headers.setLocation(ucBuilder.path("/ancienNom/{id}").buildAndExpand(target.getId()).toUri());
+        headers.setLocation(ucBuilder.path("/ancienNom/{id}/{insee}").buildAndExpand(target.getId().getId(),target.getId().getCommune().getInsee()).toUri());
         return new ResponseEntity<String>(headers, HttpStatus.CREATED);
     }
 
@@ -87,15 +89,17 @@ public class AncienNomController
     @RequestMapping(value = "/ancienNom/{id}/{insee}", method = RequestMethod.PUT)
     public ResponseEntity<?> updateAncienNom(@PathVariable("id") int id, @PathVariable("insee") String insee,@RequestBody AncienNom target)
     {
-        String msg = String.format("Updating AncienNom with id {%s}",id);
-        log.info(msg);
 
         Commune commune = communeRepo.findOne(insee);
         AncienNomId aid = new AncienNomId(id,commune);
+
+        String msg = String.format("Updating AncienNom with id {%s}",aid);
+        log.info(msg);
+
         AncienNom current = repo.findOne(aid);
         if (current == null)
         {
-            msg = String.format("Unable to update. AncienNom with id {%s} not found.",id);
+            msg = String.format("Unable to update. AncienNom with id {%s} not found.",aid);
             log.error(msg);
             return new ResponseEntity(new CustomErrorType(msg),HttpStatus.NOT_FOUND);
         }
@@ -110,15 +114,17 @@ public class AncienNomController
     @RequestMapping(value = "/ancienNom/{id}/{insee}", method = RequestMethod.DELETE)
     public ResponseEntity<?> deleteAncienNom(@PathVariable("id") int id, @PathVariable("insee") String insee)
     {
-        String msg = String.format("Fetching & Deleting AncienNom with id {%s}", id);
-        log.info(msg);
 
         Commune commune = communeRepo.findOne(insee);
         AncienNomId aid = new AncienNomId(id,commune);
+
+        String msg = String.format("Fetching & Deleting AncienNom with id {%s}", aid);
+        log.info(msg);
+
         AncienNom current = repo.findOne(aid);
         if (current == null)
         {
-            msg = String.format("Unable to delete. AncienNom with id {%s} not found.", id);
+            msg = String.format("Unable to delete. AncienNom with id {%s} not found.", aid);
             return new ResponseEntity(new CustomErrorType(msg), HttpStatus.NOT_FOUND);
         }
         repo.delete(aid);
