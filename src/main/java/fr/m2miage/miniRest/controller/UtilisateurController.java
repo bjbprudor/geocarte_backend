@@ -24,6 +24,7 @@ public class UtilisateurController
 
 
     // -------------------Recupere tous les Utilisateur---------------------------------------------
+    @CrossOrigin(origins = "http://localhost:4200")
 
     @RequestMapping(value = "/utilisateur/", method = RequestMethod.GET)
     public ResponseEntity<List<Utilisateur>> listAllUtilisateurs()
@@ -38,6 +39,7 @@ public class UtilisateurController
     }
 
     // -------------------Recupere un Utilisateur------------------------------------------
+    @CrossOrigin(origins = "http://localhost:4200")
 
     @RequestMapping(value = "/utilisateur/{id}", method = RequestMethod.GET)
     public ResponseEntity<?> getUtilisateur(@PathVariable("id") int id)
@@ -55,6 +57,7 @@ public class UtilisateurController
     }
 
     // -------------------Create a Utilisateur-------------------------------------------
+    @CrossOrigin(origins = "http://localhost:4200")
 
     @RequestMapping(value = "/utilisateur/", method = RequestMethod.POST)
     public ResponseEntity<?> createUtilisateur(@RequestBody Utilisateur target, UriComponentsBuilder ucBuilder)
@@ -76,6 +79,7 @@ public class UtilisateurController
     }
 
     // ------------------- Update a Utilisateur ------------------------------------------------
+    @CrossOrigin(origins = "http://localhost:4200")
 
     @RequestMapping(value = "/utilisateur/{id}", method = RequestMethod.PUT)
     public ResponseEntity<?> updateUtilisateur(@PathVariable("id") int id, @RequestBody Utilisateur target)
@@ -97,6 +101,7 @@ public class UtilisateurController
     }
 
     // ------------------- Delete a Utilisateur-----------------------------------------
+    @CrossOrigin(origins = "http://localhost:4200")
 
     @RequestMapping(value = "/utilisateur/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<?> deleteUtilisateur(@PathVariable("id") int id)
@@ -114,6 +119,7 @@ public class UtilisateurController
     }
 
     // ------------------- Delete All Utilisateur-----------------------------
+    @CrossOrigin(origins = "http://localhost:4200")
 
     @RequestMapping(value = "/utilisateur/", method = RequestMethod.DELETE)
     public ResponseEntity<Utilisateur> deleteAllUtilisateur()

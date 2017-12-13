@@ -24,6 +24,7 @@ public class DepartementController
 
 
     // -------------------Recupere tous les Departements---------------------------------------------
+    @CrossOrigin(origins = "http://localhost:4200")
 
     @RequestMapping(value = "/departement/", method = RequestMethod.GET)
     public ResponseEntity<List<Departement>> listAllDepartement()
@@ -38,6 +39,7 @@ public class DepartementController
     }
 
     // -------------------Recupere un Departement------------------------------------------
+    @CrossOrigin(origins = "http://localhost:4200")
 
     @RequestMapping(value = "/departement/{id}", method = RequestMethod.GET)
     public ResponseEntity<?> getDepartement(@PathVariable("id") String id)
@@ -55,6 +57,7 @@ public class DepartementController
     }
 
     // -------------------Create a Departement-------------------------------------------
+    @CrossOrigin(origins = "http://localhost:4200")
 
     @RequestMapping(value = "/departement/", method = RequestMethod.POST)
     public ResponseEntity<?> createDepartement(@RequestBody Departement target, UriComponentsBuilder ucBuilder)
@@ -77,6 +80,7 @@ public class DepartementController
     }
 
     // ------------------- Update a Departement ------------------------------------------------
+    @CrossOrigin(origins = "http://localhost:4200")
 
     @RequestMapping(value = "/departement/{id}", method = RequestMethod.PUT)
     public ResponseEntity<?> updateDepartement(@PathVariable("id") String id, @RequestBody Departement target)
@@ -97,6 +101,7 @@ public class DepartementController
     }
 
     // ------------------- Delete a Departement-----------------------------------------
+    @CrossOrigin(origins = "http://localhost:4200")
 
     @RequestMapping(value = "/departement/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<?> deleteDepartement(@PathVariable("id") String id)
@@ -114,6 +119,7 @@ public class DepartementController
     }
 
     // ------------------- Delete All Departement-----------------------------
+    @CrossOrigin(origins = "http://localhost:4200")
 
     @RequestMapping(value = "/departement/", method = RequestMethod.DELETE)
     public ResponseEntity<Departement> deleteAllDepartement()

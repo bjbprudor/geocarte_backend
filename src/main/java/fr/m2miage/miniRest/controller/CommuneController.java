@@ -25,6 +25,7 @@ public class CommuneController
 
     // -------------------Recupere tous les Communes---------------------------------------------
 
+    @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "/commune/", method = RequestMethod.GET)
     public ResponseEntity<List<Commune>> listAllCommune()
     {
@@ -38,7 +39,7 @@ public class CommuneController
     }
 
     // -------------------Recupere un Commune------------------------------------------
-
+    @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "/commune/{id}", method = RequestMethod.GET)
     public ResponseEntity<?> getCommune(@PathVariable("id") String id)
     {
@@ -55,6 +56,7 @@ public class CommuneController
     }
 
     // -------------------Create a Commune-------------------------------------------
+    @CrossOrigin(origins = "http://localhost:4200")
 
     @RequestMapping(value = "/commune/", method = RequestMethod.POST)
     public ResponseEntity<?> createCommune(@RequestBody Commune target, UriComponentsBuilder ucBuilder)
@@ -75,6 +77,7 @@ public class CommuneController
     }
 
     // ------------------- Update a Commune ------------------------------------------------
+    @CrossOrigin(origins = "http://localhost:4200")
 
     @RequestMapping(value = "/commune/{id}", method = RequestMethod.PUT)
     public ResponseEntity<?> updateCommune(@PathVariable("id") String id, @RequestBody Commune target)
@@ -98,6 +101,7 @@ public class CommuneController
     }
 
     // ------------------- Delete a Commune-----------------------------------------
+    @CrossOrigin(origins = "http://localhost:4200")
 
     @RequestMapping(value = "/commune/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<?> deleteCommune(@PathVariable("id") String id)
@@ -115,6 +119,7 @@ public class CommuneController
     }
 
     // ------------------- Delete All Commune-----------------------------
+    @CrossOrigin(origins = "http://localhost:4200")
 
     @RequestMapping(value = "/commune/", method = RequestMethod.DELETE)
     public ResponseEntity<Commune> deleteAllCommune()

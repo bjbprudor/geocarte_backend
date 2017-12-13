@@ -24,6 +24,7 @@ public class EditeurController
 
 
     // -------------------Recupere tous les Editeurs---------------------------------------------
+    @CrossOrigin(origins = "http://localhost:4200")
 
     @RequestMapping(value = "/editeur/", method = RequestMethod.GET)
     public ResponseEntity<List<Editeur>> listAllEditeur()
@@ -38,6 +39,7 @@ public class EditeurController
     }
 
     // -------------------Recupere un Editeur------------------------------------------
+    @CrossOrigin(origins = "http://localhost:4200")
 
     @RequestMapping(value = "/editeur/{id}", method = RequestMethod.GET)
     public ResponseEntity<?> getEditeur(@PathVariable("id") int id)
@@ -55,6 +57,7 @@ public class EditeurController
     }
 
     // -------------------Create a Editeur-------------------------------------------
+    @CrossOrigin(origins = "http://localhost:4200")
 
     @RequestMapping(value = "/editeur/", method = RequestMethod.POST)
     public ResponseEntity<?> createEditeur(@RequestBody Editeur target, UriComponentsBuilder ucBuilder)
@@ -75,6 +78,7 @@ public class EditeurController
     }
 
     // ------------------- Update a Editeur ------------------------------------------------
+    @CrossOrigin(origins = "http://localhost:4200")
 
     @RequestMapping(value = "/editeur/{id}", method = RequestMethod.PUT)
     public ResponseEntity<?> updateEditeur(@PathVariable("id") int id, @RequestBody Editeur target)
@@ -97,6 +101,7 @@ public class EditeurController
     }
 
     // ------------------- Delete a Editeur-----------------------------------------
+    @CrossOrigin(origins = "http://localhost:4200")
 
     @RequestMapping(value = "/editeur/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<?> deleteEditeur(@PathVariable("id") int id)
@@ -114,6 +119,7 @@ public class EditeurController
     }
 
     // ------------------- Delete All Editeur-----------------------------
+    @CrossOrigin(origins = "http://localhost:4200")
 
     @RequestMapping(value = "/editeur/", method = RequestMethod.DELETE)
     public ResponseEntity<Editeur> deleteAllEditeur()

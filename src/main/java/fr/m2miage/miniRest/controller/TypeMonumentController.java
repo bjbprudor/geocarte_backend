@@ -24,6 +24,7 @@ public class TypeMonumentController
 
 
     // -------------------Recupere tous les typeMonuments---------------------------------------------
+    @CrossOrigin(origins = "http://localhost:4200")
 
     @RequestMapping(value = "/typeMonument/", method = RequestMethod.GET)
     public ResponseEntity<List<TypeMonument>> listAllTypeMonument()
@@ -38,6 +39,7 @@ public class TypeMonumentController
     }
 
     // -------------------Recupere un TypeMonument------------------------------------------
+    @CrossOrigin(origins = "http://localhost:4200")
 
     @RequestMapping(value = "/typeMonument/{id}", method = RequestMethod.GET)
     public ResponseEntity<?> getTypeMonument(@PathVariable("id") int id)
@@ -55,6 +57,7 @@ public class TypeMonumentController
     }
 
     // -------------------Create a TypeMonument-------------------------------------------
+    @CrossOrigin(origins = "http://localhost:4200")
 
     @RequestMapping(value = "/typeMonument/", method = RequestMethod.POST)
     public ResponseEntity<?> createTypeMonument(@RequestBody TypeMonument target, UriComponentsBuilder ucBuilder)
@@ -77,6 +80,7 @@ public class TypeMonumentController
     }
 
     // ------------------- Update a TypeMonument ------------------------------------------------
+    @CrossOrigin(origins = "http://localhost:4200")
 
     @RequestMapping(value = "/typeMonument/{id}", method = RequestMethod.PUT)
     public ResponseEntity<?> updateTypeMonument(@PathVariable("id") int id, @RequestBody TypeMonument target)
@@ -97,6 +101,7 @@ public class TypeMonumentController
     }
 
     // ------------------- Delete a TypeMonument-----------------------------------------
+    @CrossOrigin(origins = "http://localhost:4200")
 
     @RequestMapping(value = "/typeMonument/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<?> deleteTypeMonument(@PathVariable("id") int id)
@@ -114,6 +119,7 @@ public class TypeMonumentController
     }
 
     // ------------------- Delete All TypeMonument-----------------------------
+    @CrossOrigin(origins = "http://localhost:4200")
 
     @RequestMapping(value = "/typeMonument/", method = RequestMethod.DELETE)
     public ResponseEntity<TypeMonument> deleteAllTypeMonument()
