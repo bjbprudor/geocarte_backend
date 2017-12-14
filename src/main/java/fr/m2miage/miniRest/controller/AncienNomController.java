@@ -92,15 +92,15 @@ public class AncienNomController
     public ResponseEntity<?> updateAncienNom(@PathVariable("id") int id, @PathVariable("insee") String insee,@RequestBody AncienNom target)
     {
 
-        String msg = String.format("Updating AncienNom with id {%s}",aid);
-        log.info(msg);
+        //String msg = String.format("Updating AncienNom with id {%s}",aid);
+        //log.info(msg);
 
         AncienNom current = ancienNomService.getOne(id,insee);
         if (current == null)
         {
-            msg = String.format("Unable to update. AncienNom with id {%s} not found.",aid);
-            log.error(msg);
-            return new ResponseEntity(new CustomErrorType(msg),HttpStatus.NOT_FOUND);
+            //msg = String.format("Unable to update. AncienNom with id {%s} not found.",aid);
+            //log.error(msg);
+            //return new ResponseEntity(new CustomErrorType(msg),HttpStatus.NOT_FOUND);
         }
         current.setArticle(target.getArticle());
         current.setNom(target.getNom());
@@ -115,14 +115,14 @@ public class AncienNomController
     public ResponseEntity<?> deleteAncienNom(@PathVariable("id") int id, @PathVariable("insee") String insee)
     {
 
-        String msg = String.format("Fetching & Deleting AncienNom with id {%s}", aid);
-        log.info(msg);
+        //String msg = String.format("Fetching & Deleting AncienNom with id {%s}", aid);
+        //log.info(msg);
 
         AncienNom current = ancienNomService.getOne(id,insee);
         if (current == null)
         {
-            msg = String.format("Unable to delete. AncienNom with id {%s} not found.", aid);
-            return new ResponseEntity(new CustomErrorType(msg), HttpStatus.NOT_FOUND);
+            //msg = String.format("Unable to delete. AncienNom with id {%s} not found.", aid);
+            //return new ResponseEntity(new CustomErrorType(msg), HttpStatus.NOT_FOUND);
         }
         //repo.delete(aid);
         return new ResponseEntity<AncienNom>(HttpStatus.NO_CONTENT);

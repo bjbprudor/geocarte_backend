@@ -46,6 +46,20 @@ public class VarianteCarteController
         return new ResponseEntity<>(list, HttpStatus.OK);
     }
 
+    // -------------------Recupere tous les VarianteCartes en fonction du nom de Commune---------------------------------------------
+    @CrossOrigin(origins = "http://localhost:4200")
+    @RequestMapping(value = "/varianteCarte/", params = "communeName", method = RequestMethod.GET)
+    public ResponseEntity<List<VarianteCarte>> getVcByCommuneName(@RequestParam(value = "communeName") String communeName)
+    {
+        List<VarianteCarte> list = varianteCarteService.getVariantesByCommuneName(communeName);
+        if (list.isEmpty())
+        {
+            return new ResponseEntity(HttpStatus.NO_CONTENT);
+            // You many decide to return HttpStatus.NOT_FOUND
+        }
+        return new ResponseEntity<>(list, HttpStatus.OK);
+    }
+
     // -------------------Recupere toutes les variantes dont la légende commence par le paramètre ---------------------------------------------
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "/varianteCarte/", params = "legende", method= RequestMethod.GET)
