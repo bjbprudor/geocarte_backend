@@ -17,6 +17,20 @@ public class CartePostaleService
     @Autowired
     private CartePostaleRepository repo;
 
+    public List<String> getCommunes()
+    {
+        List<String> result = null;
+        try
+        {
+            result = repo.findAllCommune();
+        }
+        catch (Exception ex)
+        {
+
+        }
+        return result;
+    }
+
     public List<String> getCommunesBy(String nom)
     {
         List<String> result = null;

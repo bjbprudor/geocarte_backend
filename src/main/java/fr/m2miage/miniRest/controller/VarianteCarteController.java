@@ -118,8 +118,22 @@ public class VarianteCarteController
 
     // -------------------Recupere toutes les légendes commence par le paramètre ---------------------------------------------
     @CrossOrigin(origins = "http://localhost:4200")
+    @RequestMapping(value = "/legendes/", method= RequestMethod.GET)
+    public ResponseEntity<List<String>> getAllLegendesBy()
+    {
+        List<String> list = varianteCarteService.getLegendes();
+        if (list.isEmpty())
+        {
+            return new ResponseEntity(HttpStatus.NO_CONTENT);
+            // You many decide to return HttpStatus.NOT_FOUND
+        }
+        return new ResponseEntity<>(list, HttpStatus.OK);
+    }
+
+    // -------------------Recupere toutes les légendes commence par le paramètre ---------------------------------------------
+    @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "/legendes/", params = "legende", method= RequestMethod.GET)
-    public ResponseEntity<List<String>> getAllVcByUsername(@RequestParam(value = "legende") String legende)
+    public ResponseEntity<List<String>> getAllLegendesBy(@RequestParam(value = "legende") String legende)
     {
         List<String> list = varianteCarteService.getLegendesBy(legende);
         if (list.isEmpty())

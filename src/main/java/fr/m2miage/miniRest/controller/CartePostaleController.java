@@ -101,6 +101,20 @@ public class CartePostaleController
 
     // -------------------Recupere tous les noms de communes ayant des cartes commence par le paramètre ---------------------------------------------
     @CrossOrigin(origins = "http://localhost:4200")
+    @RequestMapping(value = "/communes/", method= RequestMethod.GET)
+    public ResponseEntity<List<String>> getAllVcByUsername()
+    {
+        List<String> list = cartePostaleService.getCommunes();
+        if (list.isEmpty())
+        {
+            return new ResponseEntity(HttpStatus.NO_CONTENT);
+            // You many decide to return HttpStatus.NOT_FOUND
+        }
+        return new ResponseEntity<>(list, HttpStatus.OK);
+    }
+
+    // -------------------Recupere tous les noms de communes ayant des cartes commence par le paramètre ---------------------------------------------
+    @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "/communes/", params = "nom", method= RequestMethod.GET)
     public ResponseEntity<List<String>> getAllVcByUsername(@RequestParam(value = "nom") String nom)
     {

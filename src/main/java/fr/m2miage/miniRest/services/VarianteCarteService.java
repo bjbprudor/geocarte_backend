@@ -97,6 +97,20 @@ public class VarianteCarteService
         return result;
     }
 
+    public List<String> getLegendes()
+    {
+        List<String> result = null;
+        try
+        {
+            result = repo.findAllLegendes();
+        }
+        catch (Exception ex)
+        {
+
+        }
+        return result;
+    }
+
     public List<String> getLegendesBy(String legende)
     {
         List<String> result = null;
