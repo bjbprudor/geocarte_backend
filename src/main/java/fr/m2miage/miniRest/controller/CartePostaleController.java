@@ -24,7 +24,6 @@ public class CartePostaleController
 
     // -------------------Recupere tous les CartePostales---------------------------------------------
     @CrossOrigin(origins = "http://localhost:4200")
-
     @RequestMapping(value = "/cartePostale/", method = RequestMethod.GET)
     public ResponseEntity<List<CartePostale>> listAllCartePostale()
     {
@@ -37,9 +36,50 @@ public class CartePostaleController
         return new ResponseEntity<>(list, HttpStatus.OK);
     }
 
+    // -------------------Recupere tous les CartePostales en fonction du type de monument ---------------------------------------------
+    @CrossOrigin(origins = "http://localhost:4200")
+    @RequestMapping(value = "/cartePostale/",params = "monumentType",  method = RequestMethod.GET)
+    public ResponseEntity<List<CartePostale>> getCpByMonumentType(@RequestParam(value = "monumentType") String monumentType)
+    {
+        List<CartePostale> list = repo.findAll();
+        if (list.isEmpty())
+        {
+            return new ResponseEntity(HttpStatus.NO_CONTENT);
+            // You many decide to return HttpStatus.NOT_FOUND
+        }
+        return new ResponseEntity<>(list, HttpStatus.OK);
+    }
+
+    // -------------------Recupere tous les CartePostales en fonction du nom de commune ---------------------------------------------
+    @CrossOrigin(origins = "http://localhost:4200")
+    @RequestMapping(value = "/cartePostale/", params = "communeName", method = RequestMethod.GET)
+    public ResponseEntity<List<CartePostale>> getCpByCommuneName(@RequestParam(value = "communeName") String communeName)
+    {
+        List<CartePostale> list = repo.findAll();
+        if (list.isEmpty())
+        {
+            return new ResponseEntity(HttpStatus.NO_CONTENT);
+            // You many decide to return HttpStatus.NOT_FOUND
+        }
+        return new ResponseEntity<>(list, HttpStatus.OK);
+    }
+
+    // -------------------Recupere tous les CartePostales en fonction du nom d'un éditeur ---------------------------------------------
+    @CrossOrigin(origins = "http://localhost:4200")
+    @RequestMapping(value = "/cartePostale/", params = "editeurName", method = RequestMethod.GET)
+    public ResponseEntity<List<CartePostale>> getCpByEditeurName(@RequestParam(value = "editeurName") String editeurName)
+    {
+        List<CartePostale> list = repo.findAll();
+        if (list.isEmpty())
+        {
+            return new ResponseEntity(HttpStatus.NO_CONTENT);
+            // You many decide to return HttpStatus.NOT_FOUND
+        }
+        return new ResponseEntity<>(list, HttpStatus.OK);
+    }
+
     // -------------------Recupere un CartePostale------------------------------------------
     @CrossOrigin(origins = "http://localhost:4200")
-
     @RequestMapping(value = "/cartePostale/{id}", method = RequestMethod.GET)
     public ResponseEntity<?> getCartePostale(@PathVariable("id") int id)
     {
@@ -57,7 +97,6 @@ public class CartePostaleController
 
     // -------------------Create a CartePostale-------------------------------------------
     @CrossOrigin(origins = "http://localhost:4200")
-
     @RequestMapping(value = "/cartePostale/", method = RequestMethod.POST)
     public ResponseEntity<?> createCartePostale(@RequestBody CartePostale target, UriComponentsBuilder ucBuilder)
     {
@@ -78,7 +117,6 @@ public class CartePostaleController
 
     // ------------------- Update a CartePostale ------------------------------------------------
     @CrossOrigin(origins = "http://localhost:4200")
-
     @RequestMapping(value = "/cartePostale/{id}", method = RequestMethod.PUT)
     public ResponseEntity<?> updateCartePostale(@PathVariable("id") int id, @RequestBody CartePostale target)
     {
@@ -100,7 +138,6 @@ public class CartePostaleController
 
     // ------------------- Delete a CartePostale-----------------------------------------
     @CrossOrigin(origins = "http://localhost:4200")
-
     @RequestMapping(value = "/cartePostale/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<?> deleteCartePostale(@PathVariable("id") int id)
     {
@@ -118,7 +155,6 @@ public class CartePostaleController
 
     // ------------------- Delete All CartePostale-----------------------------
     @CrossOrigin(origins = "http://localhost:4200")
-
     @RequestMapping(value = "/cartePostale/", method = RequestMethod.DELETE)
     public ResponseEntity<CartePostale> deleteAllCartePostale()
     {
@@ -126,6 +162,4 @@ public class CartePostaleController
         repo.deleteAll();
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
-
-
 }

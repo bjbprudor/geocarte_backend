@@ -30,9 +30,22 @@ public class VarianteCarteController
 
     // -------------------Recupere tous les VarianteCartes---------------------------------------------
     @CrossOrigin(origins = "http://localhost:4200")
-
     @RequestMapping(value = "/varianteCarte/", method = RequestMethod.GET)
     public ResponseEntity<List<VarianteCarte>> listAllVarianteCarte()
+    {
+        List<VarianteCarte> list = repo.findAll();
+        if (list.isEmpty())
+        {
+            return new ResponseEntity(HttpStatus.NO_CONTENT);
+            // You many decide to return HttpStatus.NOT_FOUND
+        }
+        return new ResponseEntity<>(list, HttpStatus.OK);
+    }
+
+    // -------------------Recupere toutes les variantes dont la légende commence par le paramètre ---------------------------------------------
+    @CrossOrigin(origins = "http://localhost:4200")
+    @RequestMapping(value = "/varianteCarte/", params = "legende", method= RequestMethod.GET)
+    public ResponseEntity<List<VarianteCarte>> getAllVarianteCarteStartingByParam(@RequestParam(value = "legende") String legende)
     {
         List<VarianteCarte> list = repo.findAll();
         if (list.isEmpty())
