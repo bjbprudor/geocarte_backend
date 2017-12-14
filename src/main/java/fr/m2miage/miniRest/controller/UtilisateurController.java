@@ -47,9 +47,8 @@ public class UtilisateurController
     public ResponseEntity<Utilisateur> getUserByLoginAndPwd(@PathVariable(value="login") String login,
                                                             @RequestParam(value = "pwd") String password)
     {
-        Utilisateur user;
-        //= repo.findAll();
-        if (user.isEmpty())
+        Utilisateur user = utilisateurService.getUserByLoginAndPwd(login, password);
+        if (user == null)
         {
             return new ResponseEntity(HttpStatus.NO_CONTENT);
             // You many decide to return HttpStatus.NOT_FOUND
