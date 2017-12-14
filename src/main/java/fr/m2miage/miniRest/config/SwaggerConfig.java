@@ -1,4 +1,4 @@
-package fr.m2miage.miniRest.controller;
+package fr.m2miage.miniRest.config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import springfox.documentation.builders.RequestHandlerSelectors;

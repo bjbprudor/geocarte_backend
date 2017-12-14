@@ -2,20 +2,21 @@ package fr.m2miage.miniRest.services;
 
 import fr.m2miage.miniRest.model.CarteUtilisateur;
 import fr.m2miage.miniRest.model.Monument;
-import fr.m2miage.miniRest.model.Utilisateur;
 import fr.m2miage.miniRest.model.VarianteCarte;
 import fr.m2miage.miniRest.repository.CartePostaleRepository;
 import fr.m2miage.miniRest.repository.VarianteCarteRepository;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.rmi.CORBA.Util;
 import java.util.ArrayList;
 import java.util.List;
 
 @Service("varianteCarteService")
 public class VarianteCarteService
 {
+
+    public static final Logger log = Logger.getLogger(VarianteCarteService.class);
 
 
     @Autowired
@@ -44,6 +45,7 @@ public class VarianteCarteService
         try
         {
             result = repo.findAllByLegende(nom);
+            //result = repo.findAllByLegendeLike(nom);
         }
         catch (Exception ex)
         {
@@ -88,8 +90,9 @@ public class VarianteCarteService
         }
         catch (Exception ex)
         {
-
+            log.error(ex.getMessage());
         }
+        log.info(result.size());
         return result;
     }
 
@@ -115,8 +118,9 @@ public class VarianteCarteService
         }
         catch (Exception ex)
         {
-
+            log.error(ex.getMessage());
         }
+        log.info(result.size());
         return result;
     }
 

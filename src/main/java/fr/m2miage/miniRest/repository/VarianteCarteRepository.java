@@ -10,13 +10,15 @@ import java.util.List;
 public interface VarianteCarteRepository extends JpaRepository<VarianteCarte, VarianteCarteId>
 {
 
-    @Query("select vc from VarianteCarte vc where vc.id.cartePostale.commune.nom like %?1")
+    @Query("select vc from VarianteCarte vc where vc.id.cartePostale.commune.nom like concat('%',?1,'%')")
     List<VarianteCarte> findAllByCommuneName(String nom);
 
-    @Query("select vc from VarianteCarte vc where vc.legende like %?1")
+    //List<VarianteCarte>findAllByLegendeLike(String legende);
+
+    @Query("select vc from VarianteCarte vc where vc.legende like concat('%',?1,'%')")
     List<VarianteCarte> findAllByLegende(String nom);
 
-    @Query("select vc from VarianteCarte vc where vc.id.cartePostale.editeur.nom like %?1")
+    @Query("select vc from VarianteCarte vc where vc.id.cartePostale.editeur.nom like concat('%',?1,'%')")
     List<VarianteCarte> findAllByEditeurName(String nom);
 
     //@Query(value = "SELECT * FROM variantecarte vc JOIN cartepostale cp ON vc.cartePostale_id = cp.id JOIN monumentcarte mc ON mc.cartePostale = cp.id JOIN monument m ON mc.monument = m.id JOIN typemonument tm ON m.type_id = tm.id WHERE tm.libelle LIKE '%?1'",nativeQuery = true)
