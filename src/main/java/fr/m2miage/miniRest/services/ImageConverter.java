@@ -54,6 +54,12 @@ public class ImageConverter {
         return Base64.decodeBase64(imageDataString);
     }
 
+    //TODO: à revoir, ne fonctionne pas correctement
+    public static boolean isExistingFile(String fileLocation){
+        File file = new File(fileLocation);
+        return file != null;
+    }
+
     //Code à inclure dans le main pour  tester
     /*String sourceFolder = "C:\\source";
         String destinationFolder = "C:\\destination";
