@@ -12,6 +12,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+import java.net.URLEncoder;
 import java.util.List;
 
 @RestController
@@ -28,7 +31,7 @@ public class UtilisateurController
 
 
     // -------------------Recupere tous les Utilisateur---------------------------------------------
-    @CrossOrigin(origins = "http://localhost:4200")
+    /*@CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "/utilisateur/", method = RequestMethod.GET)
     public ResponseEntity<List<Utilisateur>> listAllUtilisateurs()
     {
@@ -39,15 +42,16 @@ public class UtilisateurController
             // You many decide to return HttpStatus.NOT_FOUND
         }
         return new ResponseEntity<>(list, HttpStatus.OK);
-    }
+    }*/
 
     // -------------------Recupere un utilisateur en fonction de son login et mdp ---------------------------------------------
     @CrossOrigin(origins = "http://localhost:4200")
-    @RequestMapping(value = "/utilisateur/{login}",params = "pwd", method = RequestMethod.GET)
-    public ResponseEntity<Utilisateur> getUserByLoginAndPwd(@PathVariable(value="login") String login,
-                                                            @RequestParam(value = "pwd") String password)
-    {
-        Utilisateur user = utilisateurService.getUserByLoginAndPwd(login, password);
+    @RequestMapping(value = "/utilisateur/", method = RequestMethod.GET)
+    public ResponseEntity<Utilisateur> getUserByLoginAndPwd(@RequestParam(value = "login") String login,
+                                                            @RequestParam(value = "pwd") String password) throws UnsupportedEncodingException {
+
+        String loginDecoded = URLDecoder.decode(login, "UTF-8");
+        Utilisateur user = utilisateurService.getUserByLoginAndPwd(loginDecoded, password);
         if (user == null)
         {
             return new ResponseEntity(HttpStatus.NO_CONTENT);
