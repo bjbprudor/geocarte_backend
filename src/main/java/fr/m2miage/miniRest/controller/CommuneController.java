@@ -2,6 +2,7 @@ package fr.m2miage.miniRest.controller;
 
 import fr.m2miage.miniRest.model.Commune;
 import fr.m2miage.miniRest.repository.CommuneRepository;
+import fr.m2miage.miniRest.services.CommuneService;
 import fr.m2miage.miniRest.util.CustomErrorType;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,9 @@ public class CommuneController
 {
 
     public static final Logger log = Logger.getLogger(CommuneController.class);
+
+    @Autowired
+    private CommuneService communeService;
 
     @Autowired
     private CommuneRepository repo;

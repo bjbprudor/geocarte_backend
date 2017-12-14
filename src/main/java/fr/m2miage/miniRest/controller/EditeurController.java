@@ -2,6 +2,7 @@ package fr.m2miage.miniRest.controller;
 
 import fr.m2miage.miniRest.model.Editeur;
 import fr.m2miage.miniRest.repository.EditeurRepository;
+import fr.m2miage.miniRest.services.EditeurService;
 import fr.m2miage.miniRest.util.CustomErrorType;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,9 @@ public class EditeurController
 {
 
     public static final Logger log = Logger.getLogger(EditeurController.class);
+
+    @Autowired
+    private EditeurService editeurService;
 
     @Autowired
     private EditeurRepository repo;

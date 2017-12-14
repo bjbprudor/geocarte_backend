@@ -5,6 +5,7 @@ import fr.m2miage.miniRest.repository.CartePostaleRepository;
 import fr.m2miage.miniRest.repository.CarteUtilisateurRepository;
 import fr.m2miage.miniRest.repository.UtilisateurRepository;
 import fr.m2miage.miniRest.repository.VarianteCarteRepository;
+import fr.m2miage.miniRest.services.CarteUtilisateurService;
 import fr.m2miage.miniRest.util.CustomErrorType;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,9 @@ import java.util.List;
 public class CarteUtilisateurController
 {
     public static final Logger log = Logger.getLogger(CarteUtilisateurController.class);
+
+    @Autowired
+    private CarteUtilisateurService carteUtilisateurService;
 
     @Autowired
     private CarteUtilisateurRepository repo;

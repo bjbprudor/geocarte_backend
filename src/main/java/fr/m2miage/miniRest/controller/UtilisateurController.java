@@ -2,6 +2,7 @@ package fr.m2miage.miniRest.controller;
 
 import fr.m2miage.miniRest.model.Utilisateur;
 import fr.m2miage.miniRest.repository.UtilisateurRepository;
+import fr.m2miage.miniRest.services.UtilisateurService;
 import fr.m2miage.miniRest.util.CustomErrorType;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,9 @@ public class UtilisateurController
 {
 
     public static final Logger log = Logger.getLogger(UtilisateurController.class);
+
+    @Autowired
+    private UtilisateurService utilisateurService;
 
     @Autowired
     private UtilisateurRepository repo;

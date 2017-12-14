@@ -2,6 +2,7 @@ package fr.m2miage.miniRest.controller;
 
 import fr.m2miage.miniRest.model.Departement;
 import fr.m2miage.miniRest.repository.DepartementRepository;
+import fr.m2miage.miniRest.services.DepartementService;
 import fr.m2miage.miniRest.util.CustomErrorType;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,9 @@ public class DepartementController
 {
 
     public static final Logger log = Logger.getLogger(DepartementController.class);
+
+    @Autowired
+    private DepartementService departementService;
 
     @Autowired
     private DepartementRepository repo;

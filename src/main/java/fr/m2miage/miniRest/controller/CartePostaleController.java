@@ -2,6 +2,7 @@ package fr.m2miage.miniRest.controller;
 
 import fr.m2miage.miniRest.model.CartePostale;
 import fr.m2miage.miniRest.repository.CartePostaleRepository;
+import fr.m2miage.miniRest.services.CartePostaleService;
 import fr.m2miage.miniRest.util.CustomErrorType;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,9 @@ public class CartePostaleController
 {
 
     public static final Logger log = Logger.getLogger(CartePostaleController.class);
+
+    @Autowired
+    private CartePostaleService cartePostaleService;
 
     @Autowired
     private CartePostaleRepository repo;

@@ -2,6 +2,7 @@ package fr.m2miage.miniRest.controller;
 
 import fr.m2miage.miniRest.model.Monument;
 import fr.m2miage.miniRest.repository.MonumentRepository;
+import fr.m2miage.miniRest.services.MonumentService;
 import fr.m2miage.miniRest.util.CustomErrorType;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,9 @@ public class MonumentController
 {
 
     public static final Logger log = Logger.getLogger(MonumentController.class);
+
+    @Autowired
+    private MonumentService monumentService;
 
     @Autowired
     private MonumentRepository repo;

@@ -5,6 +5,7 @@ import fr.m2miage.miniRest.model.VarianteCarte;
 import fr.m2miage.miniRest.model.VarianteCarteId;
 import fr.m2miage.miniRest.repository.CartePostaleRepository;
 import fr.m2miage.miniRest.repository.VarianteCarteRepository;
+import fr.m2miage.miniRest.services.VarianteCarteService;
 import fr.m2miage.miniRest.util.CustomErrorType;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,9 @@ public class VarianteCarteController
 {
 
     public static final Logger log = Logger.getLogger(VarianteCarteController.class);
+
+    @Autowired
+    private VarianteCarteService varianteCarteService;
 
     @Autowired
     private VarianteCarteRepository repo;
