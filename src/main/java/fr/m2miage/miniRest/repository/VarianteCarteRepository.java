@@ -13,16 +13,16 @@ public interface VarianteCarteRepository extends JpaRepository<VarianteCarte, Va
     @Query("select vc from VarianteCarte vc where vc.id.cartePostale.commune.nom like %?1")
     List<VarianteCarte> findAllByCommuneName(String nom);
 
-    @Query("select vc from VarianteCarte vc where vc.id.cartePostale.monuments.type.libelle like %?1")
-    List<VarianteCarte> findAllByTypeMonument(String nom);
-
-    @Query("select vc from VarianteCarte vc where vc.id.cartePostale.legende like %?1")
+    @Query("select vc from VarianteCarte vc where vc.legende like %?1")
     List<VarianteCarte> findAllByLegende(String nom);
 
     @Query("select vc from VarianteCarte vc where vc.id.cartePostale.editeur.nom like %?1")
     List<VarianteCarte> findAllByEditeurName(String nom);
 
-    @Query("select vc from VarianteCarte vc where vc.carteUtilisateurs.id.utilisateur.email like %?1 or vc.carteUtilisateurs.id.utilisateur.nom like %?1")
-    List<VarianteCarte> findAllByUsername(String nom);
+    //@Query(value = "SELECT * FROM variantecarte vc JOIN cartepostale cp ON vc.cartePostale_id = cp.id JOIN monumentcarte mc ON mc.cartePostale = cp.id JOIN monument m ON mc.monument = m.id JOIN typemonument tm ON m.type_id = tm.id WHERE tm.libelle LIKE '%?1'",nativeQuery = true)
+    //List<VarianteCarte> findAllByTypeMonument(String nom);
+
+    //@Query(value = "SELECT * FROM variantecarte vc JOIN carteutilisateur cu ON cu.varianteCarte_cartePostale_id = vc.cartePostale_id AND cu.varianteCarte_id = vc.id WHERE cu.utilisateur_id=?1",nativeQuery = true)
+    //List<VarianteCarte> findAllByUsername(String nom);
 
 }

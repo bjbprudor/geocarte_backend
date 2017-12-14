@@ -62,7 +62,7 @@ public class VarianteCarteController
 
     // -------------------Recupere tous les CartePostales en fonction du type de monument ---------------------------------------------
     @CrossOrigin(origins = "http://localhost:4200")
-    @RequestMapping(value = "/cartePostale/",params = "monumentType",  method = RequestMethod.GET)
+    @RequestMapping(value = "/varianteCarte/",params = "monumentType",  method = RequestMethod.GET)
     public ResponseEntity<List<VarianteCarte>> getVcByMonumentType(@RequestParam(value = "monumentType") String monumentType)
     {
         List<VarianteCarte> list = varianteCarteService.getVariantesByTypeMonument(monumentType);
@@ -105,7 +105,7 @@ public class VarianteCarteController
     // -------------------Recupere toutes les variantes dont la légende commence par le paramètre ---------------------------------------------
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "/varianteCarte/", params = "login", method= RequestMethod.GET)
-    public ResponseEntity<List<VarianteCarte>> getAllVcByUsername(@RequestParam(value = "login") String login)
+    public ResponseEntity<List<VarianteCarte>> getAllVcByUsername(@RequestParam(value = "login") Integer login)
     {
         List<VarianteCarte> list = varianteCarteService.getVariantesByUsername(login);
         if (list.isEmpty())
