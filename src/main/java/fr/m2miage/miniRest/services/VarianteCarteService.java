@@ -72,20 +72,7 @@ public class VarianteCarteService
         List<VarianteCarte> result = null;
         try
         {
-            //result = new ArrayList<>();
             result = repo.findAllByUsername(id);
-            /*for (VarianteCarte vc : repo.findAll())
-            {
-                List<CarteUtilisateur> lu = vc.getCarteUtilisateurs();
-                int i = 0;
-                boolean b = false;
-                while (i < lu.size() && b == false)
-                {
-                    b = lu.get(i).getId().getUtilisateur().getId() == id;
-                    i++;
-                }
-                if(b) { result.add(vc); }
-            }*/
         }
         catch (Exception ex)
         {
@@ -107,6 +94,20 @@ public class VarianteCarteService
             log.error(ex.getMessage());
         }
         log.info(result.size());
+        return result;
+    }
+
+    public List<String> getLegendesBy(String legende)
+    {
+        List<String> result = null;
+        try
+        {
+            result = repo.findAllLegendesBy(legende);
+        }
+        catch (Exception ex)
+        {
+
+        }
         return result;
     }
 

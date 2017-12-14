@@ -6,6 +6,8 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service("cartePostaleService")
 public class CartePostaleService
 {
@@ -14,5 +16,19 @@ public class CartePostaleService
 
     @Autowired
     private CartePostaleRepository repo;
+
+    public List<String> getCommunesBy(String nom)
+    {
+        List<String> result = null;
+        try
+        {
+            result = repo.findAllCommuneBy(nom);
+        }
+        catch (Exception ex)
+        {
+
+        }
+        return result;
+    }
 
 }
