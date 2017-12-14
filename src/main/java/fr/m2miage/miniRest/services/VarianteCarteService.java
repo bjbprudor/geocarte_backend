@@ -33,4 +33,61 @@ public class VarianteCarteService
         return result;
     }
 
+    public List<VarianteCarte> getVariantesByTypeMonument(String nom)
+    {
+        List<VarianteCarte> result = null;
+        try
+        {
+            result = repo.findAllByTypeMonument(nom);
+        }
+        catch (Exception ex)
+        {
+
+        }
+        return result;
+    }
+
+    public List<VarianteCarte> getVariantesByLegende(String nom)
+    {
+        List<VarianteCarte> result = null;
+        try
+        {
+            result = repo.findAllByLegende(nom);
+        }
+        catch (Exception ex)
+        {
+
+        }
+        return result;
+    }
+
+    public List<VarianteCarte> getVariantesByEditeurName(String nom)
+    {
+        List<VarianteCarte> result = null;
+        try
+        {
+            result = repo.findAllByEditeurName(nom);
+        }
+        catch (Exception ex)
+        {
+
+        }
+        return result;
+    }
+
+    public List<VarianteCarte> getVariantesByUsername(String nom)
+    {
+        List<VarianteCarte> result = null;
+        try
+        {
+            result = repo.findAllByUsername(nom);
+        }
+        catch (Exception ex)
+        {
+
+        }
+        return result;
+    }
+
+
 }

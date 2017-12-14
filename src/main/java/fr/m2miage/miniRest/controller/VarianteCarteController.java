@@ -60,12 +60,54 @@ public class VarianteCarteController
         return new ResponseEntity<>(list, HttpStatus.OK);
     }
 
+    // -------------------Recupere tous les CartePostales en fonction du type de monument ---------------------------------------------
+    @CrossOrigin(origins = "http://localhost:4200")
+    @RequestMapping(value = "/cartePostale/",params = "monumentType",  method = RequestMethod.GET)
+    public ResponseEntity<List<VarianteCarte>> getVcByMonumentType(@RequestParam(value = "monumentType") String monumentType)
+    {
+        List<VarianteCarte> list = varianteCarteService.getVariantesByTypeMonument(monumentType);
+        if (list.isEmpty())
+        {
+            return new ResponseEntity(HttpStatus.NO_CONTENT);
+            // You many decide to return HttpStatus.NOT_FOUND
+        }
+        return new ResponseEntity<>(list, HttpStatus.OK);
+    }
+
+    // -------------------Recupere tous les CartePostales en fonction du nom d'un éditeur ---------------------------------------------
+    @CrossOrigin(origins = "http://localhost:4200")
+    @RequestMapping(value = "/varianteCarte/", params = "editeurName", method = RequestMethod.GET)
+    public ResponseEntity<List<VarianteCarte>> getVcByEditeurName(@RequestParam(value = "editeurName") String editeurName)
+    {
+        List<VarianteCarte> list = varianteCarteService.getVariantesByEditeurName(editeurName);
+        if (list.isEmpty())
+        {
+            return new ResponseEntity(HttpStatus.NO_CONTENT);
+            // You many decide to return HttpStatus.NOT_FOUND
+        }
+        return new ResponseEntity<>(list, HttpStatus.OK);
+    }
+
     // -------------------Recupere toutes les variantes dont la légende commence par le paramètre ---------------------------------------------
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "/varianteCarte/", params = "legende", method= RequestMethod.GET)
     public ResponseEntity<List<VarianteCarte>> getAllVarianteCarteStartingByParam(@RequestParam(value = "legende") String legende)
     {
-        List<VarianteCarte> list = repo.findAll();
+        List<VarianteCarte> list = varianteCarteService.getVariantesByLegende(legende);
+        if (list.isEmpty())
+        {
+            return new ResponseEntity(HttpStatus.NO_CONTENT);
+            // You many decide to return HttpStatus.NOT_FOUND
+        }
+        return new ResponseEntity<>(list, HttpStatus.OK);
+    }
+
+    // -------------------Recupere toutes les variantes dont la légende commence par le paramètre ---------------------------------------------
+    @CrossOrigin(origins = "http://localhost:4200")
+    @RequestMapping(value = "/varianteCarte/", params = "login", method= RequestMethod.GET)
+    public ResponseEntity<List<VarianteCarte>> getAllVcByUsername(@RequestParam(value = "login") String login)
+    {
+        List<VarianteCarte> list = varianteCarteService.getVariantesByUsername(login);
         if (list.isEmpty())
         {
             return new ResponseEntity(HttpStatus.NO_CONTENT);
