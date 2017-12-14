@@ -46,6 +46,8 @@ CREATE TABLE `cartepostale` (
   `codeEditeur` int(20) DEFAULT NULL,
   `commune_insee` varchar(6) DEFAULT NULL,
   `editeur_id` int(20) NOT NULL,
+  `longitude` float DEFAULT NULL,
+  `latitude` float DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `cartepostale_commune` (`commune_insee`),
   KEY `cartepostale_editeur` (`editeur_id`),
