@@ -45,7 +45,6 @@ public class VarianteCarteService
         try
         {
             result = repo.findAllByLegende(nom);
-            //result = repo.findAllByLegendeLike(nom);
         }
         catch (Exception ex)
         {
@@ -73,9 +72,9 @@ public class VarianteCarteService
         List<VarianteCarte> result = null;
         try
         {
-            result = new ArrayList<>();
-            //result = repo.findAllByUsername(nom);
-            for (VarianteCarte vc : repo.findAll())
+            //result = new ArrayList<>();
+            result = repo.findAllByUsername(id);
+            /*for (VarianteCarte vc : repo.findAll())
             {
                 List<CarteUtilisateur> lu = vc.getCarteUtilisateurs();
                 int i = 0;
@@ -86,7 +85,7 @@ public class VarianteCarteService
                     i++;
                 }
                 if(b) { result.add(vc); }
-            }
+            }*/
         }
         catch (Exception ex)
         {
@@ -101,20 +100,7 @@ public class VarianteCarteService
         List<VarianteCarte> result = null;
         try
         {
-            result = new ArrayList<>();
-            //result = repo.findAllByTypeMonument(nom);
-            for (VarianteCarte vc : repo.findAll())
-            {
-                List<Monument> lm = vc.getId().getCartePostale().getMonuments();
-                int i = 0;
-                boolean b = false;
-                while (i < lm.size() && b == false)
-                {
-                    b = lm.get(i).getType().getLibelle().startsWith(nom);
-                    i++;
-                }
-                if(b) { result.add(vc); }
-            }
+            result = repo.findAllByTypeMonument(nom);
         }
         catch (Exception ex)
         {

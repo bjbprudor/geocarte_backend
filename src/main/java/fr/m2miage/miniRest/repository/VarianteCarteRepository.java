@@ -21,10 +21,13 @@ public interface VarianteCarteRepository extends JpaRepository<VarianteCarte, Va
     @Query("select vc from VarianteCarte vc where vc.id.cartePostale.editeur.nom like concat('%',?1,'%')")
     List<VarianteCarte> findAllByEditeurName(String nom);
 
-    //@Query(value = "SELECT * FROM variantecarte vc JOIN cartepostale cp ON vc.cartePostale_id = cp.id JOIN monumentcarte mc ON mc.cartePostale = cp.id JOIN monument m ON mc.monument = m.id JOIN typemonument tm ON m.type_id = tm.id WHERE tm.libelle LIKE '%?1'",nativeQuery = true)
+    //@Query("select  vc from VarianteCarte vc where vc.id.cartePostale.monuments.monument.type.nom like concat('%',?1,'%')")
     //List<VarianteCarte> findAllByTypeMonument(String nom);
 
-    //@Query(value = "SELECT * FROM variantecarte vc JOIN carteutilisateur cu ON cu.varianteCarte_cartePostale_id = vc.cartePostale_id AND cu.varianteCarte_id = vc.id WHERE cu.utilisateur_id=?1",nativeQuery = true)
-    //List<VarianteCarte> findAllByUsername(String nom);
+    @Query(value = "SELECT * FROM variantecarte vc JOIN cartepostale cp ON vc.cartePostale_id = cp.id JOIN monumentcarte mc ON mc.cartePostale = cp.id JOIN monument m ON mc.monument = m.id JOIN typemonument tm ON m.type_id = tm.id WHERE tm.libelle LIKE concat('%',?1,'%')",nativeQuery = true)
+    List<VarianteCarte> findAllByTypeMonument(String nom);
+
+    @Query(value = "SELECT * FROM variantecarte vc JOIN carteutilisateur cu ON cu.varianteCarte_cartePostale_id = vc.cartePostale_id AND cu.varianteCarte_id = vc.id WHERE cu.utilisateur_id=?1",nativeQuery = true)
+    List<VarianteCarte> findAllByUsername(Integer id);
 
 }
