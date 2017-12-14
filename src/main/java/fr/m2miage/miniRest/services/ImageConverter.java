@@ -5,9 +5,10 @@ import org.apache.tomcat.util.codec.binary.Base64;
 import java.io.*;
 
 public class ImageConverter {
-    public static void converter(String photoLocation) throws IOException {
-        File file = new File(photoLocation);
 
+    public static String imageToBase64(String photoLocation){
+        File file = new File(photoLocation);
+        String imageDataString = "";
         try {
             // Reading a Image file from file system
             FileInputStream imageInFile = new FileInputStream(file);
@@ -15,30 +16,34 @@ public class ImageConverter {
             imageInFile.read(imageData);
 
             // Converting Image byte array into Base64 String
-            String imageDataString = encodeImage(imageData);
+            imageDataString = encodeImage(imageData);
 
-            //Ecrit l'encodage dans un fichier text
-            try(PrintWriter out = new PrintWriter( "/home/stage01/Images/test_1.txt" )){
-                out.println( imageDataString );
-            }
+            imageInFile.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return imageDataString;
+    }
 
+    public static String base64ToImage(String fileLocation, String photoName, String base64ImageString){
+        try {
             // Converting a Base64 String into Image byte array
-            byte[] imageByteArray = decodeImage(imageDataString);
+            byte[] imageByteArray = decodeImage(base64ImageString);
 
             // Write a image byte array into file system
-            FileOutputStream imageOutFile = new FileOutputStream("/home/stage01/Images/test_1.png");
+            FileOutputStream imageOutFile = new FileOutputStream(fileLocation+"/"+photoName);
 
             imageOutFile.write(imageByteArray);
 
-            imageInFile.close();
             imageOutFile.close();
-
-            System.out.println("Image Successfully Manipulated!");
         } catch (FileNotFoundException e) {
-            System.out.println("Image not found" + e);
-        } catch (IOException ioe) {
-            System.out.println("Exception while reading the Image " + ioe);
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
+        return fileLocation+"/"+photoName;
     }
 
     public static String encodeImage(byte[] imageByteArray) {
@@ -48,4 +53,12 @@ public class ImageConverter {
     public static byte[] decodeImage(String imageDataString) {
         return Base64.decodeBase64(imageDataString);
     }
+
+    //Code à inclure dans le main pour  tester
+    /*String sourceFolder = "C:\\source";
+        String destinationFolder = "C:\\destination";
+        String imageName = "\\villard-0070-n1-1.jpg";
+
+        String base64 = ImageConverter.imageToBase64(sourceFolder+imageName);
+        String finalName = ImageConverter.base64ToImage(destinationFolder, imageName, base64);*/
 }
