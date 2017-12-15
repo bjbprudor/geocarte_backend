@@ -57,7 +57,7 @@ public class ImageConverter {
     //TODO: à revoir, ne fonctionne pas correctement
     public static boolean isExistingFile(String fileLocation){
         File file = new File(fileLocation);
-        return file != null;
+        return file.exists();
     }
 
     //Code à inclure dans le main pour  tester

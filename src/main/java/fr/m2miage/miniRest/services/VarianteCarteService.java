@@ -1,5 +1,6 @@
 package fr.m2miage.miniRest.services;
 
+import fr.m2miage.miniRest.decorater.VarianteCarteDeco;
 import fr.m2miage.miniRest.model.CarteUtilisateur;
 import fr.m2miage.miniRest.model.Monument;
 import fr.m2miage.miniRest.model.VarianteCarte;
@@ -18,6 +19,7 @@ public class VarianteCarteService
 
     public static final Logger log = Logger.getLogger(VarianteCarteService.class);
 
+    static final String serverPhotoFolderLocation = "C:\\source\\mtil\\";
 
     @Autowired
     private VarianteCarteRepository repo;
@@ -25,12 +27,13 @@ public class VarianteCarteService
     @Autowired
     private CartePostaleRepository carteRepo;
 
-    public List<VarianteCarte> getVariantesByCommuneName(String nom)
+    public List<VarianteCarteDeco> getVariantesByCommuneName(String nom)
     {
-        List<VarianteCarte> result = null;
+        List<VarianteCarteDeco> result = new ArrayList<>();
         try
         {
-            result = repo.findAllByCommuneName(nom);
+            List<VarianteCarte> trans = repo.findAllByCommuneName(nom);
+            result = this.getVarianteDecoList(trans);
         }
         catch (Exception ex)
         {
@@ -39,12 +42,13 @@ public class VarianteCarteService
         return result;
     }
 
-    public List<VarianteCarte> getVariantesByLegende(String nom)
+    public List<VarianteCarteDeco> getVariantesByLegende(String nom)
     {
-        List<VarianteCarte> result = null;
+        List<VarianteCarteDeco> result = new ArrayList<>();
         try
         {
-            result = repo.findAllByLegende(nom);
+            List<VarianteCarte> trans = repo.findAllByLegende(nom);
+            result = this.getVarianteDecoList(trans);
         }
         catch (Exception ex)
         {
@@ -53,12 +57,13 @@ public class VarianteCarteService
         return result;
     }
 
-    public List<VarianteCarte> getVariantesByEditeurName(String nom)
+    public List<VarianteCarteDeco> getVariantesByEditeurName(String nom)
     {
-        List<VarianteCarte> result = null;
+        List<VarianteCarteDeco> result = new ArrayList<>();
         try
         {
-            result = repo.findAllByEditeurName(nom);
+            List<VarianteCarte> trans = repo.findAllByEditeurName(nom);
+            result = this.getVarianteDecoList(trans);
         }
         catch (Exception ex)
         {
@@ -67,12 +72,13 @@ public class VarianteCarteService
         return result;
     }
 
-    public List<VarianteCarte> getVariantesByUsername(Integer id)
+    public List<VarianteCarteDeco> getVariantesByUsername(Integer id)
     {
-        List<VarianteCarte> result = null;
+        List<VarianteCarteDeco> result = new ArrayList<>();
         try
         {
-            result = repo.findAllByUsername(id);
+            List<VarianteCarte> trans = repo.findAllByUsername(id);
+            result = this.getVarianteDecoList(trans);
         }
         catch (Exception ex)
         {
@@ -82,12 +88,13 @@ public class VarianteCarteService
         return result;
     }
 
-    public List<VarianteCarte> getVariantesByTypeMonument(String nom)
+    public List<VarianteCarteDeco> getVariantesByTypeMonument(String nom)
     {
-        List<VarianteCarte> result = null;
+        List<VarianteCarteDeco> result = new ArrayList<>();
         try
         {
-            result = repo.findAllByTypeMonument(nom);
+            List<VarianteCarte> trans = repo.findAllByTypeMonument(nom);
+            result = this.getVarianteDecoList(trans);
         }
         catch (Exception ex)
         {
@@ -123,6 +130,23 @@ public class VarianteCarteService
 
         }
         return result;
+    }
+
+    private List<VarianteCarteDeco> getVarianteDecoList(List<VarianteCarte> varianteCartes){
+        List<VarianteCarteDeco> rtn = new ArrayList<>();
+        for(VarianteCarte varCarte : varianteCartes){
+            VarianteCarteDeco varCarteDeco = new VarianteCarteDeco();
+            varCarteDeco.setVarianteCarte(varCarte);
+            if(varCarte.getFace() != null){
+                String fileName = serverPhotoFolderLocation+varCarte.getFace();
+                if(ImageConverter.isExistingFile(fileName)){
+                    String base64 = ImageConverter.imageToBase64(fileName);
+                    varCarteDeco.setBase64Photo(base64);
+                }
+            }
+            rtn.add(varCarteDeco);
+        }
+        return rtn;
     }
 
 }
