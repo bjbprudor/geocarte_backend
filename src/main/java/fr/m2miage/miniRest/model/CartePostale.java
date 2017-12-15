@@ -27,6 +27,12 @@ public class CartePostale implements Serializable
 	@ManyToOne
     private Commune commune;
 
+    @Column
+    private Float longitude;
+    
+    @Column
+    private Float latitude;
+
     @JsonIgnore
 	@OneToMany(mappedBy = "id.cartePostale")
     private List<VarianteCarte> variantes;
