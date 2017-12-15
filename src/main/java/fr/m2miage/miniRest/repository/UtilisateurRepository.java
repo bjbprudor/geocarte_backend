@@ -9,4 +9,7 @@ public interface UtilisateurRepository extends JpaRepository<Utilisateur, Intege
 {
     @Query("select u from Utilisateur u where (u.email = ?1 OR  u.nom = ?1) AND u.motdepasse = ?2")
     Utilisateur getUserByLoginAndPwd(String login, String pwd);
+
+    Utilisateur getUtilisateurByEmail(String email);
+
 }

@@ -11,6 +11,11 @@ public class UtilisateurService
     @Autowired
     private UtilisateurRepository repo;
 
+    public Utilisateur getUserByEmail(String email)
+    {
+        return repo.getUtilisateurByEmail(email);
+    }
+
     public Utilisateur getUserByLoginAndPwd(String login, String password){
         return repo.getUserByLoginAndPwd(login, password);
     }
