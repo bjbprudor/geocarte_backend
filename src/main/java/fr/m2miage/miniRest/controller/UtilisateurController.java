@@ -100,16 +100,16 @@ public class UtilisateurController
 
     // ------------------- Update a Utilisateur ------------------------------------------------
     @CrossOrigin(origins = "http://localhost:4200")
-    @RequestMapping(value = "/utilisateur/{email}", method = RequestMethod.PUT)
-    public ResponseEntity<?> updateUtilisateur(@PathVariable("email") String email, @RequestBody Utilisateur target)
+    @RequestMapping(value = "/utilisateur/{id}", method = RequestMethod.PUT)
+    public ResponseEntity<?> updateUtilisateur(@PathVariable("id") Integer id, @RequestBody Utilisateur target)
     {
-        String msg = String.format("Updating Utilisateur with id {email}",email);
+        String msg = String.format("Updating Utilisateur with id {%s}",id);
         log.info(msg);
-        Utilisateur current = utilisateurService.getUserByEmail(email);
-        //Utilisateur current = repo.findOne(email);
+        //Utilisateur current = utilisateurService.getUserByEmail(id);
+        Utilisateur current = repo.findOne(id);
         if (current == null)
         {
-            msg = String.format("Unable to update. Utilisateur with id {%s} not found.",email);
+            msg = String.format("Unable to update. Utilisateur with id {%s} not found.",id);
             log.error(msg);
             return new ResponseEntity(new CustomErrorType(msg),HttpStatus.NOT_FOUND);
         }
