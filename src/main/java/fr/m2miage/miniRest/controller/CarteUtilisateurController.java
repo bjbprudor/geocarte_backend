@@ -53,6 +53,21 @@ public class CarteUtilisateurController
         return new ResponseEntity<>(list, HttpStatus.OK);
     }
 
+    // -------------------Recupere tous les CarteUtilisateurs---------------------------------------------
+    @CrossOrigin(origins = "http://localhost:4200")
+
+    @RequestMapping(value = "/carteUtilisateur/{user_id}", method = RequestMethod.GET)
+    public ResponseEntity<List<CarteUtilisateur>> listAllCarteUtilisateur(@PathVariable("user_id") int user)
+    {
+        List<CarteUtilisateur> list = repo.findAllById_Utilisateur_Id(user);
+        if (list.isEmpty())
+        {
+            return new ResponseEntity(HttpStatus.NO_CONTENT);
+            // You many decide to return HttpStatus.NOT_FOUND
+        }
+        return new ResponseEntity<>(list, HttpStatus.OK);
+    }
+
     // -------------------Recupere un CarteUtilisateur------------------------------------------
     @CrossOrigin(origins = "http://localhost:4200")
 
