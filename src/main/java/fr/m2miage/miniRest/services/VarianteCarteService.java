@@ -17,7 +17,7 @@ public class VarianteCarteService
 
     public static final Logger log = Logger.getLogger(VarianteCarteService.class);
 
-    static final String serverPhotoFolderLocation = "C:\\source\\mtil\\";
+    static final String serverPhotoFolderLocation = "src/img/mtil/";
 
     @Autowired
     private VarianteCarteRepository repo;
