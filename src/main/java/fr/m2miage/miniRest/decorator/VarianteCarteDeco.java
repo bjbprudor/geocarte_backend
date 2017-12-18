@@ -1,4 +1,4 @@
-package fr.m2miage.miniRest.decorater;
+package fr.m2miage.miniRest.decorator;
 
 import fr.m2miage.miniRest.model.VarianteCarte;
 

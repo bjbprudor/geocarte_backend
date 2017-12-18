@@ -20,6 +20,8 @@ public class AncienNom implements Serializable
     @Column(nullable = false)
     private String nom;
 
+    //region Getter et Setters
+
     public AncienNomId getId() {
         return id;
     }
@@ -44,11 +46,12 @@ public class AncienNom implements Serializable
         this.nom = nom;
     }
 
+    //endregion
+
     public AncienNom() {
     }
 
-    public AncienNom(AncienNomId id, String article, String nom)
-    {
+    public AncienNom(AncienNomId id, String article, String nom) {
         this.id = id;
         this.article = article;
         this.nom = nom;

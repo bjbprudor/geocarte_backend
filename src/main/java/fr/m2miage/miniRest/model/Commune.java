@@ -1,7 +1,6 @@
 package fr.m2miage.miniRest.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
@@ -32,6 +31,8 @@ public class Commune implements Serializable
     @ManyToOne
     private Commune fusion;
 
+    //region accès au liste d'objets liés
+
     @OneToMany(mappedBy = "fusion")
     private List<Commune> ancienneCommunes;
 
@@ -50,6 +51,50 @@ public class Commune implements Serializable
     @JsonIgnore
     @OneToMany(mappedBy = "commune")
     private List<CartePostale> cartePostales;
+
+    public List<Commune> getAncienneCommunes() {
+        return ancienneCommunes;
+    }
+
+    public void setAncienneCommunes(List<Commune> ancienneCommunes) {
+        this.ancienneCommunes = ancienneCommunes;
+    }
+
+    public List<AncienNom> getAncienNoms() {
+        return ancienNoms;
+    }
+
+    public void setAncienNoms(List<AncienNom> ancienNoms) {
+        this.ancienNoms = ancienNoms;
+    }
+
+    public List<Editeur> getEditeurs() {
+        return editeurs;
+    }
+
+    public void setEditeurs(List<Editeur> editeurs) {
+        this.editeurs = editeurs;
+    }
+
+    public List<Monument> getMonuments() {
+        return monuments;
+    }
+
+    public void setMonuments(List<Monument> monuments) {
+        this.monuments = monuments;
+    }
+
+    public List<CartePostale> getCartePostales() {
+        return cartePostales;
+    }
+
+    public void setCartePostales(List<CartePostale> cartePostales) {
+        this.cartePostales = cartePostales;
+    }
+
+//endregion
+
+    //region Getters et Setters
 
     public String getInsee() {
         return insee;
@@ -107,45 +152,7 @@ public class Commune implements Serializable
         this.fusion = fusion;
     }
 
-    public List<Commune> getAncienneCommunes() {
-        return ancienneCommunes;
-    }
-
-    public void setAncienneCommunes(List<Commune> ancienneCommunes) {
-        this.ancienneCommunes = ancienneCommunes;
-    }
-
-    public List<AncienNom> getAncienNoms() {
-        return ancienNoms;
-    }
-
-    public void setAncienNoms(List<AncienNom> ancienNoms) {
-        this.ancienNoms = ancienNoms;
-    }
-
-    public List<Editeur> getEditeurs() {
-        return editeurs;
-    }
-
-    public void setEditeurs(List<Editeur> editeurs) {
-        this.editeurs = editeurs;
-    }
-
-    public List<Monument> getMonuments() {
-        return monuments;
-    }
-
-    public void setMonuments(List<Monument> monuments) {
-        this.monuments = monuments;
-    }
-
-    public List<CartePostale> getCartePostales() {
-        return cartePostales;
-    }
-
-    public void setCartePostales(List<CartePostale> cartePostales) {
-        this.cartePostales = cartePostales;
-    }
+    //endregion
 
     public Commune() {
     }

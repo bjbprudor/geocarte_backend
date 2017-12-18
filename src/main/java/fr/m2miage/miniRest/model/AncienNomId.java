@@ -9,11 +9,13 @@ import java.io.Serializable;
 public class AncienNomId implements Serializable
 {
 
-    @Column(name = "id")
+    @Column(nullable = false)
     private Integer id;
 
     @ManyToOne(optional = false)
     private Commune commune;
+
+    //region Getters et Setters
 
     public Integer getId() {
         return id;
@@ -31,11 +33,12 @@ public class AncienNomId implements Serializable
         this.commune = commune;
     }
 
+    //endregion
+
     public AncienNomId() {
     }
 
-    public AncienNomId(Integer id, Commune commune)
-    {
+    public AncienNomId(Integer id, Commune commune) {
         this.id = id;
         this.commune = commune;
     }

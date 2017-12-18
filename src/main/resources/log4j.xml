@@ -1,4 +1,4 @@
-?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
 <log4j:configuration debug="false" xmlns:log4j="http://jakarta.apache.org/log4j/">
 
@@ -14,7 +14,7 @@
 	   <param name="maxBackupIndex" value="5" />
 	   <!-- For Tomcat -->
 	   <!-- <param name="file" value="C:\\Users\\zc\\Documents\\workspace\\Java\\apache-tomcat-8.5.14\\logs\\logWebService.log" />  -->
-	   <param name="file" value="${catalina.base}/logs/miniRest.log" />
+	   <param name="file" value="${catalina.base}/logs/geocarte.log" />
 	   <layout class="org.apache.log4j.PatternLayout">
 		<param name="ConversionPattern"
 			value="%d{yyyy-MM-dd HH:mm:ss} %-5p %c{1}:%L - %m%n" />

@@ -17,6 +17,8 @@ public class CarteUtilisateur implements Serializable
     @Column(nullable = false)
     private Integer nombreExemplaires;
 
+    //region Getters et Setters
+
     public CarteUtilisateurId getId() {
         return id;
     }
@@ -32,6 +34,8 @@ public class CarteUtilisateur implements Serializable
     public void setNombreExemplaires(Integer nombreExemplaires) {
         this.nombreExemplaires = nombreExemplaires;
     }
+
+    //endregion
 
     public CarteUtilisateur() {
     }

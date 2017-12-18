@@ -1,6 +1,6 @@
 package fr.m2miage.miniRest.controller;
 
-import fr.m2miage.miniRest.decorater.VarianteCarteDeco;
+import fr.m2miage.miniRest.decorator.VarianteCarteDeco;
 import fr.m2miage.miniRest.model.CartePostale;
 import fr.m2miage.miniRest.model.VarianteCarte;
 import fr.m2miage.miniRest.model.VarianteCarteId;
@@ -33,7 +33,11 @@ public class VarianteCarteController
     @Autowired
     private CartePostaleRepository carteRepo;
 
-    // -------------------Recupere tous les VarianteCartes---------------------------------------------
+    //region Methodes GET
+
+    /**
+     * Recupere toutes les variantes de la base
+     */
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "/varianteCarte/", method = RequestMethod.GET)
     public ResponseEntity<List<VarianteCarte>> listAllVarianteCarte()
@@ -42,71 +46,33 @@ public class VarianteCarteController
         if (list.isEmpty())
         {
             return new ResponseEntity(HttpStatus.NO_CONTENT);
-            // You many decide to return HttpStatus.NOT_FOUND
         }
         return new ResponseEntity<>(list, HttpStatus.OK);
     }
 
-    // -------------------Recupere tous les VarianteCartes en fonction du nom de Commune---------------------------------------------
+    /**
+     * Recupere toutes les variantes de carte correspondant a ces parametres
+     * @return
+     */
     @CrossOrigin(origins = "http://localhost:4200")
-    @RequestMapping(value = "/varianteCarte/", params = "communeName", method = RequestMethod.GET)
-    public ResponseEntity<List<VarianteCarteDeco>> getVcByCommuneName(@RequestParam(value = "communeName") String communeName)
-    {
-        List<VarianteCarteDeco> list = varianteCarteService.getVariantesByCommuneName(communeName);
+    @RequestMapping(value = "/varianteCarte/", params = { "typemonument", "editeur","commune","legende" }, method = RequestMethod.GET)
+    public ResponseEntity<List<VarianteCarteDeco>> getVcByCommuneName(@RequestParam(value = "typemonument") Integer typeMonument,
+                                                                      @RequestParam(value = "editeur") Integer editeur,
+                                                                      @RequestParam(value = "commune") String insee,
+                                                                      @RequestParam(value = "legende") String legende) {
+        List<VarianteCarteDeco> list = varianteCarteService.getVariantesByFiltre(typeMonument,editeur,insee,legende);
         if (list.isEmpty())
         {
             return new ResponseEntity(HttpStatus.NO_CONTENT);
-            // You many decide to return HttpStatus.NOT_FOUND
         }
         return new ResponseEntity<>(list, HttpStatus.OK);
     }
 
-    // -------------------Recupere tous les CartePostales en fonction du type de monument ---------------------------------------------
-    @CrossOrigin(origins = "http://localhost:4200")
-    @RequestMapping(value = "/varianteCarte/",params = "monumentType",  method = RequestMethod.GET)
-    public ResponseEntity<List<VarianteCarteDeco>> getVcByMonumentType(@RequestParam(value = "monumentType") String monumentType)
-    {
-        List<VarianteCarteDeco> list = varianteCarteService.getVariantesByTypeMonument(monumentType);
-        if (list.isEmpty())
-        {
-            return new ResponseEntity(HttpStatus.NO_CONTENT);
-            // You many decide to return HttpStatus.NOT_FOUND
-        }
-        return new ResponseEntity<>(list, HttpStatus.OK);
-    }
 
-    // -------------------Recupere tous les CartePostales en fonction du nom d'un éditeur ---------------------------------------------
+    // -------------------Recupere toutes les variantes dont l'utilisateur possede ---------------------------------------------
     @CrossOrigin(origins = "http://localhost:4200")
-    @RequestMapping(value = "/varianteCarte/", params = "editeurName", method = RequestMethod.GET)
-    public ResponseEntity<List<VarianteCarteDeco>> getVcByEditeurName(@RequestParam(value = "editeurName") String editeurName)
-    {
-        List<VarianteCarteDeco> list = varianteCarteService.getVariantesByEditeurName(editeurName);
-        if (list.isEmpty())
-        {
-            return new ResponseEntity(HttpStatus.NO_CONTENT);
-            // You many decide to return HttpStatus.NOT_FOUND
-        }
-        return new ResponseEntity<>(list, HttpStatus.OK);
-    }
-
-    // -------------------Recupere toutes les variantes dont la légende commence par le paramètre ---------------------------------------------
-    @CrossOrigin(origins = "http://localhost:4200")
-    @RequestMapping(value = "/varianteCarte/", params = "legende", method= RequestMethod.GET)
-    public ResponseEntity<List<VarianteCarteDeco>> getAllVarianteCarteStartingByParam(@RequestParam(value = "legende") String legende)
-    {
-        List<VarianteCarteDeco> list = varianteCarteService.getVariantesByLegende(legende);
-        if (list.isEmpty())
-        {
-            return new ResponseEntity(HttpStatus.NO_CONTENT);
-            // You many decide to return HttpStatus.NOT_FOUND
-        }
-        return new ResponseEntity<>(list, HttpStatus.OK);
-    }
-
-    // -------------------Recupere toutes les variantes dont la légende commence par le paramètre ---------------------------------------------
-    @CrossOrigin(origins = "http://localhost:4200")
-    @RequestMapping(value = "/varianteCarte/", params = "login", method= RequestMethod.GET)
-    public ResponseEntity<List<VarianteCarteDeco>> getAllVcByUsername(@RequestParam(value = "login") Integer login)
+    @RequestMapping(value = "/varianteCarte/", params = "user_id", method= RequestMethod.GET)
+    public ResponseEntity<List<VarianteCarteDeco>> getAllVcByUsername(@RequestParam(value = "user_id") Integer login)
     {
         List<VarianteCarteDeco> list = varianteCarteService.getVariantesByUsername(login);
         if (list.isEmpty())
@@ -144,10 +110,10 @@ public class VarianteCarteController
         }
         return new ResponseEntity<>(list, HttpStatus.OK);
     }
+    //endregion
 
     // -------------------Recupere un VarianteCarte------------------------------------------
     @CrossOrigin(origins = "http://localhost:4200")
-
     @RequestMapping(value = "/varianteCarte/{carte}/{variante}", method = RequestMethod.GET)
     public ResponseEntity<?> getVarianteCarte(@PathVariable("carte") int carte, @PathVariable("variante") int variante)
     {
@@ -217,7 +183,6 @@ public class VarianteCarteController
 
     // ------------------- Delete a VarianteCarte-----------------------------------------
     @CrossOrigin(origins = "http://localhost:4200")
-
     @RequestMapping(value = "/varianteCarte/{carte}/{variante}", method = RequestMethod.DELETE)
     public ResponseEntity<?> deleteVarianteCarte(@PathVariable("carte") int carte, @PathVariable("variante") int variante)
     {
@@ -240,7 +205,6 @@ public class VarianteCarteController
 
     // ------------------- Delete All VarianteCarte-----------------------------
     @CrossOrigin(origins = "http://localhost:4200")
-
     @RequestMapping(value = "/varianteCarte/", method = RequestMethod.DELETE)
     public ResponseEntity<VarianteCarte> deleteAllVarianteCarte()
     {

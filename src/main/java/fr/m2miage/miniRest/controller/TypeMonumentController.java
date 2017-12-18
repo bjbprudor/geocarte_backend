@@ -29,7 +29,6 @@ public class TypeMonumentController
 
     // -------------------Recupere tous les typeMonuments---------------------------------------------
     @CrossOrigin(origins = "http://localhost:4200")
-
     @RequestMapping(value = "/typeMonument/", method = RequestMethod.GET)
     public ResponseEntity<List<TypeMonument>> listAllTypeMonument()
     {
@@ -42,9 +41,36 @@ public class TypeMonumentController
         return new ResponseEntity<>(list, HttpStatus.OK);
     }
 
+    // -------------------Recupere tous les typeMonuments utilisés---------------------------------------------
+    @CrossOrigin(origins = "http://localhost:4200")
+    @RequestMapping(value = "/typeMonumentUtilises/", method = RequestMethod.GET)
+    public ResponseEntity<List<TypeMonument>> listAllUsedTypeMonument()
+    {
+        List<TypeMonument> list = repo.findAllUsedTypeMonument();
+        if (list.isEmpty())
+        {
+            return new ResponseEntity(HttpStatus.NO_CONTENT);
+            // You many decide to return HttpStatus.NOT_FOUND
+        }
+        return new ResponseEntity<>(list, HttpStatus.OK);
+    }
+
+    // -------------------Recupere tous les typeMonuments utilises---------------------------------------------
+    @CrossOrigin(origins = "http://localhost:4200")
+    @RequestMapping(value = "/typeMonumentUtilises/", params = "nom",method = RequestMethod.GET)
+    public ResponseEntity<List<TypeMonument>> listAllUsedTypeMonument(@RequestParam(value = "nom") String nom)
+    {
+        List<TypeMonument> list = repo.findAllUsedTypeMonumentByName(nom);
+        if (list.isEmpty())
+        {
+            return new ResponseEntity(HttpStatus.NO_CONTENT);
+            // You many decide to return HttpStatus.NOT_FOUND
+        }
+        return new ResponseEntity<>(list, HttpStatus.OK);
+    }
+
     // -------------------Recupere un TypeMonument------------------------------------------
     @CrossOrigin(origins = "http://localhost:4200")
-
     @RequestMapping(value = "/typeMonument/{id}", method = RequestMethod.GET)
     public ResponseEntity<?> getTypeMonument(@PathVariable("id") int id)
     {

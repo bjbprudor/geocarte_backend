@@ -15,6 +15,8 @@ public class TypeMonument implements Serializable
     @Column(nullable = false)
     private String libelle;
 
+    //region Getters et Setters
+
     public Integer getId() {
         return id;
     }
@@ -30,6 +32,8 @@ public class TypeMonument implements Serializable
     public void setLibelle(String libelle) {
         this.libelle = libelle;
     }
+
+    //endregion
 
     public TypeMonument() {
     }

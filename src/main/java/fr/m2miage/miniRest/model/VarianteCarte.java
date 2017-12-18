@@ -1,14 +1,14 @@
 package fr.m2miage.miniRest.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
 
 @Entity
 @Table(name = "varianteCarte")
-public class VarianteCarte implements Serializable {
+public class VarianteCarte implements Serializable
+{
 
     @EmbeddedId
     private VarianteCarteId id;
@@ -19,15 +19,17 @@ public class VarianteCarte implements Serializable {
     @Column
     private String legende2;
 
-    @Column(nullable = false)
+    @Column
     private String face;
 
-    @Column(nullable = false)
+    @Column
     private String dos;
 
     @JsonIgnore
     @OneToMany(mappedBy = "id.varianteCarte")
     private List<CarteUtilisateur> carteUtilisateurs;
+
+    //region Getters et Setters
 
     public VarianteCarteId getId() {
         return id;
@@ -77,11 +79,12 @@ public class VarianteCarte implements Serializable {
         this.carteUtilisateurs = carteUtilisateurs;
     }
 
+    //endregion
+
     public VarianteCarte() {
     }
 
-    public VarianteCarte(VarianteCarteId id, String legende, String face, String dos)
-    {
+    public VarianteCarte(VarianteCarteId id, String legende, String face, String dos) {
         this.id = id;
         this.legende = legende;
         this.face = face;

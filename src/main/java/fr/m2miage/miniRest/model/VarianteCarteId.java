@@ -9,11 +9,13 @@ import java.io.Serializable;
 public class VarianteCarteId implements Serializable
 {
 
-    @Column(name = "id")
+    @Column(nullable = false)
     private Integer id;
 
     @ManyToOne(optional = false)
     private CartePostale cartePostale;
+
+    //region Getters et Setters
 
     public Integer getId() {
         return id;
@@ -31,11 +33,12 @@ public class VarianteCarteId implements Serializable
         this.cartePostale = cartePostale;
     }
 
+    //endregion
+
     public VarianteCarteId() {
     }
 
-    public VarianteCarteId(Integer id, CartePostale cartePostale)
-    {
+    public VarianteCarteId(Integer id, CartePostale cartePostale) {
         this.id = id;
         this.cartePostale = cartePostale;
     }

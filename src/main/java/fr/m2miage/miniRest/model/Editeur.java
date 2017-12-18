@@ -1,7 +1,6 @@
 package fr.m2miage.miniRest.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
@@ -31,6 +30,8 @@ public class Editeur implements Serializable
     @JsonIgnore
 	@OneToMany(mappedBy = "editeur")
     private List<CartePostale> cartePostales;
+
+    //region Getters et Setters
 
     public Integer getId() {
         return id;
@@ -71,6 +72,8 @@ public class Editeur implements Serializable
     public void setCartePostales(List<CartePostale> cartePostales) {
         this.cartePostales = cartePostales;
     }
+
+    //endregion
 
     public Editeur() {
     }

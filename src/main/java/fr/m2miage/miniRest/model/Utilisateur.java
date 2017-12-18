@@ -1,7 +1,6 @@
 package fr.m2miage.miniRest.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
@@ -27,6 +26,8 @@ public class Utilisateur implements Serializable
     @JsonIgnore
 	@OneToMany(mappedBy = "id.utilisateur")
     private List<CarteUtilisateur> carteUtilisateurs;
+
+    //region Getters et Setters
 
     public Integer getId() {
         return id;
@@ -67,6 +68,8 @@ public class Utilisateur implements Serializable
     public void setCarteUtilisateurs(List<CarteUtilisateur> carteUtilisateurs) {
         this.carteUtilisateurs = carteUtilisateurs;
     }
+
+    //endregion
 
     public Utilisateur() {
     }

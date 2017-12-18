@@ -42,6 +42,32 @@ public class CommuneController
         return new ResponseEntity<>(list, HttpStatus.OK);
     }
 
+    // -------------------Recupere tous les Communes utilisés dans les cartes---------------------------------------------
+    @CrossOrigin(origins = "http://localhost:4200")
+    @RequestMapping(value = "/communeUtilisees/", method = RequestMethod.GET)
+    public ResponseEntity<List<Commune>> listAllUsedCommunes()
+    {
+        List<Commune> list = repo.findAllUsedCommunes();
+        if (list.isEmpty())
+        {
+            return new ResponseEntity(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(list, HttpStatus.OK);
+    }
+
+    // -------------------Recupere tous les Communes utilisés dans les cartes par leur nom---------------------------------------------
+    @CrossOrigin(origins = "http://localhost:4200")
+    @RequestMapping(value = "/communeUtilisees/", params = "nom",method = RequestMethod.GET)
+    public ResponseEntity<List<Commune>> listAllUsedCommunes(@RequestParam(value = "nom") String nom)
+    {
+        List<Commune> list = repo.findAllUsedCommuneByName(nom);
+        if (list.isEmpty())
+        {
+            return new ResponseEntity(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(list, HttpStatus.OK);
+    }
+
     // -------------------Recupere un Commune------------------------------------------
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "/commune/{id}", method = RequestMethod.GET)

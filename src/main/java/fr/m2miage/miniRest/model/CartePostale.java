@@ -1,7 +1,6 @@
 package fr.m2miage.miniRest.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
@@ -21,24 +20,30 @@ public class CartePostale implements Serializable
 	@ManyToOne(optional = false)
     private Editeur editeur;
 
-    @ManyToMany(mappedBy = "cartePostales")
-    private List<Monument> monuments;
-
-	@ManyToOne
+    @ManyToOne
     private Commune commune;
 
     @Column
     private Float longitude;
-    
+
     @Column
     private Float latitude;
+
+    @ManyToMany(mappedBy = "cartePostales")
+    private List<Monument> monuments;
 
     @JsonIgnore
 	@OneToMany(mappedBy = "id.cartePostale")
     private List<VarianteCarte> variantes;
 
+    //region Getters et Setters
+
     public Integer getId() {
         return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public Integer getCodeEditeur() {
@@ -57,6 +62,30 @@ public class CartePostale implements Serializable
         this.editeur = editeur;
     }
 
+    public Commune getCommune() {
+        return commune;
+    }
+
+    public void setCommune(Commune commune) {
+        this.commune = commune;
+    }
+
+    public Float getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(Float longitude) {
+        this.longitude = longitude;
+    }
+
+    public Float getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(Float latitude) {
+        this.latitude = latitude;
+    }
+
     public List<Monument> getMonuments() {
         return monuments;
     }
@@ -65,13 +94,15 @@ public class CartePostale implements Serializable
         this.monuments = monuments;
     }
 
-    public Commune getCommune() {
-        return commune;
+    public List<VarianteCarte> getVariantes() {
+        return variantes;
     }
 
-    public void setCommune(Commune commune) {
-        this.commune = commune;
+    public void setVariantes(List<VarianteCarte> variantes) {
+        this.variantes = variantes;
     }
+
+    //endregion
 
     public CartePostale() {
     }

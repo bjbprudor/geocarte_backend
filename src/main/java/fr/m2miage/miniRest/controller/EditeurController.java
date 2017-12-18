@@ -29,11 +29,38 @@ public class EditeurController
 
     // -------------------Recupere tous les Editeurs---------------------------------------------
     @CrossOrigin(origins = "http://localhost:4200")
-
     @RequestMapping(value = "/editeur/", method = RequestMethod.GET)
     public ResponseEntity<List<Editeur>> listAllEditeur()
     {
         List<Editeur> list = repo.findAll();
+        if (list.isEmpty())
+        {
+            return new ResponseEntity(HttpStatus.NO_CONTENT);
+            // You many decide to return HttpStatus.NOT_FOUND
+        }
+        return new ResponseEntity<>(list, HttpStatus.OK);
+    }
+
+    // -------------------Recupere tous les Editeurs---------------------------------------------
+    @CrossOrigin(origins = "http://localhost:4200")
+    @RequestMapping(value = "/editeurUtilises/", method = RequestMethod.GET)
+    public ResponseEntity<List<Editeur>> listAllUsedEditeur()
+    {
+        List<Editeur> list = repo.findAllUsedEditeurs();
+        if (list.isEmpty())
+        {
+            return new ResponseEntity(HttpStatus.NO_CONTENT);
+            // You many decide to return HttpStatus.NOT_FOUND
+        }
+        return new ResponseEntity<>(list, HttpStatus.OK);
+    }
+
+    // -------------------Recupere tous les Editeurs---------------------------------------------
+    @CrossOrigin(origins = "http://localhost:4200")
+    @RequestMapping(value = "/editeurUtilises/", params = "nom",method = RequestMethod.GET)
+    public ResponseEntity<List<Editeur>> listAllUsedEditeur(@RequestParam(value = "nom") String nom)
+    {
+        List<Editeur> list = repo.findAllUsedEditeursByName(nom);
         if (list.isEmpty())
         {
             return new ResponseEntity(HttpStatus.NO_CONTENT);

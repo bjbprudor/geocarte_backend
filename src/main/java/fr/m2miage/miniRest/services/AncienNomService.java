@@ -8,6 +8,7 @@ import fr.m2miage.miniRest.repository.AncienNomRepository;
 import fr.m2miage.miniRest.repository.CommuneRepository;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -30,6 +31,20 @@ public class AncienNomService
         try
         {
             lst = repo.findAll();
+        }
+        catch (Exception ex)
+        {
+
+        }
+        return lst;
+    }
+
+    public List<AncienNom> getAllFromInsee(String insee)
+    {
+        List<AncienNom> lst = null;
+        try
+        {
+            lst = repo.findAllByIdCommuneInsee(insee);
         }
         catch (Exception ex)
         {
@@ -70,26 +85,39 @@ public class AncienNomService
 
     public void create(AncienNom obj)
     {
-        if(obj.getId().getId() == 0)
+        AncienNomId id = obj.getId();
+        if(id.getId() == 0)
         {
-
+            int last = repo.findLastId(id.getCommune());
+            id.setId(last+1);
+            obj.setId(id);
         }
         repo.save(obj);
     }
 
-    public void update()
+    public void update(AncienNom obj)
     {
-
+        repo.save(obj);
     }
 
-    public void delete()
-    {
-
+    public void delete() {
+        repo.deleteAll();
     }
 
-    public void delete(Integer id, String insee)
-    {
+    public boolean delete(Integer id, String insee) {
 
+        try
+        {
+            Commune commune = communeRepo.getOne(insee);
+            if(commune == null) { return false; }
+            AncienNomId aid = new AncienNomId(id,commune);
+            repo.delete(aid);
+        }
+        catch (Exception ex)
+        {
+            return false;
+        }
+        return true;
     }
 
 }

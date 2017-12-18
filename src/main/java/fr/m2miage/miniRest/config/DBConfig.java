@@ -20,6 +20,7 @@ import java.util.HashMap;
 @EnableJpaRepositories(basePackages = "fr.m2miage.miniRest.repository",entityManagerFactoryRef = "getEntityManager", transactionManagerRef = "getTransactionManager")
 public class DBConfig
 {
+
     @Autowired
     private Environment env;
  

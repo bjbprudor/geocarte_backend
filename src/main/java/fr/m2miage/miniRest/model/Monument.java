@@ -1,7 +1,6 @@
 package fr.m2miage.miniRest.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
@@ -15,26 +14,26 @@ public class Monument implements Serializable
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 
+    @ManyToOne
+    private TypeMonument type;
+
 	@Column(nullable = false)
 	private String nom;
 
-	@Column(nullable = false)
-	private Integer anneeConstruction;
-
 	@Column
-	private String divers;
-
-	@Column(nullable = false)
-    private Float longitude;
-
-	@Column(nullable = false)
-    private Float latitude;
+	private Integer anneeConstruction;
 
 	@ManyToOne
     private Commune commune;
 
-	@ManyToOne
-    private TypeMonument type;
+    @Column
+    private Float longitude;
+
+    @Column
+    private Float latitude;
+
+    @Column
+    private String divers;
 
     @JsonIgnore
 	@ManyToMany
@@ -44,12 +43,22 @@ public class Monument implements Serializable
             inverseJoinColumns=@JoinColumn(name="cartePostale", referencedColumnName="id"))
     private List<CartePostale> cartePostales;
 
+    //region Getters et Setters
+
     public Integer getId() {
         return id;
     }
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public TypeMonument getType() {
+        return type;
+    }
+
+    public void setType(TypeMonument type) {
+        this.type = type;
     }
 
     public String getNom() {
@@ -68,12 +77,12 @@ public class Monument implements Serializable
         this.anneeConstruction = anneeConstruction;
     }
 
-    public String getDivers() {
-        return divers;
+    public Commune getCommune() {
+        return commune;
     }
 
-    public void setDivers(String divers) {
-        this.divers = divers;
+    public void setCommune(Commune commune) {
+        this.commune = commune;
     }
 
     public Float getLongitude() {
@@ -92,12 +101,12 @@ public class Monument implements Serializable
         this.latitude = latitude;
     }
 
-    public Commune getCommune() {
-        return commune;
+    public String getDivers() {
+        return divers;
     }
 
-    public void setCommune(Commune commune) {
-        this.commune = commune;
+    public void setDivers(String divers) {
+        this.divers = divers;
     }
 
     public List<CartePostale> getCartePostales() {
@@ -108,13 +117,7 @@ public class Monument implements Serializable
         this.cartePostales = cartePostales;
     }
 
-    public TypeMonument getType() {
-        return type;
-    }
-
-    public void setType(TypeMonument type) {
-        this.type = type;
-    }
+    //endregion
 
     public Monument() {
     }

@@ -1,8 +1,6 @@
 package fr.m2miage.miniRest.services;
 
-import fr.m2miage.miniRest.decorater.VarianteCarteDeco;
-import fr.m2miage.miniRest.model.CarteUtilisateur;
-import fr.m2miage.miniRest.model.Monument;
+import fr.m2miage.miniRest.decorator.VarianteCarteDeco;
 import fr.m2miage.miniRest.model.VarianteCarte;
 import fr.m2miage.miniRest.repository.CartePostaleRepository;
 import fr.m2miage.miniRest.repository.VarianteCarteRepository;
@@ -27,73 +25,12 @@ public class VarianteCarteService
     @Autowired
     private CartePostaleRepository carteRepo;
 
-    public List<VarianteCarteDeco> getVariantesByCommuneName(String nom)
-    {
-        List<VarianteCarteDeco> result = new ArrayList<>();
-        try
-        {
-            List<VarianteCarte> trans = repo.findAllByCommuneName(nom);
-            result = this.getVarianteDecoList(trans);
-        }
-        catch (Exception ex)
-        {
-
-        }
-        return result;
-    }
-
-    public List<VarianteCarteDeco> getVariantesByLegende(String nom)
-    {
-        List<VarianteCarteDeco> result = new ArrayList<>();
-        try
-        {
-            List<VarianteCarte> trans = repo.findAllByLegende(nom);
-            result = this.getVarianteDecoList(trans);
-        }
-        catch (Exception ex)
-        {
-
-        }
-        return result;
-    }
-
-    public List<VarianteCarteDeco> getVariantesByEditeurName(String nom)
-    {
-        List<VarianteCarteDeco> result = new ArrayList<>();
-        try
-        {
-            List<VarianteCarte> trans = repo.findAllByEditeurName(nom);
-            result = this.getVarianteDecoList(trans);
-        }
-        catch (Exception ex)
-        {
-
-        }
-        return result;
-    }
-
     public List<VarianteCarteDeco> getVariantesByUsername(Integer id)
     {
         List<VarianteCarteDeco> result = new ArrayList<>();
         try
         {
             List<VarianteCarte> trans = repo.findAllByUsername(id);
-            result = this.getVarianteDecoList(trans);
-        }
-        catch (Exception ex)
-        {
-            log.error(ex.getMessage());
-        }
-        log.info(result.size());
-        return result;
-    }
-
-    public List<VarianteCarteDeco> getVariantesByTypeMonument(String nom)
-    {
-        List<VarianteCarteDeco> result = new ArrayList<>();
-        try
-        {
-            List<VarianteCarte> trans = repo.findAllByTypeMonument(nom);
             result = this.getVarianteDecoList(trans);
         }
         catch (Exception ex)
@@ -132,7 +69,43 @@ public class VarianteCarteService
         return result;
     }
 
-    private List<VarianteCarteDeco> getVarianteDecoList(List<VarianteCarte> varianteCartes){
+    public List<VarianteCarteDeco> getVariantesByFiltre(Integer typeMonument, Integer editeur, String insee, String legende)
+    {
+        List<VarianteCarte> result = new ArrayList<>();
+        try
+        {
+            boolean m = typeMonument != null && typeMonument != 0;
+            boolean e = editeur != null && editeur != 0;
+            boolean c = insee != null && insee != "";
+            boolean l = legende != null && legende != "";
+
+            if (!m & !e & !c & !l) { result = repo.findAll(); }
+            if (!m & !e & !c & l) { result = repo.findAllByLegendeLike(legende); }
+            if(!m & !e & c & !l) { result = repo.findAllByIdCartePostaleCommuneInsee(insee);}
+            if(!m & !e & c & l) { result = repo.findAllByLegendeLikeAndIdCartePostaleCommuneInsee(legende,insee);}
+            if(!m & e & !c & !l) { result = repo.findAllByIdCartePostaleEditeurId(editeur);}
+            if(!m & e & !c & l) { result = repo.findAllByLegendeLikeAndIdCartePostaleEditeurId(legende,editeur);}
+            if(!m & e & c & !l) { result = repo.findAllByIdCartePostaleCommuneInseeAndAndIdCartePostaleEditeurId(insee,editeur);}
+            if(!m & e & c & l) { result = repo.findAllByLegendeLikeAndIdCartePostaleCommuneInseeAndIdCartePostaleEditeurId(legende,insee,editeur);}
+            if(m & !e & !c & !l){ result = repo.findAllByTypeMonument(typeMonument);}
+            if(m & !e & !c & l) { result = repo.findAllByTypeMonumentAndLegende(typeMonument,legende);}
+            if(m & !e & c & !l) { result = repo.findAllByTypeMonumentAndCommune(typeMonument,insee);}
+            if(m & !e & c & l) { result = repo.findAllByTypeMonumentAndCommuneAndLegende(typeMonument,insee,legende);}
+            if(m & e & !c & l) { result = repo.findAllByTypeMonumentAndEditeur(typeMonument,editeur);}
+            if(m & e & !c & l) { result = repo.findAllByTypeMonumentAndEditeurAndLegende(typeMonument,editeur,legende);}
+            if(m & e & c & !l) { result = repo.findAllByTypeMonumentAndEditeurAndCommune(typeMonument,editeur,insee);}
+            if(m & e & c & l) { result = repo.findAllByTypeMonumentAndEditeurAndCommuneAndLegende(typeMonument,editeur,insee,legende);}
+
+        }
+        catch (Exception ex)
+        {
+            log.error(ex.getMessage());
+        }
+        return getVarianteDecoList(result);
+    }
+
+    private List<VarianteCarteDeco> getVarianteDecoList(List<VarianteCarte> varianteCartes)
+    {
         List<VarianteCarteDeco> rtn = new ArrayList<>();
         for(VarianteCarte varCarte : varianteCartes){
             VarianteCarteDeco varCarteDeco = new VarianteCarteDeco();
