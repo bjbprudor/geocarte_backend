@@ -168,6 +168,28 @@ public class CartePostaleController
         return new ResponseEntity<>(current, HttpStatus.OK);
     }
 
+    // ------------------- Update coordonnees de a CartePostale ------------------------------------------------
+    @CrossOrigin(origins = "http://localhost:4200")
+    @RequestMapping(value = "/coordonneesCarte/{id}", method = RequestMethod.PUT)
+    public ResponseEntity<?> updateCoordonneesCartePostale(@PathVariable("id") int carteId, @RequestParam(value = "lat") Float lat, @RequestParam(value = "lon") Float lon)
+    {
+        String msg = String.format("Updating CartePostale with id {%s}",carteId);
+        log.info(msg);
+        CartePostale current = repo.findOne(carteId);
+        if (current == null)
+        {
+            msg = String.format("Unable to update coordonnees. CartePostale with id {%s} not found.",carteId);
+            log.error(msg);
+            return new ResponseEntity(new CustomErrorType(msg),HttpStatus.NOT_FOUND);
+        }
+        if(lat!=null && lon!=null){
+            current.setLatitude(lat);
+            current.setLongitude(lon);
+            repo.save(current);
+        }
+        return new ResponseEntity<>(current, HttpStatus.OK);
+    }
+
     // ------------------- Delete a CartePostale-----------------------------------------
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "/cartePostale/{id}", method = RequestMethod.DELETE)
