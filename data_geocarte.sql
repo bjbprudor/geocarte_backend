@@ -111,7 +111,7 @@ UNLOCK TABLES;
 
 LOCK TABLES `typemonument` WRITE;
 /*!40000 ALTER TABLE `typemonument` DISABLE KEYS */;
-INSERT INTO `typemonument` VALUES (1,'chÃ¢teau'),(2,'pont'),(3,'statut'),(4,'donjon'),(5,'manoir'),(6,'Ã©glise'),(7,'chapelle'),(8,'tour'),(9,'hÃ´tel de ville'),(10,'dolmen'),(11,'calvaire'),(12,'abbaye'),(13,'menhir'),(14,'porte'),(15,'fontaine');
+INSERT INTO `typemonument` VALUES (1,'chÃ¢teau'),(2,'pont'),(3,'statue'),(4,'donjon'),(5,'manoir'),(6,'Ã©glise'),(7,'chapelle'),(8,'tour'),(9,'hÃ´tel de ville'),(10,'dolmen'),(11,'calvaire'),(12,'abbaye'),(13,'menhir'),(14,'porte'),(15,'fontaine');
 /*!40000 ALTER TABLE `typemonument` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -121,7 +121,7 @@ UNLOCK TABLES;
 
 LOCK TABLES `utilisateur` WRITE;
 /*!40000 ALTER TABLE `utilisateur` DISABLE KEYS */;
-INSERT INTO `utilisateur` VALUES (1,'plo@gmail.com','şpjŠZ¨°òŒvº½\Z\"¤','olivier'),(2,'alexisR@gmail.com','Uw«¨\Ì^)À“$qsøx','renault'),(3,'antoineR@gmail.com','\Äô\Â_2R\ç,´`\07\è‘_j','ravet'),(4,'bjb@gmail.com','*oh*,\Ø2´ò\Ë\Ì\È\Ïú','prudor'),(5,'mf@gmail.com','\ÔlaY¨\Ô\å%¦\Ü\ÑM’U','foursov');
+INSERT INTO `utilisateur` VALUES (1,'plo@gmail.com','ï¿½pjï¿½Zï¿½ï¿½ï¿½ï¿½vï¿½ï¿½\Z\"ï¿½','olivier'),(2,'alexisR@gmail.com','Uwï¿½ï¿½\ï¿½^)ï¿½ï¿½$qsï¿½x','renault'),(3,'antoineR@gmail.com','\ï¿½ï¿½\ï¿½_2R\ï¿½,ï¿½`\07\ï¿½_j','ravet'),(4,'bjb@gmail.com','*oh*,\ï¿½2ï¿½ï¿½\ï¿½\ï¿½\ï¿½\ï¿½ï¿½','prudor'),(5,'mf@gmail.com','\ï¿½laYï¿½\ï¿½\ï¿½%ï¿½\ï¿½\ï¿½Mï¿½U','foursov');
 /*!40000 ALTER TABLE `utilisateur` ENABLE KEYS */;
 UNLOCK TABLES;
 
