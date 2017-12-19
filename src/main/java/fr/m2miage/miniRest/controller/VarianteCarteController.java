@@ -123,7 +123,7 @@ public class VarianteCarteController
         String msg = String.format("Fetching VarianteCarte with id {%s}",vid);
         log.info(msg);
 
-        VarianteCarte current = repo.findOne(vid);
+        VarianteCarteDeco current = varianteCarteService.getVarianteById(vid);
         if (current == null)
         {
             msg = String.format("VarianteCarte with id {%s} not found.",vid);

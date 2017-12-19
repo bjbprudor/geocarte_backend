@@ -1,7 +1,9 @@
 package fr.m2miage.miniRest.services;
 
 import fr.m2miage.miniRest.decorator.VarianteCarteDeco;
+import fr.m2miage.miniRest.model.CartePostale;
 import fr.m2miage.miniRest.model.VarianteCarte;
+import fr.m2miage.miniRest.model.VarianteCarteId;
 import fr.m2miage.miniRest.repository.CartePostaleRepository;
 import fr.m2miage.miniRest.repository.VarianteCarteRepository;
 import org.apache.log4j.Logger;
@@ -102,6 +104,22 @@ public class VarianteCarteService
             log.error(ex.getMessage());
         }
         return getVarianteDecoList(result);
+    }
+
+    public VarianteCarteDeco getVarianteById(VarianteCarteId varCarteId) {
+        VarianteCarte varCarte = repo.findOneByCarteIdAndVarId(varCarteId);
+
+        VarianteCarteDeco varCarteDeco = new VarianteCarteDeco();
+        varCarteDeco.setVarianteCarte(varCarte);
+        if(varCarte.getFace() != null){
+            String fileName = serverPhotoFolderLocation+varCarte.getFace();
+            if(ImageConverter.isExistingFile(fileName)){
+                String base64 = ImageConverter.imageToBase64(fileName);
+                varCarteDeco.setBase64Photo(base64);
+            }
+        }
+
+        return varCarteDeco;
     }
 
     private List<VarianteCarteDeco> getVarianteDecoList(List<VarianteCarte> varianteCartes)

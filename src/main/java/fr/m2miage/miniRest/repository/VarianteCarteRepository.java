@@ -67,4 +67,6 @@ public interface VarianteCarteRepository extends JpaRepository<VarianteCarte, Va
     @Query("select distinct(legende) from VarianteCarte vc where vc.legende like concat(?1,'%')")
     List<String> findAllLegendesBy(String legende);
 
+    @Query("select vc from VarianteCarte vc where vc.id = ?1")
+    VarianteCarte findOneByCarteIdAndVarId(VarianteCarteId varId);
 }
