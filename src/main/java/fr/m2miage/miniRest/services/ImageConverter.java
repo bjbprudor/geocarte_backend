@@ -3,6 +3,7 @@ package fr.m2miage.miniRest.services;
 import org.apache.tomcat.util.codec.binary.Base64;
 
 import java.io.*;
+import java.nio.file.Files;
 
 public class ImageConverter {
 
@@ -11,14 +12,17 @@ public class ImageConverter {
         String imageDataString = "";
         try {
             // Reading a Image file from file system
-            FileInputStream imageInFile = new FileInputStream(file);
+            /*FileInputStream imageInFile = new FileInputStream(file);
             byte imageData[] = new byte[(int) file.length()];
             imageInFile.read(imageData);
 
             // Converting Image byte array into Base64 String
-            imageDataString = encodeImage(imageData);
+            imageDataString = new String(Base64.encodeBase64(imageData), "UTF-8");
+            //imageDataString = encodeImage(imageData);
 
-            imageInFile.close();
+            imageInFile.close();*/
+
+            imageDataString = java.util.Base64.getEncoder().withoutPadding().encodeToString(Files.readAllBytes(file.toPath()));
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
