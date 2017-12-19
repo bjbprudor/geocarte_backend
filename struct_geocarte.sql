@@ -1,10 +1,10 @@
-CREATE DATABASE IF NOT EXISTS `geotest_dev` /*!40100 DEFAULT CHARACTER SET utf8 */;
-USE `geotest_dev`;
+CREATE DATABASE  IF NOT EXISTS `geocarte` /*!40100 DEFAULT CHARACTER SET utf8 */;
+USE `geocarte`;
 -- MySQL dump 10.13  Distrib 5.7.17, for Win64 (x86_64)
 --
--- Host: 127.0.0.1    Database: geotest
+-- Host: localhost    Database: geocarte
 -- ------------------------------------------------------
--- Server version	5.7.19-log
+-- Server version	5.7.20-log
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -42,18 +42,18 @@ DROP TABLE IF EXISTS `cartepostale`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `cartepostale` (
-  `id` int(20) NOT NULL auto_increment,
+  `id` int(20) NOT NULL AUTO_INCREMENT,
   `codeEditeur` int(20) DEFAULT NULL,
   `commune_insee` varchar(6) DEFAULT NULL,
   `editeur_id` int(20) NOT NULL,
-  `longitude` float DEFAULT NULL,
   `latitude` float DEFAULT NULL,
+  `longitude` float DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `cartepostale_commune` (`commune_insee`),
   KEY `cartepostale_editeur` (`editeur_id`),
   CONSTRAINT `cartepostale_commune` FOREIGN KEY (`commune_insee`) REFERENCES `commune` (`insee`) ON DELETE SET NULL ON UPDATE CASCADE,
   CONSTRAINT `cartepostale_editeur` FOREIGN KEY (`editeur_id`) REFERENCES `editeur` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=1846 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -120,11 +120,11 @@ DROP TABLE IF EXISTS `editeur`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `editeur` (
-  `id` int(20) NOT NULL auto_increment,
+  `id` int(20) NOT NULL AUTO_INCREMENT,
   `code` varchar(255) NOT NULL,
   `nom` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=47 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -145,21 +145,6 @@ CREATE TABLE `editeurcommune` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `TypeMonument`
---
-
-DROP TABLE IF EXISTS `typeMonument`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `typeMonument` (
-  `id` int(11) NOT NULL auto_increment,
-  `libelle` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
-
---
 -- Table structure for table `monument`
 --
 
@@ -167,7 +152,7 @@ DROP TABLE IF EXISTS `monument`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `monument` (
-  `id` int(11) NOT NULL auto_increment,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `anneeConstruction` int(11) DEFAULT NULL,
   `divers` varchar(255) DEFAULT NULL,
   `latitude` float DEFAULT NULL,
@@ -179,8 +164,8 @@ CREATE TABLE `monument` (
   KEY `monument_commune` (`commune_insee`),
   KEY `monument_type` (`type_id`),
   CONSTRAINT `monument_commune` FOREIGN KEY (`commune_insee`) REFERENCES `commune` (`insee`) ON DELETE SET NULL ON UPDATE CASCADE,
-  CONSTRAINT `monument_type` FOREIGN KEY (`type_id`) REFERENCES `typeMonument` (`id`) ON DELETE SET NULL ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  CONSTRAINT `monument_type` FOREIGN KEY (`type_id`) REFERENCES `typemonument` (`id`) ON DELETE SET NULL ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=207 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -201,6 +186,20 @@ CREATE TABLE `monumentcarte` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Table structure for table `typemonument`
+--
+
+DROP TABLE IF EXISTS `typemonument`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `typemonument` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `libelle` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
 -- Table structure for table `utilisateur`
 --
 
@@ -208,12 +207,12 @@ DROP TABLE IF EXISTS `utilisateur`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `utilisateur` (
-  `id` int(11) NOT NULL auto_increment,
-  `email` varchar(255) NOT NULL UNIQUE,
-  `motdepasse` varchar(255) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `email` varchar(255) NOT NULL,
+  `motdepasse` varbinary(255) NOT NULL,
   `nom` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -244,4 +243,4 @@ CREATE TABLE `variantecarte` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-11-24 14:55:22
+-- Dump completed on 2017-12-20  0:14:17
