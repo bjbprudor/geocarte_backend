@@ -2,6 +2,7 @@ package fr.m2miage.miniRest.services;
 
 import fr.m2miage.miniRest.model.Utilisateur;
 import fr.m2miage.miniRest.repository.UtilisateurRepository;
+import fr.m2miage.miniRest.util.CipherUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,8 +17,10 @@ public class UtilisateurService
         return repo.getUtilisateurByEmail(email);
     }
 
-    public Utilisateur getUserByLoginAndPwd(String login, String password){
-        return repo.getUserByLoginAndPwd(login, password);
+    public Utilisateur getUserByLoginAndPwd(String login, String password)
+    {
+        String cipheredPass = CipherUtil.encrypt(password);
+        return repo.getUserByLoginAndPwd(login, cipheredPass);
     }
 
 }
