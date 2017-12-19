@@ -171,7 +171,7 @@ public class CartePostaleController
     // ------------------- Update coordonnees de a CartePostale ------------------------------------------------
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "/coordonneesCarte/{id}", method = RequestMethod.PUT)
-    public ResponseEntity<?> updateCoordonneesCartePostale(@PathVariable("id") int carteId, @RequestParam(value = "lat") Float lat, @RequestParam(value = "lon") Float lon)
+    public ResponseEntity<?> updateCoordonneesCartePostale(@PathVariable("id") int carteId,  @RequestBody CartePostale target)
     {
         String msg = String.format("Updating CartePostale with id {%s}",carteId);
         log.info(msg);
@@ -182,9 +182,9 @@ public class CartePostaleController
             log.error(msg);
             return new ResponseEntity(new CustomErrorType(msg),HttpStatus.NOT_FOUND);
         }
-        if(lat!=null && lon!=null){
-            current.setLatitude(lat);
-            current.setLongitude(lon);
+        if(target.getLatitude()!=null && target.getLongitude()!=null){
+            current.setLatitude(target.getLatitude());
+            current.setLongitude(target.getLongitude());
             repo.save(current);
         }
         return new ResponseEntity<>(current, HttpStatus.OK);
