@@ -154,11 +154,12 @@ public class CartePostaleController
         Editeur editeur = editeurRepository.findOne(target.getEditeurId());
         Commune commune = communeRepository.findOne(target.getInsee());
         CartePostale cp = new CartePostale();
-        cp.setId(9999);
+        cp.setId(0);
         cp.setLatitude(target.getLatitude());
         cp.setLongitude(target.getLongitude());
         cp.setCommune(commune);
         cp.setEditeur(editeur);
+        cp.setCodeEditeur(target.getCodeEditeur());
         CartePostale newCp = repo.save(cp);
 
         VarianteCarteId varId = new VarianteCarteId();
@@ -176,7 +177,7 @@ public class CartePostaleController
         ImageConverter.base64ToImage(photoDestination, photoName,target.getBase64());
 
         varianteCarteRepository.save(var);
-        return new ResponseEntity<>(cp, HttpStatus.CREATED);
+        return new ResponseEntity<>(newCp, HttpStatus.CREATED);
     }
 
     // ------------------- Update a CartePostale ------------------------------------------------
