@@ -1,5 +1,6 @@
 package fr.m2miage.miniRest.decorator;
 
+import com.sun.deploy.util.ArrayUtil;
 import fr.m2miage.miniRest.model.Utilisateur;
 import fr.m2miage.miniRest.util.CipherUtil;
 
