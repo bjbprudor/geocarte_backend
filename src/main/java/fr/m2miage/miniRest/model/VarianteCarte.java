@@ -25,7 +25,6 @@ public class VarianteCarte implements Serializable
     @Column
     private String dos;
 
-    @JsonIgnore
     @OneToMany(mappedBy = "id.varianteCarte")
     private List<CarteUtilisateur> carteUtilisateurs;
 
