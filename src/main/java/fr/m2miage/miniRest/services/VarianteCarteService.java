@@ -8,6 +8,7 @@ import fr.m2miage.miniRest.model.VarianteCarteId;
 import fr.m2miage.miniRest.repository.CartePostaleRepository;
 import fr.m2miage.miniRest.repository.CarteUtilisateurRepository;
 import fr.m2miage.miniRest.repository.VarianteCarteRepository;
+import fr.m2miage.miniRest.util.ImageConverter;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
