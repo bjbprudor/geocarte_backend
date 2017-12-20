@@ -4,7 +4,10 @@ import fr.m2miage.miniRest.decorator.VarianteCarteDeco;
 import fr.m2miage.miniRest.model.CartePostale;
 import fr.m2miage.miniRest.model.VarianteCarte;
 import fr.m2miage.miniRest.model.VarianteCarteId;
+import fr.m2miage.miniRest.model.VarianteCarteUpdate;
 import fr.m2miage.miniRest.repository.CartePostaleRepository;
+import fr.m2miage.miniRest.repository.CommuneRepository;
+import fr.m2miage.miniRest.repository.EditeurRepository;
 import fr.m2miage.miniRest.repository.VarianteCarteRepository;
 import fr.m2miage.miniRest.services.VarianteCarteService;
 import fr.m2miage.miniRest.util.CustomErrorType;
@@ -32,6 +35,12 @@ public class VarianteCarteController
 
     @Autowired
     private CartePostaleRepository carteRepo;
+
+    @Autowired
+    private CommuneRepository communeRepository;
+
+    @Autowired
+    private EditeurRepository editeurRepository;
 
     //region Methodes GET
 
@@ -214,5 +223,39 @@ public class VarianteCarteController
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
+
+    // ------------------- Update coordonnees de a CartePostale ------------------------------------------------
+    @CrossOrigin(origins = "http://localhost:4200")
+    @RequestMapping(value = "/test/{id}", method = RequestMethod.PUT)
+    public ResponseEntity<?> updateVariante(@PathVariable("id") Integer varId,  @RequestParam(value = "carteId") Integer carteId, @RequestBody VarianteCarteUpdate target)
+    {
+
+        String msg = String.format("Updating CartePostale with id {%s}",carteId);
+        log.info(msg);
+
+        System.out.println("-----------------------"+communeRepository.findOne(target.getCommuneId()).getLatitude());
+
+        CartePostale cp = carteRepo.findOne(carteId);
+        cp.setCommune(communeRepository.findOne(target.getCommuneId()));
+        cp.setEditeur(editeurRepository.findOne(target.getEditeurId()));
+
+        VarianteCarteId varianteCarteId = new VarianteCarteId();
+        varianteCarteId.setCartePostale(carteRepo.findOne(carteId));
+        varianteCarteId.setId(varId);
+
+        VarianteCarte current = repo.findOne(varianteCarteId);
+        current.setLegende(target.getLegende());
+
+        if (current == null)
+        {
+            msg = String.format("Unable to update coordonnees. CartePostale with id {%s} not found.",carteId);
+            log.error(msg);
+            return new ResponseEntity(new CustomErrorType(msg),HttpStatus.NOT_FOUND);
+        }
+
+        //repo.save(current);
+        //carteRepo.save(cp);
+        return new ResponseEntity<>(current, HttpStatus.OK);
+    }
 
 }
