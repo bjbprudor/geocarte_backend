@@ -105,18 +105,14 @@ public class UtilisateurController
     {
         String msg = String.format("Updating Utilisateur with id {%s}",id);
         log.info(msg);
-        //Utilisateur current = utilisateurService.getUserByEmail(id);
-        Utilisateur current = repo.findOne(id);
+
+        Utilisateur current = utilisateurService.update(id,target);
         if (current == null)
         {
             msg = String.format("Unable to update. Utilisateur with id {%s} not found.",id);
             log.error(msg);
             return new ResponseEntity(new CustomErrorType(msg),HttpStatus.NOT_FOUND);
         }
-        current.setNom(target.getNom());
-        current.setEmail(target.getEmail());
-        current.setMotdepasse(target.getMotdepasse());
-        repo.save(current);
         return new ResponseEntity<>(current, HttpStatus.OK);
     }
 

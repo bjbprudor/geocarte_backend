@@ -209,7 +209,7 @@ DROP TABLE IF EXISTS `utilisateur`;
 CREATE TABLE `utilisateur` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `email` varchar(255) NOT NULL,
-  `motdepasse` varbinary(255) NOT NULL,
+  `motdepasse` varchar(255) NOT NULL,
   `nom` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
@@ -243,4 +243,4 @@ CREATE TABLE `variantecarte` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-12-20  0:14:17
+-- Dump completed on 2017-12-20  1:38:12
