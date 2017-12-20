@@ -40,7 +40,7 @@ public class CartePostaleController
     @Autowired
     private VarianteCarteRepository varianteCarteRepository;
 
-    private static String photoDestination = "src/img/destination/";
+    private static String photoDestination = "src/img/";
 
     // -------------------Recupere tous les CartePostales---------------------------------------------
     @CrossOrigin(origins = "http://localhost:4200")
@@ -172,7 +172,7 @@ public class CartePostaleController
         Random randomGenerator = new Random();
         int randomInt = randomGenerator.nextInt(1000);
         String photoName = editeur.getCode()+randomInt+".jpg";
-        var.setFace(photoDestination+photoName);
+        var.setFace(photoName);
 
         ImageConverter.base64ToImage(photoDestination, photoName,target.getBase64());
 

@@ -22,7 +22,7 @@ public class VarianteCarteService
 
     public static final Logger log = Logger.getLogger(VarianteCarteService.class);
 
-    static final String serverPhotoFolderLocation = "src/img/mtil/";
+    static final String serverPhotoFolderLocation = "src/img/";
 
     @Autowired
     private VarianteCarteRepository repo;
