@@ -27,6 +27,22 @@ public class VarianteCarteService
     @Autowired
     private CartePostaleRepository carteRepo;
 
+    public List<VarianteCarteDeco> getAllVariantes()
+    {
+        List<VarianteCarteDeco> result = new ArrayList<>();
+        try
+        {
+            List<VarianteCarte> trans = repo.findAll();
+            result = this.getVarianteDecoList(trans);
+        }
+        catch (Exception ex)
+        {
+            log.error(ex.getMessage());
+        }
+        log.info(result.size());
+        return result;
+    }
+
     public List<VarianteCarteDeco> getVariantesByUsername(Integer id)
     {
         List<VarianteCarteDeco> result = new ArrayList<>();
