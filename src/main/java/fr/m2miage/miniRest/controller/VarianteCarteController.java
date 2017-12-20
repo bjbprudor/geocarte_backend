@@ -165,7 +165,7 @@ public class VarianteCarteController
     }
 
     // ------------------- Update a VarianteCarte ------------------------------------------------
-    @CrossOrigin(origins = "http://localhost:4200")
+    /*@CrossOrigin(origins = "http://localhost:4200")
 
     @RequestMapping(value = "/varianteCarte/{carte}/{variante}", method = RequestMethod.PUT)
     public ResponseEntity<?> updateVarianteCarte(@PathVariable("carte") int carte, @PathVariable("variante") int variante, @RequestBody VarianteCarte target)
@@ -189,7 +189,7 @@ public class VarianteCarteController
         current.setLegende(target.getLegende());
         repo.save(current);
         return new ResponseEntity<>(current, HttpStatus.OK);
-    }
+    }*/
 
     // ------------------- Delete a VarianteCarte-----------------------------------------
     @CrossOrigin(origins = "http://localhost:4200")
@@ -226,14 +226,12 @@ public class VarianteCarteController
 
     // ------------------- Update coordonnees de a CartePostale ------------------------------------------------
     @CrossOrigin(origins = "http://localhost:4200")
-    @RequestMapping(value = "/test/{id}", method = RequestMethod.PUT)
+    @RequestMapping(value = "/varianteCarte/{id}", method = RequestMethod.PUT)
     public ResponseEntity<?> updateVariante(@PathVariable("id") Integer varId,  @RequestParam(value = "carteId") Integer carteId, @RequestBody VarianteCarteUpdate target)
     {
 
         String msg = String.format("Updating CartePostale with id {%s}",carteId);
         log.info(msg);
-
-        System.out.println("-----------------------"+communeRepository.findOne(target.getCommuneId()).getLatitude());
 
         CartePostale cp = carteRepo.findOne(carteId);
         cp.setCommune(communeRepository.findOne(target.getCommuneId()));
@@ -253,8 +251,8 @@ public class VarianteCarteController
             return new ResponseEntity(new CustomErrorType(msg),HttpStatus.NOT_FOUND);
         }
 
-        //repo.save(current);
-        //carteRepo.save(cp);
+        repo.save(current);
+        carteRepo.save(cp);
         return new ResponseEntity<>(current, HttpStatus.OK);
     }
 
