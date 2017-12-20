@@ -2,9 +2,11 @@ package fr.m2miage.miniRest.services;
 
 import fr.m2miage.miniRest.decorator.VarianteCarteDeco;
 import fr.m2miage.miniRest.model.CartePostale;
+import fr.m2miage.miniRest.model.CarteUtilisateur;
 import fr.m2miage.miniRest.model.VarianteCarte;
 import fr.m2miage.miniRest.model.VarianteCarteId;
 import fr.m2miage.miniRest.repository.CartePostaleRepository;
+import fr.m2miage.miniRest.repository.CarteUtilisateurRepository;
 import fr.m2miage.miniRest.repository.VarianteCarteRepository;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,13 +29,20 @@ public class VarianteCarteService
     @Autowired
     private CartePostaleRepository carteRepo;
 
-    public List<VarianteCarteDeco> getAllVariantes()
+    @Autowired
+    private CarteUtilisateurService carteUtilisateurService;
+
+    public List<VarianteCarteDeco> getAllVariantes(Integer userId)
     {
         List<VarianteCarteDeco> result = new ArrayList<>();
         try
         {
             List<VarianteCarte> trans = repo.findAll();
             result = this.getVarianteDecoList(trans);
+            for(VarianteCarteDeco varDeco : result){
+                Integer carteId = varDeco.getVarianteCarte().getId().getCartePostale().getId();
+                varDeco.setOwned(carteUtilisateurService.isOwned(carteId, userId));
+            }
         }
         catch (Exception ex)
         {

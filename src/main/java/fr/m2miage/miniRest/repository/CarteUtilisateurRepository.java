@@ -15,5 +15,8 @@ public interface CarteUtilisateurRepository extends JpaRepository<CarteUtilisate
     @Query(value = "SELECT cu.id.utilisateur.id FROM CarteUtilisateur cu WHERE cu.id.varianteCarte.id.cartePostale.id=?1")
     List<Integer> findUsersIdByCp(Integer carteId);
 
+    @Query(value = "SELECT cu.id.utilisateur.id FROM CarteUtilisateur cu WHERE cu.id.varianteCarte.id.cartePostale.id=?1 AND cu.id.utilisateur.id=?2")
+    List<Integer> isCartOwnedByUser(Integer carteId, Integer userId);
+
 
 }

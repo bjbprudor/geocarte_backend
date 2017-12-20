@@ -39,4 +39,9 @@ public class CarteUtilisateurService
         }
         return result;
     }
+
+
+    public boolean isOwned(Integer carteId, Integer userId){
+        return !repo.isCartOwnedByUser(carteId, userId).isEmpty();
+    }
 }

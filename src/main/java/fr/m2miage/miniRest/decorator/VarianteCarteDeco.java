@@ -12,7 +12,7 @@ public class VarianteCarteDeco
 
     private VarianteCarte varianteCarte;
     private String base64Photo;
-    private List<Utilisateur> utilisateurs;
+    private Boolean isOwned;
 
     public VarianteCarte getVarianteCarte() {
         return varianteCarte;
@@ -22,19 +22,7 @@ public class VarianteCarteDeco
     {
         this.varianteCarte = varianteCarte;
         this.base64Photo = "";
-        utilisateurs = new ArrayList<>();
-        for (CarteUtilisateur cu : varianteCarte.getCarteUtilisateurs())
-        {
-            utilisateurs.add(cu.getId().getUtilisateur());
-        }
-    }
-
-    public List<Utilisateur> getUtilisateurs() {
-        return utilisateurs;
-    }
-
-    public void setUtilisateurs(List<Utilisateur> utilisateurs) {
-        this.utilisateurs = utilisateurs;
+        this.isOwned = false;
     }
 
     public String getBase64Photo() {
@@ -47,17 +35,21 @@ public class VarianteCarteDeco
 
     public VarianteCarteDeco()
     {
-        utilisateurs = new ArrayList<>();
+    }
+
+    public Boolean getOwned() {
+        return isOwned;
+    }
+
+    public void setOwned(Boolean owned) {
+        isOwned = owned;
     }
 
     public VarianteCarteDeco(VarianteCarte varianteCarte)
     {
         this.varianteCarte = varianteCarte;
         base64Photo = "";
-        for (CarteUtilisateur cu : varianteCarte.getCarteUtilisateurs())
-        {
-            utilisateurs.add(cu.getId().getUtilisateur());
-        }
+        this.isOwned = false;
     }
 
 }

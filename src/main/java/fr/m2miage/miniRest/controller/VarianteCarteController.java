@@ -40,9 +40,9 @@ public class VarianteCarteController
      */
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "/varianteCarte/", method = RequestMethod.GET)
-    public ResponseEntity<List<VarianteCarteDeco>> listAllVarianteCarte()
+    public ResponseEntity<List<VarianteCarteDeco>> listAllVarianteCarte(@RequestParam(value = "userId") Integer userId)
     {
-        List<VarianteCarteDeco> list = varianteCarteService.getAllVariantes();
+        List<VarianteCarteDeco> list = varianteCarteService.getAllVariantes(userId);
         if (list.isEmpty())
         {
             return new ResponseEntity(HttpStatus.NO_CONTENT);
