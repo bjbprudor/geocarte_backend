@@ -40,7 +40,7 @@ public class CartePostaleController
     @Autowired
     private VarianteCarteRepository varianteCarteRepository;
 
-    private static String photoDestination = "src/img/destination";
+    private static String photoDestination = "src/img/destination/";
 
     // -------------------Recupere tous les CartePostales---------------------------------------------
     @CrossOrigin(origins = "http://localhost:4200")
