@@ -5,6 +5,7 @@ import fr.m2miage.miniRest.repository.CartePostaleRepository;
 import fr.m2miage.miniRest.repository.CarteUtilisateurRepository;
 import fr.m2miage.miniRest.repository.UtilisateurRepository;
 import fr.m2miage.miniRest.repository.VarianteCarteRepository;
+import fr.m2miage.miniRest.requestobjects.CarteUtilisateurBody;
 import fr.m2miage.miniRest.services.CarteUtilisateurService;
 import fr.m2miage.miniRest.util.CustomErrorType;
 import org.apache.log4j.Logger;
@@ -40,7 +41,6 @@ public class CarteUtilisateurController
 
     // -------------------Recupere tous les CarteUtilisateurs---------------------------------------------
     @CrossOrigin(origins = "http://localhost:4200")
-
     @RequestMapping(value = "/carteUtilisateur/", method = RequestMethod.GET)
     public ResponseEntity<List<CarteUtilisateur>> listAllCarteUtilisateur()
     {
@@ -55,7 +55,6 @@ public class CarteUtilisateurController
 
     // -------------------Recupere tous les CarteUtilisateurs---------------------------------------------
     @CrossOrigin(origins = "http://localhost:4200")
-
     @RequestMapping(value = "/carteUtilisateur/{user_id}", method = RequestMethod.GET)
     public ResponseEntity<List<CarteUtilisateur>> listAllCarteUtilisateur(@PathVariable("user_id") int user)
     {
@@ -70,7 +69,6 @@ public class CarteUtilisateurController
 
     // -------------------Recupere un CarteUtilisateur------------------------------------------
     @CrossOrigin(origins = "http://localhost:4200")
-
     @RequestMapping(value = "/carteUtilisateur/{user_id}/{variante_id}/{carte_id}", method = RequestMethod.GET)
     public ResponseEntity<?> getCarteUtilisateur(@PathVariable("user_id") int user, @PathVariable("variante_id") int variante, @PathVariable("carte_id") int carte)
     {
@@ -96,56 +94,39 @@ public class CarteUtilisateurController
 
     // -------------------Create a CarteUtilisateur-------------------------------------------
     @CrossOrigin(origins = "http://localhost:4200")
-
     @RequestMapping(value = "/carteUtilisateur/", method = RequestMethod.POST)
-    public ResponseEntity<?> createCarteUtilisateur(@RequestBody CarteUtilisateur target, UriComponentsBuilder ucBuilder)
+    public ResponseEntity<?> createCarteUtilisateur(@RequestBody CarteUtilisateurBody target, UriComponentsBuilder ucBuilder)
     {
         String msg = String.format("Creating CarteUtilisateur : {%s}", target);
         log.info(msg);
-        CarteUtilisateur current = repo.findOne(target.getId());
-        if (current != null)
-        {
-            msg = String.format("Unable to create. A CarteUtilisateur with id {%s} already exist", target.getId());
-            log.error(msg);
-            return new ResponseEntity(new CustomErrorType(msg),HttpStatus.CONFLICT);
-        }
-        repo.save(target);
-        HttpHeaders headers = new HttpHeaders();
-        headers.setLocation(ucBuilder.path("/carteUtilisateur/{user_id}/{variante_id}/{carte_id}").buildAndExpand(target.getId()).toUri());
-        return new ResponseEntity<String>(headers, HttpStatus.CREATED);
+
+        CarteUtilisateur current = carteUtilisateurService.create(target);
+
+        //HttpHeaders headers = new HttpHeaders();
+        //headers.setLocation(ucBuilder.path(String.format("/carteUtilisateur/{?s}/{%s}/{%s}",target.getIdUtilisateur(),target.getIdVariante(),target.getIdCarte())));
+        return new ResponseEntity<>(current, HttpStatus.CREATED);
     }
 
     // ------------------- Update a CarteUtilisateur ------------------------------------------------
     @CrossOrigin(origins = "http://localhost:4200")
-
-    @RequestMapping(value = "/carteUtilisateur/{user_id}/{variante_id}/{carte_id}", method = RequestMethod.PUT)
-    public ResponseEntity<?> updateCarteUtilisateur(@PathVariable("user_id") int user, @PathVariable("variante_id") int variante, @PathVariable("carte_id") int carte, @RequestBody CarteUtilisateur target)
+    @RequestMapping(value = "/carteUtilisateur/", method = RequestMethod.PUT)
+    public ResponseEntity<?> updateCarteUtilisateur(@RequestBody CarteUtilisateurBody target)
     {
-
-        Utilisateur util = userRepo.findOne(user);
-        CartePostale cp = cpRepo.findOne(carte);
-        VarianteCarteId vid = new VarianteCarteId(variante,cp);
-        VarianteCarte var = varRepo.findOne(vid);
-        CarteUtilisateurId cid = new CarteUtilisateurId(var,util);
-
-        String msg = String.format("Updating CarteUtilisateur with id {%s}",cid);
+        String msg = String.format("Updating CarteUtilisateur with id {%s,%s,%s}",target.getIdCarte(),target.getIdVariante(),target.getIdUtilisateur());
         log.info(msg);
 
-        CarteUtilisateur current = repo.findOne(cid);
+        CarteUtilisateur current = carteUtilisateurService.update(target);
         if (current == null)
         {
-            msg = String.format("Unable to update. CarteUtilisateur with id {%s} not found.",cid);
+            msg = String.format("Unable to update. CarteUtilisateur with id {%s,%s,%s} not found.", target.getIdCarte(),target.getIdVariante(),target.getIdUtilisateur());
             log.error(msg);
             return new ResponseEntity(new CustomErrorType(msg),HttpStatus.NOT_FOUND);
         }
-        current.setNombreExemplaires(target.getNombreExemplaires());
-        repo.save(current);
         return new ResponseEntity<>(current, HttpStatus.OK);
     }
 
     // ------------------- Delete a CarteUtilisateur-----------------------------------------
     @CrossOrigin(origins = "http://localhost:4200")
-
     @RequestMapping(value = "/carteUtilisateur/{user_id}/{variante_id}/{carte_id}", method = RequestMethod.DELETE)
     public ResponseEntity<?> deleteCarteUtilisateur(@PathVariable("user_id") int user, @PathVariable("variante_id") int variante, @PathVariable("carte_id") int carte)
     {
@@ -170,7 +151,6 @@ public class CarteUtilisateurController
 
     // ------------------- Delete All CarteUtilisateur-----------------------------
     @CrossOrigin(origins = "http://localhost:4200")
-
     @RequestMapping(value = "/carteUtilisateur/", method = RequestMethod.DELETE)
     public ResponseEntity<CarteUtilisateur> deleteAllCarteUtilisateur()
     {

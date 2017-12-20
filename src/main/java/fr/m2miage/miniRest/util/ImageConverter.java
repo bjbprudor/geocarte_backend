@@ -1,4 +1,4 @@
-package fr.m2miage.miniRest.services;
+package fr.m2miage.miniRest.util;
 
 import org.apache.tomcat.util.codec.binary.Base64;
 
