@@ -56,10 +56,10 @@ public class VarianteCarteController
      */
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "/varianteCarte/", params = { "typemonument", "editeur","commune","legende" }, method = RequestMethod.GET)
-    public ResponseEntity<List<VarianteCarteDeco>> getVcByCommuneName(@RequestParam(value = "typemonument") Integer typeMonument,
-                                                                      @RequestParam(value = "editeur") Integer editeur,
-                                                                      @RequestParam(value = "commune") String insee,
-                                                                      @RequestParam(value = "legende") String legende) {
+    public ResponseEntity<List<VarianteCarteDeco>> getVcByCommuneName(@RequestParam(value = "typemonument", required = false) Integer typeMonument,
+                                                                      @RequestParam(value = "editeur", required = false) Integer editeur,
+                                                                      @RequestParam(value = "commune", required = false) String insee,
+                                                                      @RequestParam(value = "legende", required = false) String legende) {
         List<VarianteCarteDeco> list = varianteCarteService.getVariantesByFiltre(typeMonument,editeur,insee,legende);
         if (list.isEmpty())
         {
