@@ -40,6 +40,8 @@ public class CartePostaleController
     @Autowired
     private VarianteCarteRepository varianteCarteRepository;
 
+    private static String photoDestination = "src/img/destination";
+
     // -------------------Recupere tous les CartePostales---------------------------------------------
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "/cartePostale/", method = RequestMethod.GET)
@@ -169,18 +171,9 @@ public class CartePostaleController
         Random randomGenerator = new Random();
         int randomInt = randomGenerator.nextInt(1000);
         String photoName = editeur.getCode()+randomInt+".jpg";
-        String photoDestination = "src/img/destination";
-
         var.setFace(photoDestination+photoName);
 
         ImageConverter.base64ToImage(photoDestination, photoName,target.getBase64());
-
-        /*if (cp != null)
-        {
-            msg = String.format("Unable to create. A CartePostale with id {%s} already exist", target.getId());
-            log.error(msg);
-            return new ResponseEntity(new CustomErrorType(msg),HttpStatus.CONFLICT);
-        }*/
 
         varianteCarteRepository.save(var);
         return new ResponseEntity<>(cp, HttpStatus.CREATED);
