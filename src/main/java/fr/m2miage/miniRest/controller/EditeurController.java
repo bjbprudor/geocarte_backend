@@ -102,10 +102,10 @@ public class EditeurController
             log.error(msg);
             return new ResponseEntity(new CustomErrorType(msg),HttpStatus.CONFLICT);
         }
-        repo.save(target);
+        Editeur newEditeur = repo.save(target);
         HttpHeaders headers = new HttpHeaders();
         headers.setLocation(ucBuilder.path("/editeur/{id}").buildAndExpand(target.getId()).toUri());
-        return new ResponseEntity<String>(headers, HttpStatus.CREATED);
+        return new ResponseEntity<>(newEditeur, HttpStatus.CREATED);
     }
 
     // ------------------- Update a Editeur ------------------------------------------------
