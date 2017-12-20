@@ -97,14 +97,35 @@ public class CarteUtilisateurController
     @RequestMapping(value = "/carteUtilisateur/", method = RequestMethod.POST)
     public ResponseEntity<?> createCarteUtilisateur(@RequestBody CarteUtilisateurBody target, UriComponentsBuilder ucBuilder)
     {
-        String msg = String.format("Creating CarteUtilisateur : {%s}", target);
-        log.info(msg);
+        try
+        {
+            String msg = String.format("Creating CarteUtilisateur : {%s}", target);
+            log.info(msg);
 
-        CarteUtilisateur current = carteUtilisateurService.create(target);
+            CartePostale cp = cpRepo.findOne(target.getIdCarte());
+            VarianteCarteId vid = new VarianteCarteId(target.getIdVariante(),cp);
+            VarianteCarte vc = varRepo.findOne(vid);
+            Utilisateur u = userRepo.getOne(target.getIdUtilisateur());
+            CarteUtilisateurId cuid = new CarteUtilisateurId(vc,u);
+            CarteUtilisateur current = repo.findOne(cuid);
+            if (current != null)
+            {
+                msg = String.format("Unable to create. A Editeur with id {%s} already exist", target.getIdCarte());
+                log.error(msg);
+                return new ResponseEntity(new CustomErrorType(msg),HttpStatus.CONFLICT);
+            }
+            CarteUtilisateur cut = new CarteUtilisateur(cuid,target.getNombreExemplaire());
+            repo.save(cut);
+            //CarteUtilisateur current = carteUtilisateurService.create(target);
 
-        //HttpHeaders headers = new HttpHeaders();
-        //headers.setLocation(ucBuilder.path(String.format("/carteUtilisateur/{?s}/{%s}/{%s}",target.getIdUtilisateur(),target.getIdVariante(),target.getIdCarte())));
-        return new ResponseEntity<>(current, HttpStatus.CREATED);
+            //HttpHeaders headers = new HttpHeaders();
+            //headers.setLocation(ucBuilder.path(String.format("/carteUtilisateur/{?s}/{%s}/{%s}",target.getIdUtilisateur(),target.getIdVariante(),target.getIdCarte())));
+            return new ResponseEntity<>(current, HttpStatus.CREATED);
+        }
+        catch (Exception ex)
+        {
+            return new ResponseEntity<Object>(ex.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     // ------------------- Update a CarteUtilisateur ------------------------------------------------
@@ -112,17 +133,36 @@ public class CarteUtilisateurController
     @RequestMapping(value = "/carteUtilisateur/", method = RequestMethod.PUT)
     public ResponseEntity<?> updateCarteUtilisateur(@RequestBody CarteUtilisateurBody target)
     {
-        String msg = String.format("Updating CarteUtilisateur with id {%s,%s,%s}",target.getIdCarte(),target.getIdVariante(),target.getIdUtilisateur());
-        log.info(msg);
 
-        CarteUtilisateur current = carteUtilisateurService.update(target);
+
+            String msg = String.format("Updating CarteUtilisateur with id {%s,%s,%s}",target.getIdCarte(),target.getIdVariante(),target.getIdUtilisateur());
+            log.info(msg);
+
+        CartePostale cp = cpRepo.findOne(target.getIdCarte());
+        VarianteCarteId vid = new VarianteCarteId(target.getIdVariante(),cp);
+        VarianteCarte vc = varRepo.findOne(vid);
+        Utilisateur u = userRepo.getOne(target.getIdUtilisateur());
+        CarteUtilisateurId cuid = new CarteUtilisateurId(vc,u);
+        CarteUtilisateur current = repo.findOne(cuid);
+
         if (current == null)
         {
-            msg = String.format("Unable to update. CarteUtilisateur with id {%s,%s,%s} not found.", target.getIdCarte(),target.getIdVariante(),target.getIdUtilisateur());
+            msg = String.format("Unable to update. Utilisateur with id {%s} not found.");
             log.error(msg);
             return new ResponseEntity(new CustomErrorType(msg),HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<>(current, HttpStatus.OK);
+        current.setNombreExemplaires(target.getNombreExemplaire());
+        repo.save(current);
+
+            /*CarteUtilisateur current = carteUtilisateurService.update(target);
+            if (current == null)
+            {
+                msg = String.format("Unable to update. CarteUtilisateur with id {%s,%s,%s} not found.", target.getIdCarte(),target.getIdVariante(),target.getIdUtilisateur());
+                log.error(msg);
+                return new ResponseEntity(new CustomErrorType(msg),HttpStatus.NOT_FOUND);
+            }*/
+            return new ResponseEntity<>(current, HttpStatus.OK);
+
     }
 
     // ------------------- Delete a CarteUtilisateur-----------------------------------------

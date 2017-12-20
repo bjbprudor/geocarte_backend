@@ -1,5 +1,6 @@
 package fr.m2miage.miniRest.services;
 
+import fr.m2miage.miniRest.controller.VarianteCarteController;
 import fr.m2miage.miniRest.model.*;
 import fr.m2miage.miniRest.repository.CartePostaleRepository;
 import fr.m2miage.miniRest.repository.CarteUtilisateurRepository;
@@ -7,6 +8,7 @@ import fr.m2miage.miniRest.repository.UtilisateurRepository;
 import fr.m2miage.miniRest.repository.VarianteCarteRepository;
 import fr.m2miage.miniRest.requestobjects.CarteUtilisateurBody;
 import fr.m2miage.miniRest.util.CustomErrorType;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +19,8 @@ import java.util.List;
 @Service("carteUtilisateurService")
 public class CarteUtilisateurService
 {
+
+    public static final Logger log = Logger.getLogger(CarteUtilisateurService.class);
 
     @Autowired
     private CarteUtilisateurRepository repo;
@@ -32,24 +36,26 @@ public class CarteUtilisateurService
 
     public CarteUtilisateur create(CarteUtilisateurBody cu)
     {
-        CartePostale cp = cpRepo.findOne(cu.getIdCarte());
-        VarianteCarteId vid = new VarianteCarteId(cu.getIdVariante(),cp);
-        VarianteCarte vc = varRepo.findOne(vid);
-        Utilisateur u = userRepo.getOne(cu.getIdUtilisateur());
-        CarteUtilisateurId cuid = new CarteUtilisateurId(vc,u);
-        CarteUtilisateur current = repo.findOne(cuid);
-        if (current == null)
+        try
         {
-            CarteUtilisateur cut = new CarteUtilisateur(cuid,cu.getNombreExemplaire());
-            repo.save(cut);
-            return cut;
-            /*
-            msg = String.format("Unable to create. A CarteUtilisateur with id {%s} already exist", target.getId());
-            log.error(msg);
-            return new ResponseEntity(new CustomErrorType(msg), HttpStatus.CONFLICT);
-            */
+            CartePostale cp = cpRepo.findOne(cu.getIdCarte());
+            VarianteCarteId vid = new VarianteCarteId(cu.getIdVariante(),cp);
+            VarianteCarte vc = varRepo.findOne(vid);
+            Utilisateur u = userRepo.getOne(cu.getIdUtilisateur());
+            CarteUtilisateurId cuid = new CarteUtilisateurId(vc,u);
+            CarteUtilisateur current = repo.findOne(cuid);
+            if (current == null)
+            {
+                CarteUtilisateur cut = new CarteUtilisateur(cuid,cu.getNombreExemplaire());
+                repo.save(cut);
+                return cut;
+            }
+            return null;
         }
+        catch (Exception ex)
+        {
 
+        }
         return null;
     }
 

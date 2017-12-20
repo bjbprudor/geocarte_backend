@@ -49,4 +49,5 @@ public class CarteUtilisateurBody
         this.idUtilisateur = idUtilisateur;
         this.nombreExemplaire = nombreExemplaire;
     }
+
 }
