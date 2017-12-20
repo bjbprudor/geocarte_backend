@@ -179,5 +179,19 @@ public class CarteUtilisateurController
         return new ResponseEntity<CarteUtilisateur>(HttpStatus.NO_CONTENT);
     }
 
+    // -------------------Recupere tous les noms de communes ayant des cartes commence par le paramètre ---------------------------------------------
+    @CrossOrigin(origins = "http://localhost:4200")
+    @RequestMapping(value = "/usersId/{carteId}", method= RequestMethod.GET)
+    public ResponseEntity<List<Integer>> getUsersIdByCp(@PathVariable(value = "carteId") Integer carteId)
+    {
+        List<Integer> list = carteUtilisateurService.getUsersIdByCp(carteId);
+        if (list.isEmpty())
+        {
+            return new ResponseEntity(HttpStatus.NO_CONTENT);
+            // You many decide to return HttpStatus.NOT_FOUND
+        }
+        return new ResponseEntity<>(list, HttpStatus.OK);
+    }
+
 
 }
