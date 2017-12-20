@@ -96,7 +96,7 @@ public class VarianteCarteService
         return result;
     }
 
-    public List<VarianteCarteDeco> getVariantesByFiltre(Integer typeMonument, Integer editeur, String insee, String legende)
+    public List<VarianteCarteDeco> getVariantesByFiltre(Integer typeMonument, Integer editeur, String insee, String legende, Integer userId)
     {
         List<VarianteCarte> result = new ArrayList<>();
         try
@@ -128,7 +128,7 @@ public class VarianteCarteService
         {
             log.error(ex.getMessage());
         }
-        return getVarianteDecoList(result);
+        return getVarianteDecoList(result, userId);
     }
 
     public VarianteCarteDeco getVarianteById(VarianteCarteId varCarteId) {
@@ -145,6 +145,26 @@ public class VarianteCarteService
         }
 
         return varCarteDeco;
+    }
+
+    private List<VarianteCarteDeco> getVarianteDecoList(List<VarianteCarte> varianteCartes, Integer userId)
+    {
+        List<VarianteCarteDeco> rtn = new ArrayList<>();
+        for(VarianteCarte varCarte : varianteCartes){
+            VarianteCarteDeco varCarteDeco = new VarianteCarteDeco();
+            varCarteDeco.setVarianteCarte(varCarte);
+            Integer carteId = varCarte.getId().getCartePostale().getId();
+            varCarteDeco.setOwned(carteUtilisateurService.isOwned(carteId, userId));
+            if(varCarte.getFace() != null){
+                String fileName = serverPhotoFolderLocation+varCarte.getFace();
+                if(ImageConverter.isExistingFile(fileName)){
+                    String base64 = ImageConverter.imageToBase64(fileName);
+                    varCarteDeco.setBase64Photo(base64);
+                }
+            }
+            rtn.add(varCarteDeco);
+        }
+        return rtn;
     }
 
     private List<VarianteCarteDeco> getVarianteDecoList(List<VarianteCarte> varianteCartes)

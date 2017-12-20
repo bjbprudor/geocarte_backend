@@ -59,8 +59,9 @@ public class VarianteCarteController
     public ResponseEntity<List<VarianteCarteDeco>> getVcByCommuneName(@RequestParam(value = "typemonument", required = false) Integer typeMonument,
                                                                       @RequestParam(value = "editeur", required = false) Integer editeur,
                                                                       @RequestParam(value = "commune", required = false) String insee,
-                                                                      @RequestParam(value = "legende", required = false) String legende) {
-        List<VarianteCarteDeco> list = varianteCarteService.getVariantesByFiltre(typeMonument,editeur,insee,legende);
+                                                                      @RequestParam(value = "legende", required = false) String legende,
+                                                                      @RequestParam(value = "userId", required = false) Integer userId) {
+        List<VarianteCarteDeco> list = varianteCarteService.getVariantesByFiltre(typeMonument,editeur,insee,legende, userId);
         if (list.isEmpty())
         {
             return new ResponseEntity(HttpStatus.NO_CONTENT);
