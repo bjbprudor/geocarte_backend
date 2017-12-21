@@ -3,6 +3,7 @@ package fr.m2miage.miniRest.services;
 import fr.m2miage.miniRest.model.Token;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
@@ -13,11 +14,13 @@ import javax.mail.internet.MimeMessage;
 public class EmailService
 {
 
-    public static final Logger log = Logger.getLogger(EmailService.class);
+    @Autowired
+    private Environment env;
 
     @Autowired
     private JavaMailSender sender;
 
+    public static final Logger log = Logger.getLogger(EmailService.class);
 
     private boolean sendMail(String desti, String sujet, String texte)
     {
@@ -39,16 +42,29 @@ public class EmailService
         return res;
     }
 
-    private boolean sendActivationEmail(Token token)
+    public boolean sendActivationEmail(Token token)
     {
         boolean res = true;
-        res = sendMail("","","");
+        String destinaire = token.getUtilisateur().getEmail();
+        String sujet = "Activation de votre compte geocarte";
+        String texte = "Bienvenue dans l'application geocarte ! \n " +
+                "il vous reste une derniere étape à realiser \n" +
+                "veuillez suivre ce lien pour activer votre compte : \n";
+        String lien =  env.getProperty("server.ip") + "/geocarte/?activation=" + token.getToken();
+        res = sendMail(destinaire,sujet,texte+lien);
         return res;
     }
 
-    private void sendResetPasswordEmail(Token token)
+    public boolean sendResetPasswordEmail(Token token)
     {
-
+        boolean res = true;
+        String destinaire = token.getUtilisateur().getEmail();
+        String sujet = "Reinitialisation de votre mot de passe";
+        String texte = "Vous avez demander à reinitialiser votre mot de passe. \n " +
+                "veuillez suivre ce lien pour recréer un mot de passe : \n";
+        String lien = env.getProperty("server.ip") + "/geocarte/?newMdp=" + token.getToken();
+        res = sendMail(destinaire,sujet,texte+lien);
+        return res;
     }
 
 }
