@@ -2,6 +2,7 @@ package fr.m2miage.miniRest.controller;
 
 import fr.m2miage.miniRest.model.Utilisateur;
 import fr.m2miage.miniRest.repository.UtilisateurRepository;
+import fr.m2miage.miniRest.requestobjects.UtilisateurPost;
 import fr.m2miage.miniRest.services.UtilisateurService;
 import fr.m2miage.miniRest.util.CustomErrorType;
 import org.apache.log4j.Logger;
@@ -80,22 +81,24 @@ public class UtilisateurController
     // -------------------Create a Utilisateur-------------------------------------------
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "/utilisateur/", method = RequestMethod.POST)
-    public ResponseEntity<?> createUtilisateur(@RequestBody Utilisateur target, UriComponentsBuilder ucBuilder)
+    public ResponseEntity<?> createUtilisateur(@RequestBody UtilisateurPost target)
     {
         String msg = String.format("Creating Utilisateur : {%s}", target);
         log.info(msg);
-        Utilisateur current = repo.findOne(target.getId());
+        Utilisateur current = repo.getUtilisateurByEmail(target.getEmail());
         if (current != null)
         {
-            msg = String.format("Unable to create. A Utilisateur with id {%s} already exist", target.getId());
+            msg = String.format("Unable to create. A Utilisateur with id {%s} already exist", target.getEmail());
             log.error(msg);
             return new ResponseEntity(new CustomErrorType(msg),HttpStatus.CONFLICT);
         }
-        repo.save(target);
+        Utilisateur newU = new Utilisateur();
+        newU.setMotdepasse(target.getMdp());
+        newU.setEmail(target.getEmail());
+        newU.setNom(target.getNom());
+        repo.save(newU);
 
-        HttpHeaders headers = new HttpHeaders();
-        headers.setLocation(ucBuilder.path("/utilisateur/{id}").buildAndExpand(target.getId()).toUri());
-        return new ResponseEntity<String>(headers, HttpStatus.CREATED);
+        return new ResponseEntity<>(newU, HttpStatus.CREATED);
     }
 
     // ------------------- Update a Utilisateur ------------------------------------------------
