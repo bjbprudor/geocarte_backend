@@ -84,7 +84,7 @@ public class UtilisateurDeco
     public UtilisateurDeco(String nom, String mail, String motdepasse) {
         this.unencryptedPassword = motdepasse;
         String cryptedpass = CipherUtil.hash(this.unencryptedPassword);
-        this.utilisateur = new Utilisateur(nom,mail,cryptedpass);
+        this.utilisateur = new Utilisateur(nom,mail,cryptedpass,false);
     }
 
 }
