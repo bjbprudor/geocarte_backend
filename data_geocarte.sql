@@ -106,6 +106,15 @@ INSERT INTO `monumentcarte` VALUES (117,1),(117,2),(89,19),(118,26),(102,32),(10
 UNLOCK TABLES;
 
 --
+-- Dumping data for table `token`
+--
+
+LOCK TABLES `token` WRITE;
+/*!40000 ALTER TABLE `token` DISABLE KEYS */;
+/*!40000 ALTER TABLE `token` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Dumping data for table `typemonument`
 --
 
@@ -113,6 +122,16 @@ LOCK TABLES `typemonument` WRITE;
 /*!40000 ALTER TABLE `typemonument` DISABLE KEYS */;
 INSERT INTO `typemonument` VALUES (1,'château'),(2,'pont'),(3,'statut'),(4,'donjon'),(5,'manoir'),(6,'église'),(7,'chapelle'),(8,'tour'),(9,'hôtel de ville'),(10,'dolmen'),(11,'calvaire'),(12,'abbaye'),(13,'menhir'),(14,'porte'),(15,'fontaine');
 /*!40000 ALTER TABLE `typemonument` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Dumping data for table `typetoken`
+--
+
+LOCK TABLES `typetoken` WRITE;
+/*!40000 ALTER TABLE `typetoken` DISABLE KEYS */;
+INSERT INTO `typetoken` VALUES (1,'\"activate\"'),(2,'\"password\"');
+/*!40000 ALTER TABLE `typetoken` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -144,4 +163,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-12-21 20:01:13
+-- Dump completed on 2017-12-21 22:14:06

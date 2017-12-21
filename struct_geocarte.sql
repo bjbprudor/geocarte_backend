@@ -186,6 +186,27 @@ CREATE TABLE `monumentcarte` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Table structure for table `token`
+--
+
+DROP TABLE IF EXISTS `token`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `token` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `token` varchar(255) NOT NULL,
+  `utilisateur_id` int(11) NOT NULL,
+  `type_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `token_UNIQUE` (`token`),
+  KEY `utilisateur_idx` (`utilisateur_id`),
+  KEY `typ_idx` (`type_id`),
+  CONSTRAINT `token_typetoken` FOREIGN KEY (`type_id`) REFERENCES `typetoken` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `token_utilisateur` FOREIGN KEY (`utilisateur_id`) REFERENCES `utilisateur` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
 -- Table structure for table `typemonument`
 --
 
@@ -197,6 +218,20 @@ CREATE TABLE `typemonument` (
   `libelle` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `typetoken`
+--
+
+DROP TABLE IF EXISTS `typetoken`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `typetoken` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nom` varchar(45) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -243,4 +278,4 @@ CREATE TABLE `variantecarte` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-12-20  1:38:12
+-- Dump completed on 2017-12-21 22:13:43
