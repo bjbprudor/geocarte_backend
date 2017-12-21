@@ -13,6 +13,7 @@ public class VarianteCarteDeco
     private VarianteCarte varianteCarte;
     private String base64Photo;
     private Boolean isOwned;
+    private Integer carteId;
 
     public VarianteCarte getVarianteCarte() {
         return varianteCarte;
@@ -48,8 +49,16 @@ public class VarianteCarteDeco
     public VarianteCarteDeco(VarianteCarte varianteCarte)
     {
         this.varianteCarte = varianteCarte;
-        base64Photo = "";
+        this.base64Photo = "";
         this.isOwned = false;
+        this.carteId = 0;
     }
 
+    public Integer getCarteId() {
+        return carteId;
+    }
+
+    public void setCarteId(Integer carteId) {
+        this.carteId = carteId;
+    }
 }

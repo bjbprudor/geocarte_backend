@@ -137,6 +137,7 @@ public class VarianteCarteService
 
         VarianteCarteDeco varCarteDeco = new VarianteCarteDeco();
         varCarteDeco.setVarianteCarte(varCarte);
+        varCarteDeco.setCarteId(varCarte.getId().getCartePostale().getId());
         if(varCarte.getFace() != null){
             String fileName = serverPhotoFolderLocation+varCarte.getFace();
             if(ImageConverter.isExistingFile(fileName)){
@@ -154,6 +155,7 @@ public class VarianteCarteService
         for(VarianteCarte varCarte : varianteCartes){
             VarianteCarteDeco varCarteDeco = new VarianteCarteDeco();
             varCarteDeco.setVarianteCarte(varCarte);
+            varCarteDeco.setCarteId(varCarte.getId().getCartePostale().getId());
             Integer carteId = varCarte.getId().getCartePostale().getId();
             varCarteDeco.setOwned(carteUtilisateurService.isOwned(carteId, userId));
             if(varCarte.getFace() != null){
@@ -174,6 +176,7 @@ public class VarianteCarteService
         for(VarianteCarte varCarte : varianteCartes){
             VarianteCarteDeco varCarteDeco = new VarianteCarteDeco();
             varCarteDeco.setVarianteCarte(varCarte);
+            varCarteDeco.setCarteId(varCarte.getId().getCartePostale().getId());
             if(varCarte.getFace() != null){
                 String fileName = serverPhotoFolderLocation+varCarte.getFace();
                 if(ImageConverter.isExistingFile(fileName)){
