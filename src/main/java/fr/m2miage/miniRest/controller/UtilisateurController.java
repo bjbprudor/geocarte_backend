@@ -1,10 +1,15 @@
 package fr.m2miage.miniRest.controller;
 
+import fr.m2miage.miniRest.model.Token;
+import fr.m2miage.miniRest.model.TypeToken;
 import fr.m2miage.miniRest.model.Utilisateur;
+import fr.m2miage.miniRest.repository.TokenRepository;
+import fr.m2miage.miniRest.repository.TypeTokenRepository;
 import fr.m2miage.miniRest.repository.UtilisateurRepository;
 import fr.m2miage.miniRest.requestobjects.UtilisateurPost;
 import fr.m2miage.miniRest.services.UtilisateurService;
 import fr.m2miage.miniRest.util.CustomErrorType;
+import fr.m2miage.miniRest.util.TokenGenerator;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -29,6 +34,12 @@ public class UtilisateurController
 
     @Autowired
     private UtilisateurRepository repo;
+
+    @Autowired
+    private TypeTokenRepository repoTypeToken;
+
+    @Autowired
+    private TokenRepository repoToken;
 
 
     // -------------------Recupere tous les Utilisateur---------------------------------------------
@@ -80,7 +91,7 @@ public class UtilisateurController
 
     // -------------------Create a Utilisateur-------------------------------------------
     @CrossOrigin(origins = "http://localhost:4200")
-    @RequestMapping(value = "/utilisateur/", method = RequestMethod.POST)
+    @RequestMapping(value = "/inscription/", method = RequestMethod.POST)
     public ResponseEntity<?> createUtilisateur(@RequestBody UtilisateurPost target)
     {
         String msg = String.format("Creating Utilisateur : {%s}", target);
@@ -92,13 +103,22 @@ public class UtilisateurController
             log.error(msg);
             return new ResponseEntity(new CustomErrorType(msg),HttpStatus.CONFLICT);
         }
-        Utilisateur newU = new Utilisateur();
-        newU.setMotdepasse(target.getMdp());
-        newU.setEmail(target.getEmail());
-        newU.setNom(target.getNom());
-        repo.save(newU);
+        Utilisateur newUser = new Utilisateur();
+        newUser.setMotdepasse(target.getMdp());
+        newUser.setEmail(target.getEmail());
+        newUser.setNom(target.getNom());
+        Utilisateur savedUser = repo.save(newUser);
 
-        return new ResponseEntity<>(newU, HttpStatus.CREATED);
+        TypeToken typeToken = repoTypeToken.findOne(1);
+
+        Token token = new Token();
+        token.setId(0);
+        token.setType(typeToken);
+        token.setUtilisateur(savedUser);
+        token.setToken(TokenGenerator.generateToken());
+        repoToken.save(token);
+
+        return new ResponseEntity<>(savedUser, HttpStatus.CREATED);
     }
 
     // ------------------- Update a Utilisateur ------------------------------------------------
@@ -118,6 +138,41 @@ public class UtilisateurController
         }
         return new ResponseEntity<>(current, HttpStatus.OK);
     }
+
+    // ------------------- Update a Utilisateur ------------------------------------------------
+    /*@CrossOrigin(origins = "http://localhost:4200")
+    @RequestMapping(value = "/utilisateur/{id}", method = RequestMethod.PUT)
+    public ResponseEntity<?> changementPwd(@PathVariable("id") Integer id, @RequestBody Utilisateur target)
+    {
+        String msg = String.format("Updating Utilisateur with id {%s}",id);
+        log.info(msg);
+
+        Utilisateur current = utilisateurService.update(id,target);
+        if (current == null)
+        {
+            msg = String.format("Unable to update. Utilisateur with id {%s} not found.",id);
+            log.error(msg);
+            return new ResponseEntity(new CustomErrorType(msg),HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(current, HttpStatus.OK);
+    }
+
+    @CrossOrigin(origins = "http://localhost:4200")
+    @RequestMapping(value = "/askingChngPwd/{id}", method = RequestMethod.PUT)
+    public ResponseEntity<?> demandeChangementPwd(@PathVariable("id") Integer id, @RequestBody Utilisateur target)
+    {
+        String msg = String.format("Updating Utilisateur with id {%s}",id);
+        log.info(msg);
+
+        Utilisateur current = utilisateurService.update(id,target);
+        if (current == null)
+        {
+            msg = String.format("Unable to update. Utilisateur with id {%s} not found.",id);
+            log.error(msg);
+            return new ResponseEntity(new CustomErrorType(msg),HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(current, HttpStatus.OK);
+    }*/
 
     // ------------------- Delete a Utilisateur-----------------------------------------
     @CrossOrigin(origins = "http://localhost:4200")
