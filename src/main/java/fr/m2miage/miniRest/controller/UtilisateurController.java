@@ -112,13 +112,14 @@ public class UtilisateurController
         Utilisateur savedUser = repo.save(newUser);
 
         TypeToken typeToken = repoTypeToken.findOne(1);
-
         Token token = new Token();
         token.setId(0);
         token.setType(typeToken);
         token.setUtilisateur(savedUser);
         token.setToken(TokenGenerator.generateToken());
         repoToken.save(token);
+        emailService.sendActivationEmail(token);
+
 
         return new ResponseEntity<>(savedUser, HttpStatus.CREATED);
     }
@@ -143,23 +144,25 @@ public class UtilisateurController
 
     // ------------------- Update a Utilisateur ------------------------------------------------
     @CrossOrigin(origins = "http://localhost:4200")
-    @RequestMapping(value = "/changePwd/{id}", method = RequestMethod.PUT)
-    public ResponseEntity<?> changementPwd(@PathVariable("id") Integer id, @RequestBody UtilisateurBody target)
+    @RequestMapping(value = "/changePwd/{token}", params = "pwd", method = RequestMethod.PUT)
+    public ResponseEntity<?> changementPwd(@PathVariable("token") String token, @RequestParam(value = "pwd") String pwd)
     {
-        String msg = String.format("Updating Utilisateur with id {%s}",id);
+        String msg = String.format("changement du mot de passe du compte lié au token {%s}",token);
         log.info(msg);
 
-        Utilisateur current = repo.findOne(id);
+        Token current = repoToken.findByToken(token);
         if (current == null)
         {
-            msg = String.format("Unable to update. Utilisateur with id {%s} not found.",id);
+            msg = String.format("Activation impossible, le token {%s} n'existe pas",token);
             log.error(msg);
             return new ResponseEntity(new CustomErrorType(msg),HttpStatus.NOT_FOUND);
         }
-        current.setMotdepasse(CipherUtil.hash(target.getMdp()));
-        repo.save(current);
+        Utilisateur user = current.getUtilisateur();
+        user.setMotdepasse(CipherUtil.hash(pwd));
+        repo.save(user);
 
-        return new ResponseEntity<>(current, HttpStatus.OK);
+        repoToken.delete(current);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @CrossOrigin(origins = "http://localhost:4200")
@@ -184,41 +187,32 @@ public class UtilisateurController
         token.setToken(TokenGenerator.generateToken());
         token.setUtilisateur(current);
         repoToken.save(token);
-
         emailService.sendResetPasswordEmail(token);
 
         return new ResponseEntity<>(current, HttpStatus.OK);
     }
 
     @CrossOrigin(origins = "http://localhost:4200")
-    @RequestMapping(value = "/activation/{id}", method = RequestMethod.POST)
-    public ResponseEntity<?> activate(@PathVariable("id") Integer id)
+    @RequestMapping(value = "/activation/{token}", method = RequestMethod.POST)
+    public ResponseEntity<?> activate(@PathVariable("token") String token)
     {
-        String msg = String.format("Updating Utilisateur with id {%s}",id);
+        String msg = String.format("activation du compte lié au token {%s}",token);
         log.info(msg);
 
-        Utilisateur current = repo.findOne(id);
+        Token current = repoToken.findByToken(token);
         if (current == null)
         {
-            msg = String.format("Unable to update. Utilisateur with id {%s} not found.",id);
+            msg = String.format("Activation impossible, le token {%s} n'existe pas",token);
             log.error(msg);
             return new ResponseEntity(new CustomErrorType(msg),HttpStatus.NOT_FOUND);
         }
-        current.setActive(true);
-        repo.save(current);
 
-        TypeToken typeToken = repoTypeToken.findOne(1);
+        Utilisateur user = current.getUtilisateur();
+        user.setActive(true);
+        repo.save(user);
 
-        Token token = new Token();
-        token.setType(typeToken);
-        token.setId(0);
-        token.setToken(TokenGenerator.generateToken());
-        token.setUtilisateur(current);
-        repoToken.save(token);
-
-        emailService.sendActivationEmail(token);
-
-        return new ResponseEntity<>(current, HttpStatus.OK);
+        repoToken.delete(current);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     // ------------------- Delete a Utilisateur-----------------------------------------
