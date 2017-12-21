@@ -23,6 +23,9 @@ public class Utilisateur implements Serializable
 	@Column(nullable = false)
     private String motdepasse;
 
+	@Column(nullable = false)
+    private Boolean active;
+
     @JsonIgnore
 	@OneToMany(mappedBy = "id.utilisateur")
     private List<CarteUtilisateur> carteUtilisateurs;
@@ -61,6 +64,14 @@ public class Utilisateur implements Serializable
         this.motdepasse = motdepasse;
     }
 
+    public Boolean getActive() {
+        return active;
+    }
+
+    public void setActive(Boolean active) {
+        this.active = active;
+    }
+
     public List<CarteUtilisateur> getCarteUtilisateurs() {
         return carteUtilisateurs;
     }
@@ -71,13 +82,15 @@ public class Utilisateur implements Serializable
 
     //endregion
 
-    public Utilisateur() {
+    public Utilisateur()
+    {
     }
 
-    public Utilisateur(String nom, String email, String motdepasse) {
+    public Utilisateur(String nom, String email, String motdepasse, Boolean active) {
         this.nom = nom;
         this.email = email;
         this.motdepasse = motdepasse;
+        this.active = active;
     }
 
 }

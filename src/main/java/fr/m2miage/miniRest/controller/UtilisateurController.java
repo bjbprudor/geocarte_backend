@@ -108,6 +108,7 @@ public class UtilisateurController
         newUser.setMotdepasse(CipherUtil.hash(target.getMdp()));
         newUser.setEmail(target.getEmail());
         newUser.setNom(target.getNom());
+        newUser.setActive(false);
         Utilisateur savedUser = repo.save(newUser);
 
         TypeToken typeToken = repoTypeToken.findOne(1);
@@ -203,6 +204,9 @@ public class UtilisateurController
             log.error(msg);
             return new ResponseEntity(new CustomErrorType(msg),HttpStatus.NOT_FOUND);
         }
+        current.setActive(true);
+        repo.save(current);
+
         TypeToken typeToken = repoTypeToken.findOne(1);
 
         Token token = new Token();
