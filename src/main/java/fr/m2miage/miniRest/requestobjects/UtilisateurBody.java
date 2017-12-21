@@ -1,11 +1,11 @@
 package fr.m2miage.miniRest.requestobjects;
 
-public class UtilisateurPost {
+public class UtilisateurBody {
     String nom;
     String email;
     String mdp;
 
-    public UtilisateurPost() {
+    public UtilisateurBody() {
     }
 
     public String getNom() {
