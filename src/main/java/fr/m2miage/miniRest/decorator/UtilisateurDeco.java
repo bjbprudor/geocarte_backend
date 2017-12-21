@@ -34,7 +34,7 @@ public class UtilisateurDeco
         {
             if(utilisateur != null)
             {
-                unencryptedPassword = CipherUtil.decrypt(utilisateur.getMotdepasse());
+                unencryptedPassword = CipherUtil.hash(utilisateur.getMotdepasse());
             }
             else
             {
@@ -52,7 +52,7 @@ public class UtilisateurDeco
     {
         if(utilisateur != null) {
             unencryptedPassword = motdepasse;
-            String crypted = CipherUtil.encrypt(unencryptedPassword);
+            String crypted = CipherUtil.hash(unencryptedPassword);
             utilisateur.setMotdepasse(crypted);
         }
         else
@@ -83,7 +83,7 @@ public class UtilisateurDeco
      */
     public UtilisateurDeco(String nom, String mail, String motdepasse) {
         this.unencryptedPassword = motdepasse;
-        String cryptedpass = CipherUtil.encrypt(this.unencryptedPassword);
+        String cryptedpass = CipherUtil.hash(this.unencryptedPassword);
         this.utilisateur = new Utilisateur(nom,mail,cryptedpass);
     }
 
