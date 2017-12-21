@@ -32,7 +32,7 @@ public class EmailController
     private void sendEmail() throws Exception{
         MimeMessage message = sender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message);
-        helper.setTo("set-your-recipient-email-here@gmail.com");
+        helper.setTo("bastienprudor@gmail.com");
         helper.setText("How are you?");
         helper.setSubject("Hi");
         sender.send(message);
