@@ -9,6 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import javax.rmi.CORBA.Util;
+
 @Service("utilsateurService")
 public class UtilisateurService
 {
@@ -22,8 +24,20 @@ public class UtilisateurService
 
     public Utilisateur getUserByLoginAndPwd(String login, String password)
     {
-        String cipheredPass = CipherUtil.encrypt(password);
+        String cipheredPass = CipherUtil.hash(password);
         return repo.getUserByLoginAndPwd(login, cipheredPass);
+    }
+
+    public Utilisateur create(Utilisateur target)
+    {
+        if(target.getId() == 0)
+        {
+            String pwd = CipherUtil.hash(target.getMotdepasse());
+            target.setMotdepasse(pwd);
+            repo.save(target);
+            return target;
+        }
+        return null;
     }
 
     public Utilisateur update(Integer id, Utilisateur target)
@@ -35,7 +49,7 @@ public class UtilisateurService
         }
         current.setNom(target.getNom());
         current.setEmail(target.getEmail());
-        String mdpChiffre = CipherUtil.encrypt(target.getMotdepasse());
+        String mdpChiffre = CipherUtil.hash(target.getMotdepasse());
         current.setMotdepasse(mdpChiffre);
         repo.save(current);
         return current;
