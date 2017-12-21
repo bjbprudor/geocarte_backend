@@ -191,7 +191,7 @@ public class UtilisateurController
 
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "/activation/{id}", method = RequestMethod.POST)
-    public ResponseEntity<?> activate(@PathVariable("id") Integer id, @RequestBody UtilisateurBody target)
+    public ResponseEntity<?> activate(@PathVariable("id") Integer id)
     {
         String msg = String.format("Updating Utilisateur with id {%s}",id);
         log.info(msg);
