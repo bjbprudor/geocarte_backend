@@ -70,6 +70,12 @@ public class UtilisateurController
             return new ResponseEntity(HttpStatus.NO_CONTENT);
             // You many decide to return HttpStatus.NOT_FOUND
         }
+        else if(!user.getActive())
+        {
+            String msg = String.format("Le compte utilisateur {%s} n'a pas été activé",user.getEmail());
+            log.error(msg);
+            return new ResponseEntity(new CustomErrorType(msg),HttpStatus.BAD_REQUEST);
+        }
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
