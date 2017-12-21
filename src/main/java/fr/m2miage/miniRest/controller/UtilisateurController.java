@@ -140,8 +140,8 @@ public class UtilisateurController
     }
 
     // ------------------- Update a Utilisateur ------------------------------------------------
-    /*@CrossOrigin(origins = "http://localhost:4200")
-    @RequestMapping(value = "/utilisateur/{id}", method = RequestMethod.PUT)
+    @CrossOrigin(origins = "http://localhost:4200")
+    @RequestMapping(value = "/changePwd/{id}", method = RequestMethod.PUT)
     public ResponseEntity<?> changementPwd(@PathVariable("id") Integer id, @RequestBody Utilisateur target)
     {
         String msg = String.format("Updating Utilisateur with id {%s}",id);
@@ -158,7 +158,7 @@ public class UtilisateurController
     }
 
     @CrossOrigin(origins = "http://localhost:4200")
-    @RequestMapping(value = "/askingChngPwd/{id}", method = RequestMethod.PUT)
+    @RequestMapping(value = "/askingChngPwd/{id}", method = RequestMethod.POST)
     public ResponseEntity<?> demandeChangementPwd(@PathVariable("id") Integer id, @RequestBody Utilisateur target)
     {
         String msg = String.format("Updating Utilisateur with id {%s}",id);
@@ -172,7 +172,24 @@ public class UtilisateurController
             return new ResponseEntity(new CustomErrorType(msg),HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>(current, HttpStatus.OK);
-    }*/
+    }
+
+    @CrossOrigin(origins = "http://localhost:4200")
+    @RequestMapping(value = "/activation/{id}", method = RequestMethod.POST)
+    public ResponseEntity<?> activate(@PathVariable("id") Integer id, @RequestBody Utilisateur target)
+    {
+        String msg = String.format("Updating Utilisateur with id {%s}",id);
+        log.info(msg);
+
+        Utilisateur current = utilisateurService.update(id,target);
+        if (current == null)
+        {
+            msg = String.format("Unable to update. Utilisateur with id {%s} not found.",id);
+            log.error(msg);
+            return new ResponseEntity(new CustomErrorType(msg),HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(current, HttpStatus.OK);
+    }
 
     // ------------------- Delete a Utilisateur-----------------------------------------
     @CrossOrigin(origins = "http://localhost:4200")
