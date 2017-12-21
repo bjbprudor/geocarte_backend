@@ -5,16 +5,15 @@ import fr.m2miage.miniRest.repository.CartePostaleRepository;
 import fr.m2miage.miniRest.repository.CommuneRepository;
 import fr.m2miage.miniRest.repository.EditeurRepository;
 import fr.m2miage.miniRest.repository.VarianteCarteRepository;
+import fr.m2miage.miniRest.requestobjects.CartePostalePost;
 import fr.m2miage.miniRest.services.CartePostaleService;
 import fr.m2miage.miniRest.util.CustomErrorType;
 import fr.m2miage.miniRest.util.ImageConverter;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.List;
 import java.util.Random;

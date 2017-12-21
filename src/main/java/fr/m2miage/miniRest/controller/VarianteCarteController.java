@@ -4,7 +4,7 @@ import fr.m2miage.miniRest.decorator.VarianteCarteDeco;
 import fr.m2miage.miniRest.model.CartePostale;
 import fr.m2miage.miniRest.model.VarianteCarte;
 import fr.m2miage.miniRest.model.VarianteCarteId;
-import fr.m2miage.miniRest.model.VarianteCarteUpdate;
+import fr.m2miage.miniRest.requestobjects.VarianteCartePut;
 import fr.m2miage.miniRest.repository.CartePostaleRepository;
 import fr.m2miage.miniRest.repository.CommuneRepository;
 import fr.m2miage.miniRest.repository.EditeurRepository;
@@ -227,7 +227,7 @@ public class VarianteCarteController
     // ------------------- Update coordonnees de a CartePostale ------------------------------------------------
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "/varianteCarte/{id}", method = RequestMethod.PUT)
-    public ResponseEntity<?> updateVariante(@PathVariable("id") Integer varId,  @RequestParam(value = "carteId") Integer carteId, @RequestBody VarianteCarteUpdate target)
+    public ResponseEntity<?> updateVariante(@PathVariable("id") Integer varId,  @RequestParam(value = "carteId") Integer carteId, @RequestBody VarianteCartePut target)
     {
 
         String msg = String.format("Updating CartePostale with id {%s}",carteId);

@@ -1,11 +1,11 @@
-package fr.m2miage.miniRest.model;
+package fr.m2miage.miniRest.requestobjects;
 
-public class VarianteCarteUpdate {
+public class VarianteCartePut {
     String communeId;
     Integer editeurId;
     String legende;
 
-    public VarianteCarteUpdate() {
+    public VarianteCartePut() {
     }
 
     public String getCommuneId() {

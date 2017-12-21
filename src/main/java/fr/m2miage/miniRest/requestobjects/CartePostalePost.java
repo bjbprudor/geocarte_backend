@@ -1,4 +1,4 @@
-package fr.m2miage.miniRest.model;
+package fr.m2miage.miniRest.requestobjects;
 
 public class CartePostalePost {
     Integer codeEditeur;
