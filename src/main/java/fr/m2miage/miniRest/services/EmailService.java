@@ -44,7 +44,7 @@ public class EmailService
 
     public boolean sendActivationEmail(Token token)
     {
-        String lien = env.getProperty("server.frontAdress") + "/?activation=" + token.getToken();
+        String lien = "http://" + env.getProperty("server.frontAdress") + "/?activation=" + token.getToken();
 
         String destinaire = token.getUtilisateur().getEmail();
         String sujet = "Activation de votre compte Geocarte";
@@ -54,14 +54,14 @@ public class EmailService
                 "<p>Plus qu'une étape avant que vous puissiez faire parti de la communauté</p>" +
                 "<br/>" +
                 "<p> Suivez le lien ci-dessous pour activer votre compte et profiter pleinement de Geocarte </p>" +
-                "<p>" + lien + "</p>" +
+                "<p><a href=\"" + lien + "\">lien d'activation</a></p>" +
                 "</body></html>";
         return sendMail(destinaire,sujet,html);
     }
 
     public boolean sendResetPasswordEmail(Token token)
     {
-        String lien = env.getProperty("server.frontAdress") + "/?newMdp=" + token.getToken();
+        String lien = "http://" + env.getProperty("server.frontAdress") + "/?newMdp=" + token.getToken();
 
         String destinaire = token.getUtilisateur().getEmail();
         String sujet = "Reinitialisation de votre mot de passe";
@@ -69,7 +69,7 @@ public class EmailService
                 "<p>Vous avez demandé à réinitialiser votre mot de passe ?</p>" +
                 "<br/>" +
                 "<p>Suivez ce lien ci-dessous pour changer votre mot de passe</p>" +
-                "<p>"+ lien + "</p>" +
+                "<p><a href=\""+ lien + "\">lien de réintialisation</a></p>" +
                 "<br/>" +
                 "<p>Si vous n'avez pas effectué cette demande veuillez contacter l'administrateur du serveur</p>" +
                 "</body></html>";
