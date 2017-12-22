@@ -15,4 +15,7 @@ public interface CommuneRepository extends JpaRepository<Commune, String>
     @Query(value = "SELECT * FROM commune c JOIN cartepostale cp ON cp.commune_insee = c.insee GROUP BY c.insee HAVING c.nom like concat(?1,'%')",nativeQuery = true)
     List<Commune> findAllUsedCommuneByName(String name);
 
+    @Query(value = "SELECT * FROM commune c  WHERE c.nom like concat(?1,'%')",nativeQuery = true)
+    List<Commune> findAllCommuneByName(String name);
+
 }
