@@ -47,11 +47,17 @@ public class EmailService
         boolean res = true;
         String destinaire = token.getUtilisateur().getEmail();
         String sujet = "Activation de votre compte geocarte";
-        String texte = "Bienvenue dans l'application geocarte ! \n " +
-                "il vous reste une derniere étape à realiser \n" +
-                "veuillez suivre ce lien pour activer votre compte : \n";
-        String lien =  env.getProperty("server.ip") + "/geocarte/?activation=" + token.getToken();
-        res = sendMail(destinaire,sujet,texte+lien);
+        String html = "<html><body>" +
+                "<h3>Bienvenue dans la communauté geocarte !<h3>" +
+                "<br/>" +
+                "<p>Plus qu'une étape avant que vous puissez pleinement faire parti de la communauté</p>" +
+                "<br/>" +
+                "<p>Suivez ce <a href={l}>lien</a> pour activer votre compte et profiter pleinement de geocarte</p>" +
+                "</body></html>";
+        String lien = "localhost:4200/?activation=" + token.getToken();
+        //String lien =  env.getProperty("server.ip") + "/geocarte/?activation=" + token.getToken();
+        html = html.replace("{l}",lien);
+        res = sendMail(destinaire,sujet,html);
         return res;
     }
 
@@ -60,10 +66,17 @@ public class EmailService
         boolean res = true;
         String destinaire = token.getUtilisateur().getEmail();
         String sujet = "Reinitialisation de votre mot de passe";
-        String texte = "Vous avez demander à reinitialiser votre mot de passe. \n " +
-                "veuillez suivre ce lien pour recréer un mot de passe : \n";
-        String lien = env.getProperty("server.ip") + "/geocarte/?newMdp=" + token.getToken();
-        res = sendMail(destinaire,sujet,texte+lien);
+        String html = "<html><body>" +
+                "<p>Vous avez demander à réinitialiser votre mot de passe ?</p>" +
+                "<br/>" +
+                "<p>Suivez ce <a href={l}>lien</a> pour changer votre mot de passe</p>" +
+                "<br/>" +
+                "<p>Si vous n'avez pas effectuer cette demande veuillez contacter l'administrateur du serveur</p>" +
+                "</body></html>";
+        String lien = "localhost:4200/?newMdp=" + token.getToken();
+        //String lien =  env.getProperty("server.ip") + "/geocarte/?newMdp=" + token.getToken();
+        html = html.replace("{l}",lien);
+        res = sendMail(destinaire,sujet,html);
         return res;
     }
 
